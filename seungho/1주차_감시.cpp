@@ -17,7 +17,8 @@ int maxa = 0;
 void up(node now) {
 	for (int u = now.y - 1; u >= 0; u--) {
 		if (MAP[u][now.x] == 6) break;
-		if (arr[u][now.x] == "#") {
+		if (MAP[u][now.x] > 0) continue;
+		if (arr[u][now.x][0] == '#') {
 			arr[u][now.x] += "#";
 			continue;
 		}
@@ -28,7 +29,8 @@ void up(node now) {
 void down(node now) {
 	for (int d = now.y + 1; d < N; d++) {
 		if (MAP[d][now.x] == 6) break;
-		if (arr[d][now.x] == "#") {
+		if (MAP[d][now.x] > 0) continue;
+		if (arr[d][now.x][0] == '#') {
 			arr[d][now.x] += "#";
 			continue;
 		}
@@ -39,8 +41,9 @@ void down(node now) {
 void left(node now) {
 	for (int l = now.x - 1; l >= 0; l--) {
 		if (MAP[now.y][l] == 6) break;
-		if (arr[l][now.x] == "#") {
-			arr[l][now.x] += "#";
+		if (MAP[now.y][l] > 0) continue;
+		if (arr[now.y][l][0] == '#') {
+			arr[now.y][l] += "#";
 			continue;
 		}
 		arr[now.y][l] = "#";
@@ -50,8 +53,9 @@ void left(node now) {
 void right(node now) {
 	for (int r = now.x + 1; r < M; r++) {
 		if (MAP[now.y][r] == 6) break;
-		if (arr[r][now.x] == "#") {
-			arr[r][now.x] += "#";
+		if (MAP[now.y][r] > 0) continue;
+		if (arr[now.y][r][0] == '#') {
+			arr[now.y][r] += "#";
 			continue;
 		}
 		arr[now.y][r] = "#";
@@ -109,14 +113,15 @@ void mright(node now) {
 }
 
 void func(int a) {
-	if (a == v.size()-1) {
+	int h = 0;
+	if (a == v.size()) {
 		if (cnt > maxa) {
 			maxa = cnt;
 		}
 		return;
 	}
 	node now = v[a];
-	
+
 	if (MAP[now.y][now.x] == 1) {
 		for (int i = 0; i < 4; i++) {
 			if (i == 0) up(now);
@@ -244,24 +249,27 @@ void func(int a) {
 		mright(now);
 		mleft(now);
 	}
-	
+
 }
 
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie();
 	cout.tie();
-
+	int numz = 0;
 	cin >> N >> M;
 	for (int j = 0; j < N; j++) {
 		for (int i = 0; i < M; i++) {
 			int p;
 			cin >> p;
+			if (p != 0) {
+				numz++;
+			}
 			MAP[j][i] = p;
 			if (p > 0 && p < 6) v.push_back({ j,i });
 		}
 	}
 	func(0);
-	cout << N*M - maxa;
+	cout << N * M - maxa-numz;
 	return 0;
 }
