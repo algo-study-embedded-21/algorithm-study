@@ -32,6 +32,27 @@
       <a href="https://www.acmicpc.net/problem/15683">15683 감시</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="4">2주차</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/14889">14889 스타트와 링크</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/14888">14888 연산자 끼워넣기</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/3190">3190 뱀</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/14499">14499 주사위굴리기</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
