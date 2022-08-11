@@ -1,106 +1,99 @@
 #include<iostream>
 #include<vector>
+#include<tuple>
 using namespace std;
 
-int n, m,ret;
+int n, m, ret = 64;
 int map[8][8];
 
-struct CCTV {
-	int x, y, num;
-};
+int dx[] = { 0,0,1,-1 };
+int dy[] = { 1,-1,0,0 };
 
-vector<CCTV>cctv;
-int dx[] = { 0,1,0,-1 };
-int dy[] = { 1,0,-1,0 };
+int cctv_dir[] = { 4,2,4,4,1 };
+vector<tuple<int,int,int>> cctv;
 
-int rot_size[5] = { 4,2,4,4,1 };
-
-void map_copy(int a[][8], int b[][8]) {
-	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 8; j++) {
-			a[i][j] = b[i][j];
+void copy_map(int a[][8], int b[][8]) {
+	for (int i = 0; i < n; i ++ ) {
+		for (int j = 0; j < n; j++) {
+			b[i][j] = a[i][j];
 		}
 	}
 }
 
-void update(int dir,CCTV cur) {
-	dir = (dir % 4);
-	int x = cur.x;
-	int y = cur.y;
+void check(int x, int y,int dir) {
+	dir = dir % 4;
 	while (true) {
 		x += dx[dir];
 		y += dy[dir];
-		if (x < 0 || x >= n || y < 0 || y >= m)break;
+		if (x<0 || x>=n || y<0 || y>=m)break;
 		if (map[x][y] == 6)break;
 		map[x][y] = -1;
 	}
 }
 
-void dfs(int cctv_index) {
-	if (cctv_index == cctv.size()) {
-		int candi = 0;
-		for (int x = 0; x < n; x++) {
-			for (int y = 0; y < m; y++) {
-				if (map[x][y] == 0) {
-					candi++;
+void dfs(int index) {
+	if (index == cctv.size()) {
+		int sum = 0;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				if (map[i][j] == 0) {
+					sum += 1;
 				}
 			}
 		}
-		if (ret > candi) {
-			ret = candi;
-		}
+		ret = min(sum, ret);
 		return;
 	}
-	int backup[8][8];
-	int type = cctv[cctv_index].num;
-	for (int dir = 0; dir < rot_size[type]; dir++) {
-		map_copy(backup, map);
+	int x, y, type;
+	tie(x, y, type) = cctv[index];
+	int tmp[8][8] = { 0, };
+
+	for (int dir = 0; dir < cctv_dir[type]; dir++) {
+		copy_map(map, tmp);
 		if (type == 0) {
-			update(dir, cctv[cctv_index]);
+			check( x, y, dir);
 		}
-		if (type == 1) {
-			update(dir, cctv[cctv_index]);
-			update(dir+2, cctv[cctv_index]);
+		else if (type == 1) {
+			check( x, y, dir);
+			check( x, y, dir+1);
+
+		}//오 왼 위 아래
+		else if (type == 2) {
+			check( x, y, dir);
+			check(x, y, dir+2);
+
 		}
-		if (type == 2) {
-			update(dir, cctv[cctv_index]);
-			update(dir+1, cctv[cctv_index]);
+		else if (type == 3) {
+			check( x, y, dir);
+			check(x, y, dir+1);
+			check( x, y, dir+2);
+
 		}
-		if (type == 3) {
-			update(dir, cctv[cctv_index]);
-			update(dir+1, cctv[cctv_index]);
-			update(dir+2, cctv[cctv_index]);
+		else if (type == 4) {
+			check( x, y, dir);
+			check( x, y, dir+1);
+			check( x, y, dir+2);
+			check( x, y, dir+3);
 		}
-		if (type == 4) {
-			update(dir, cctv[cctv_index]);
-			update(dir+1, cctv[cctv_index]);
-			update(dir+2, cctv[cctv_index]);
-			update(dir+3, cctv[cctv_index]);
-		}
-		dfs(cctv_index + 1);
-		map_copy(map, backup);
+		dfs(index + 1);
+		copy_map(tmp, map);
 	}
 }
 
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(nullptr);
-
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
 	cin >> n >> m;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
 			cin >> map[i][j];
-			if (1 <= map[i][j] && map[i][j] <= 5) {
-				CCTV cur;
-				cur.x = i;
-				cur.y = j;
-				cur.num = map[i][j] - 1;
-				cctv.push_back(cur);
+			if (map[i][j] >= 1 && map[i][j] <= 5) {
+				cctv.push_back({ i,j,map[i][j] - 1 });
 			}
 		}
 	}
-	ret = 100;
 	dfs(0);
 	cout << ret << '\n';
 	return 0;
+
 }
