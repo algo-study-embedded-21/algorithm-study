@@ -2,11 +2,12 @@
 #include <vector>
 using namespace std;
 
+// DP 사용
 
 struct node {
 	int num;
 	int t;
-	int p;
+// 	int p;
 };
 int N;
 
@@ -47,7 +48,7 @@ int main()
 	for (int i = 1; i <= N; i++) {
 		int t, p;
 		cin >> t >> p;
-		v.push_back({ i,t,p });
+		v.push_back({t,p });
 	}
 	func(0);
 	cout << maxmon;
