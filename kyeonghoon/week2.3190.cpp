@@ -3,7 +3,7 @@
 using namespace std;
 #define X first
 #define Y second
-int n, k, l;
+int n, k, l, time;
 int s_x, s_y, s_dir;
 int map[100][100];
 int dx[] = { 0,1,0,-1 };
@@ -12,7 +12,6 @@ int dy[] = { 1,0,-1,0 };
 int main() {
 	ios_base::sync_with_stdio(0);
 	cin.tie(0);
-
 	cin >> n;
 	cin >> k;
 	queue<pair<int, int>> s;
@@ -31,10 +30,6 @@ int main() {
 	}
 	s.push({ 0, 0 });
 	map[0][0] = 2;
-	s_dir = 0;
-	s_x = 0;
-	s_y = 0;
-	int time = 0;
 	while (true) {
 		s_x += dx[s_dir];
 		s_y += dy[s_dir];
@@ -62,5 +57,5 @@ int main() {
 		}
 	}
 	cout << time + 1 << '\n';
-	return 0;
 }
+
