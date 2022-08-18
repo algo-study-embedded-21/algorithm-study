@@ -53,6 +53,27 @@
       <a href="https://www.acmicpc.net/problem/14499">14499 주사위굴리기</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="4">2주차</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/16234">16234 인구이동</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/16235">16235 나무 재테크</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/14500">14500 테트로미노</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/21608">21608 상어초등학교</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
