@@ -54,7 +54,7 @@
     </td>
   </tr>
   <tr>
-    <td rowspan="4">2주차</td>
+    <td rowspan="4">3주차</td>
     <td>
       <a href="https://www.acmicpc.net/problem/16234">16234 인구이동</a>
     </td>
@@ -72,6 +72,27 @@
   <tr>
     <td>
       <a href="https://www.acmicpc.net/problem/21608">21608 상어초등학교</a>
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="4">4주차</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/14503">14503 로봇청소기</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/14891">14891 톱니바퀴</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/16236">16236 아기상어</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/13460">13460 구슬탈출2</a>
     </td>
   </tr>
 </table>
