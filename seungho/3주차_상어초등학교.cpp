@@ -25,7 +25,7 @@ int main() {
 			cin >> t;
 			v[s].push_back(t);
 		}
-		int maxlike = 0;
+		int maxlike = -1;
 		Node maximum;
 		for (int y = 1; y <= n; y++) {
 			for (int x = 1; x <= n; x++) {
@@ -63,6 +63,7 @@ int main() {
 		}
 		MAP[maximum.y][maximum.x] = s;		// 학생배치
 	}
+	
 	int score = 0;
 	int scorel[5] = { 0,1,10,100,1000 };
 	for (int i = 1; i <= n; i++) {
@@ -73,7 +74,7 @@ int main() {
 				int nx = j + dirx[p];
 				if (ny <= 0 || nx <= 0 || ny > n || nx > n) continue;
 				for (int q = 0; q < 4; q++) {	// 좋아하는 학생 4명 중 인접한 자리에 있으면 
-					if (MAP[ny][nx] == v[MAP[i][j]][q]) cnt++;
+					if (MAP[ny][nx] == v[MAP[i][j]][q]) cnt++;  
 				}
 			}
 			score += scorel[cnt];
