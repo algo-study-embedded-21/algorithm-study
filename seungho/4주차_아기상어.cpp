@@ -14,11 +14,13 @@ struct Node {
 int diry[4] = { -1,0,0,1 };
 int dirx[4] = { 0,-1,1,0 };
 
-void bfs(int y, int x, int size) {
+void bfs(int y, int x) {
 	queue<Node> q;
 	q.push({ y,x });
 
 	int visited[21][21] = { 0 };
+	queue<Node> fish;
+	int mindist=0;
 
 	while (!q.empty()) {
 		Node now = q.front();
@@ -28,7 +30,13 @@ void bfs(int y, int x, int size) {
 			int nx = now.x + dirx[i];
 			if (ny < 0 || nx < 0 || ny >= N || nx >= N) continue;
 			if (visited[ny][nx] > 0) continue;
-			if (MAP[ny][nx] > size) continue;
+			if (MAP[ny][nx] > siz) continue;
+			visited[ny][nx] = visited[now.y][now.x] + 1;
+			if (visited[ny][nx] > mindist) break;
+			if (MAP[ny][nx] < siz) {
+				fish.push({ ny,nx });
+				mindist = visited[ny][nx];
+			}
 		}
 	}
 }
@@ -50,7 +58,7 @@ int main() {
 	}
 	siz = 2;
 	while (true) {
-		bfs(sy, sx, siz);
+		bfs(sy, sx);
 	}
 
 
