@@ -95,6 +95,27 @@
       <a href="https://www.acmicpc.net/problem/13460">13460 구슬탈출2</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="4">5주차</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/20055">20055 컨베이어 벨트 위의 로봇</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/17143">17143 낚시왕</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/17144">17144 미세먼지 안녕!</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/21609">21609 상어 중학교</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
