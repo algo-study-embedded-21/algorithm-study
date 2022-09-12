@@ -116,6 +116,27 @@
       <a href="https://www.acmicpc.net/problem/21609">21609 상어 중학교</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="4">6주차</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/17779">17779 게리멘더링2</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/17822">17822 원판돌리기</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/20061">20061 모노미노도미노2</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/20056">20056 마법사 상어와 파이어볼</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
