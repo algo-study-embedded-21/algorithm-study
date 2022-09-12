@@ -119,7 +119,7 @@
   <tr>
     <td rowspan="4">6주차</td>
     <td>
-      <a href="https://www.acmicpc.net/problem/17779">17779 게리멘더링2</a>
+      <a href="https://www.acmicpc.net/problem/17779">17779 게리더링2</a>
     </td>
   </tr>
   <tr>
