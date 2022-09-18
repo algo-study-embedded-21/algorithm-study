@@ -23,9 +23,8 @@ void turn(int x, int d, int k) {
 		}
 		// 새로운 순서로 MAP에 담는다
 		for (int j = 0; j < M; j++) {
-
 			//         (1-d) => 시계방향,         d => 반시계방향
-			int nj = (1 - d) * ((j + k) % M) + d * (j + (M - (k % M)));
+			int nj = (1 - d) * ((j + k) % M) + d * ((j - k) % M);
 			MAP[i][nj] = MAP2[j];
 		}
 	}
@@ -62,7 +61,7 @@ void bfs(int i, int j) {
 			q.push({ ny,nx });
 		}
 	}
-	
+
 }
 
 
@@ -80,21 +79,23 @@ int main() {
 		}
 	}
 
-	// 회전 반복
+	// 회전 T번 반복
 	for (int t = 0; t < T; t++) {
 		int x, d, k;
 		cin >> x >> d >> k;
 
 		turn(x, d, k);
-		int flag = 0;
+		flag = 0;
 		int sum = 0;	// 남은 숫자 총합
 		int cnt = 0;	// 남은 숫자 개수
-		for (int i = 1; 1 <= N; i++) {
+		for (int i = 1; i <= N; i++) {
 			for (int j = 0; j < M; j++) {
 				if (MAP[i][j] == 0) continue;
 				sum += MAP[i][j];
 				cnt++;
 				bfs(i, j);
+
+				int q = 1;
 			}
 		}
 
@@ -120,6 +121,5 @@ int main() {
 		}
 	}
 	cout << ans;
-
 	return 0;
 }
