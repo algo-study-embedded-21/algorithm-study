@@ -24,7 +24,8 @@ void turn(int x, int d, int k) {
 		// 새로운 순서로 MAP에 담는다
 		for (int j = 0; j < M; j++) {
 			//         (1-d) => 시계방향,         d => 반시계방향
-			int nj = (1 - d) * ((j + k) % M) + d * ((j - k) % M);
+			int nj = (1 - d) * ((j + k) % M) + d * ((M + ((j - k) % M)) % M) ;
+
 			MAP[i][nj] = MAP2[j];
 		}
 	}
@@ -54,6 +55,8 @@ void bfs(int i, int j) {
 			if (nx >= M) nx -= M;
 			if (MAP[ny][nx] != number) continue;
 			if (visited[ny][nx] == 1) continue;
+
+
 			MAP[i][j] = 0;
 			flag = 1;
 			MAP[ny][nx] = 0;
@@ -94,8 +97,6 @@ int main() {
 				sum += MAP[i][j];
 				cnt++;
 				bfs(i, j);
-
-				int q = 1;
 			}
 		}
 
@@ -105,8 +106,8 @@ int main() {
 			for (int i = 1; i <= N; i++) {
 				for (int j = 0; j < M; j++) {
 					if (MAP[i][j] == 0) continue;
-					if (MAP[i][j] > mean) MAP[i][j]--;
-					else if (MAP[i][j] < mean) MAP[i][j]++;
+					if (MAP[i][j] * cnt > sum) MAP[i][j]--;
+					else if (MAP[i][j] * cnt < sum) MAP[i][j]++;
 				}
 			}
 		}
