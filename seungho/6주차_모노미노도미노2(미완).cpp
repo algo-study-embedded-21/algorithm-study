@@ -2,8 +2,8 @@
 using namespace std;
 
 
-int greenMap[6][4]={0};
-int blueMap[6][4]={0};
+int greenMap[6][4] = { 0 };
+int blueMap[6][4] = { 0 };
 
 int ans = 0;
 
@@ -120,7 +120,8 @@ void stack3(int b, int t, int x, int y) {
 // 한 줄이 다 찬 경우
 int gpang() {
 	int flag = 0;
-	for (int i = 0; i < 6; i++) {
+	int i = 5;
+	while (i >= 0) {
 		// 현재 행에 0이 하나도 없다면 -> 모두 차 있다면
 		if (greenMap[i][0] * greenMap[i][1] * greenMap[i][2] * greenMap[i][3] != 0) {
 			flag++;
@@ -128,75 +129,46 @@ int gpang() {
 			for (int j = 0; j < 4; j++) {
 				greenMap[i][j] = 0;
 			}
+			if (i == 0) continue;
+			for (int k = i; k > 0; k--) {
+				for (int l = 0; l < 4; l++) {
+					greenMap[k][l] = greenMap[k - 1][l];
+					greenMap[k - 1][l] = 0;
+				}
+			}
 		}
+		// 현재 행이 모두 차 있었다면 그 위의 블록 한칸씩 내리고 다시 확인
+		// 아니면 그 위의 행부터 계속 확인
+		else i--;
 	}
 	return flag;
 }
 
 int bpang() {
 	int flag = 0;
-	for (int i = 0; i < 6; i++) {
-		// 현재 열에 0이 하나도 없다면 -> 모두 차 있다면
+	int i = 5;
+	while (i >= 0) {
+		// 현재 행에 0이 하나도 없다면 -> 모두 차 있다면
 		if (blueMap[i][0] * blueMap[i][1] * blueMap[i][2] * blueMap[i][3] != 0) {
 			flag++;
 			ans++;
 			for (int j = 0; j < 4; j++) {
 				blueMap[i][j] = 0;
 			}
+			if (i == 0) continue;
+			for (int k = i; k > 0; k--) {
+				for (int l = 0; l < 4; l++) {
+					blueMap[k][l] = blueMap[k - 1][l];
+					blueMap[k - 1][l] = 0;
+				}
+			}
 		}
+		// 현재 행이 모두 차 있었다면 그 위의 블록 한칸씩 내리고 다시 확인
+		// 아니면 그 위의 행부터 계속 확인
+		else i--;
 	}
 	return flag;
 }
-
-// 중력
-void ggravity(int r) {
-	for (int k = 0; k < r; k++) {
-		int flag = 0;
-		for (int i = 4; i >= 0; i--) {
-			for (int j = 0; j < 4; j++) {
-				if (greenMap[i][j] == 0) continue;
-				if (greenMap[i + 1][j] != 0) continue;
-				// 현재 블록이 오른쪽 블록과 연결돼있고 오른쪽 아래에 블록이 있다면 내려가지 않는다
-				if (j < 3 && (greenMap[i][j] == greenMap[i][j + 1]) && (greenMap[i + 1][j + 1] > 0)) continue;
-
-				// 현재 블록이 왼쪽 블록과 연결돼있고 왼쪽 블록이 내려가지 않았다면 내려가지 않는다
-				if (j > 0 && (greenMap[i][j] == greenMap[i][j - 1])) continue;
-
-				// 위의 경우가 모두 아니면 내려간다
-				flag = 1;
-				greenMap[i + 1][j] = greenMap[i][j];
-				greenMap[i][j] = 0;
-			}
-		}
-		// 더 이상 블록이 내려가지 않으면 break;
-		if (flag == 0) break;
-	}
-}
-
-void bgravity(int r) {
-	for (int k = 0; k < r; k++) {
-		int flag = 0;
-		for (int i = 4; i >= 0; i--) {
-			for (int j = 0; j < 4; j++) {
-				if (blueMap[i][j] == 0) continue;
-				if (blueMap[i + 1][j] != 0) continue;
-				// 현재 블록이 오른쪽 블록과 연결돼있고 오른쪽 아래에 블록이 있다면 내려가지 않는다
-				if (j < 3 && (blueMap[i][j] == blueMap[i][j + 1]) && (blueMap[i + 1][j + 1] > 0)) continue;
-
-				// 현재 블록이 왼쪽 블록과 연결돼있고 왼쪽 블록이 내려가지 않았다면 내려가지 않는다
-				if (j > 0 && (blueMap[i][j] == blueMap[i][j - 1])) continue;
-
-				// 위의 경우가 모두 아니면 내려간다
-				flag = 1;
-				blueMap[i + 1][j] = blueMap[i][j];
-				blueMap[i][j] = 0;
-			}
-		}
-		// 더 이상 블록이 내려가지 않으면 break;
-		if (flag == 0) break;
-	}
-}
-
 
 // 0, 1번째 줄에 블록이 있는 경우
 void gspecial() {
@@ -213,7 +185,11 @@ void gspecial() {
 		for (int j = 0; j < 4; j++) {
 			greenMap[5][j] = 0;
 		}
-		ggravity(1);
+		for (int k = 5; k > 0; k--) {
+			for (int l = 0; l < 4; l++) {
+				greenMap[k][l] = greenMap[k - 1][l];
+			}
+		}
 	}
 	else if (cnt == 2) {
 		for (int i = 4; i <= 5; i++) {
@@ -221,7 +197,16 @@ void gspecial() {
 				greenMap[i][j] = 0;
 			}
 		}
-		ggravity(2);
+		for (int k = 5; k > 1; k--) {
+			for (int l = 0; l < 4; l++) {
+				greenMap[k][l] = greenMap[k - 2][l];
+			}
+		}
+	}
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 4; j++) {
+			greenMap[i][j] = 0;
+		}
 	}
 }
 
@@ -239,7 +224,11 @@ void bspecial() {
 		for (int j = 0; j < 4; j++) {
 			blueMap[5][j] = 0;
 		}
-		bgravity(1);
+		for (int k = 5; k > 0; k--) {
+			for (int l = 0; l < 4; l++) {
+				blueMap[k][l] = blueMap[k - 1][l];
+			}
+		}
 	}
 	else if (cnt == 2) {
 		for (int i = 4; i <= 5; i++) {
@@ -247,7 +236,16 @@ void bspecial() {
 				blueMap[i][j] = 0;
 			}
 		}
-		bgravity(2);
+		for (int k = 5; k > 1; k--) {
+			for (int l = 0; l < 4; l++) {
+				blueMap[k][l] = blueMap[k - 2][l];
+			}
+		}
+	}
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 4; j++) {
+			blueMap[i][j] = 0;
+		}
 	}
 }
 
@@ -279,18 +277,25 @@ int main() {
 		while (true) {
 			int result = gpang();
 			if (result == 0) break;
-			ggravity(result);
+			for (int i = 0; i < 6; i++) {
+				for (int j = 0; j < 4; j++) {
+				}
+			}
 		}
 
 		// 0, 1번째 줄에 블록이 있는 경우
 		gspecial();
+
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 4; j++) {
+			}
+		}
 
 		// blueMap
 		// 꽉 찬 줄 없을 때까지 제거
 		while (true) {
 			int result = bpang();
 			if (result == 0) break;
-			bgravity(result);
 		}
 
 		// 0, 1번째 줄에 블록이 있는 경우
