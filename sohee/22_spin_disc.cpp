@@ -58,8 +58,15 @@ int  findNum() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (map[i][j] == 0) continue;
-                if (map[i][j] > avg) map[i][j] -= 1;
-                else if (map[i][j] < avg) map[i][j] += 1;
+                // 총합 같이 갱신
+                if (map[i][j] > avg) {
+                    map[i][j] -= 1;
+                    all--;
+                }
+                else if (map[i][j] < avg) {
+                    map[i][j] += 1;
+                    all++;
+                }
             }
         }
     }
