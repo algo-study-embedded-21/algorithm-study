@@ -137,6 +137,27 @@
       <a href="https://www.acmicpc.net/problem/20056">20056 마법사 상어와 파이어볼</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="4">7주차</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/12100">12100 2048</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/14890">14890 경사로</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/15684">15684 사다리조작</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/15685">15685 드래곤커브</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
