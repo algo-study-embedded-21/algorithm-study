@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 struct Block {
@@ -8,7 +9,7 @@ struct Block {
 
 int N;
 
-Block MAP[20][20]; 
+Block MAP[20][20];
 
 // d 방향으로 1회 이동시키는 함수
 // 이동하는 방향쪽부터 모든 블록을 벽이나 다른 블록을 만날 때까지 방향으로 붙인다
@@ -16,7 +17,7 @@ Block MAP[20][20];
 // 바로 앞 블록이 같은 숫자일때,
 // 1)이미 합쳐진 블록이면 현재 위치에 블록 정보 저장 후 continue
 // 2)합쳐진 블록이 아니면 현재 블록과 합치고 정보 저장
-void move(int d) {
+void move(int d, int level) {
 	// 상
 	if (d == 0) {
 		for (int j = 0; j < N; j++) {
@@ -26,27 +27,27 @@ void move(int d) {
 
 				Block now = MAP[i][j];
 				MAP[i][j] = { 0,0 };
-				int ni = i;
+				int ni = i - 1;
 				while (ni >= 0) {
-					ni--;
-					// 벽에 닿은 경우
-					// 현재 위치에 정보 저장
-					if (ni < 0) {
-						MAP[ni + 1][j] = { now.num,0 };
+					// 블록을 만난 경우
+					if (MAP[ni][j].num > 0) {
+						// 같은 숫자이고 합쳐지지 않은 블록인 경우
+						if (MAP[ni][j].num == now.num && MAP[ni][j].flag != level) {
+							// 블록을 합치고 맵에 정보 저장
+							MAP[ni][j] = { now.num * 2, level };
+						}
+						// 합쳐지지 않고 이전 칸에 정보 저장
+						else {
+							MAP[ni + 1][j] = { now.num, 0 };
+						}
 						break;
 					}
-					// 다음 칸이 비어있는 경우 continue
-					if (MAP[ni][j].num == 0) continue;
 
-					// 만난 블록이 현재 블록과 같고 합쳐지지 않은경우
-					// 블록을 합쳐주고 정보 저장
-					if (MAP[ni][j].num == now.num && MAP[ni][j].flag == 0) {
-						MAP[ni][j] = { now.num * 2, 1 };
+					// 블록을 만나지 않고 끝까지 이동한 경우
+					if (ni == 0) {
+						MAP[ni][j] = { now.num,0 };
 					}
-					// 나머지 경우 현재 위치에 블록 정보 저장
-					else {
-						MAP[ni + 1][j] = { now.num, 0 };
-					}
+					ni--;
 				}
 			}
 		}
@@ -60,33 +61,33 @@ void move(int d) {
 
 				Block now = MAP[i][j];
 				MAP[i][j] = { 0,0 };
-				int ni = i;
+				int ni = i + 1;
 				while (ni < N) {
-					ni++;
-					// 벽에 닿은 경우
-					// 현재 위치에 정보 저장
-					if (ni >= N) {
-						MAP[ni - 1][j] = { now.num,0 };
+					// 블록을 만난 경우
+					if (MAP[ni][j].num > 0) {
+						// 같은 숫자이고 합쳐지지 않은 블록인 경우
+						if (MAP[ni][j].num == now.num && MAP[ni][j].flag != level) {
+							// 블록을 합치고 맵에 정보 저장
+							MAP[ni][j] = { now.num * 2, level };
+						}
+						// 합쳐지지 않고 이전 칸에 정보 저장
+						else {
+							MAP[ni - 1][j] = { now.num, 0 };
+						}
 						break;
 					}
-					// 다음 칸이 비어있는 경우 continue
-					if (MAP[ni][j].num == 0) continue;
 
-					// 만난 블록이 현재 블록과 같고 합쳐지지 않은경우
-					// 블록을 합쳐주고 정보 저장
-					if (MAP[ni][j].num == now.num && MAP[ni][j].flag == 0) {
-						MAP[ni][j] = { now.num * 2, 1 };
+					// 블록을 만나지 않고 끝까지 이동한 경우
+					if (ni == N - 1) {
+						MAP[ni][j] = { now.num,0 };
 					}
-					// 나머지 경우 현재 위치에 블록 정보 저장
-					else {
-						MAP[ni - 1][j] = { now.num, 0 };
-					}
+					ni++;
 				}
 			}
 		}
 	}
 	// 좌
-	else if (d == 3) {
+	else if (d == 2) {
 		for (int i = 0; i < N; i++) {
 			for (int j = 1; j < N; j++) {
 				// 현재 칸이 비어있다면 continue
@@ -94,27 +95,27 @@ void move(int d) {
 
 				Block now = MAP[i][j];
 				MAP[i][j] = { 0,0 };
-				int nj = j;
+				int nj = j - 1;
 				while (nj >= 0) {
-					nj--;
-					// 벽에 닿은 경우
-					// 현재 위치에 정보 저장
-					if (nj < 0) {
-						MAP[i][nj + 1] = { now.num,0 };
+					// 블록을 만난 경우
+					if (MAP[i][nj].num > 0) {
+						// 같은 숫자이고 합쳐지지 않은 블록인 경우
+						if (MAP[i][nj].num == now.num && MAP[i][nj].flag != level) {
+							// 블록을 합치고 맵에 정보 저장
+							MAP[i][nj] = { now.num * 2, level };
+						}
+						// 합쳐지지 않고 이전 칸에 정보 저장
+						else {
+							MAP[i][nj + 1] = { now.num, 0 };
+						}
 						break;
 					}
-					// 다음 칸이 비어있는 경우 continue
-					if (MAP[i][nj].num == 0) continue;
 
-					// 만난 블록이 현재 블록과 같고 합쳐지지 않은경우
-					// 블록을 합쳐주고 정보 저장
-					if (MAP[i][nj].num == now.num && MAP[i][nj].flag == 0) {
-						MAP[i][nj] = { now.num * 2, 1 };
+					// 블록을 만나지 않고 끝까지 이동한 경우
+					if (nj == 0) {
+						MAP[i][nj] = { now.num,0 };
 					}
-					// 나머지 경우 현재 위치에 블록 정보 저장
-					else {
-						MAP[i][nj + 1] = { now.num, 0 };
-					}
+					nj--;
 				}
 			}
 		}
@@ -128,27 +129,27 @@ void move(int d) {
 
 				Block now = MAP[i][j];
 				MAP[i][j] = { 0,0 };
-				int nj = j;
+				int nj = j + 1;
 				while (nj < N) {
-					nj++;
-					// 벽에 닿은 경우
-					// 현재 위치에 정보 저장
-					if (nj >= N) {
-						MAP[i][nj - 1] = { now.num,0 };
+					// 블록을 만난 경우
+					if (MAP[i][nj].num > 0) {
+						// 같은 숫자이고 합쳐지지 않은 블록인 경우
+						if (MAP[i][nj].num == now.num && MAP[i][nj].flag != level) {
+							// 블록을 합치고 맵에 정보 저장
+							MAP[i][nj] = { now.num * 2, level };
+						}
+						// 합쳐지지 않고 이전 칸에 정보 저장
+						else {
+							MAP[i][nj - 1] = { now.num, 0 };
+						}
 						break;
 					}
-					// 다음 칸이 비어있는 경우 continue
-					if (MAP[i][nj].num == 0) continue;
 
-					// 만난 블록이 현재 블록과 같고 합쳐지지 않은경우
-					// 블록을 합쳐주고 정보 저장
-					if (MAP[i][nj].num == now.num && MAP[i][nj].flag == 0) {
-						MAP[i][nj] = { now.num * 2, 1 };
+					// 블록을 만나지 않고 끝까지 이동한 경우
+					if (nj == N - 1) {
+						MAP[i][nj] = { now.num,0 };
 					}
-					// 나머지 경우 현재 위치에 블록 정보 저장
-					else {
-						MAP[i][nj - 1] = { now.num, 0 };
-					}
+					nj++;
 				}
 			}
 		}
@@ -157,6 +158,7 @@ void move(int d) {
 
 int maxNum = -1;
 
+vector<int> path;
 
 // N회 이동 dfs로 블록 최대 값 구하기
 void dfs(int level) {
@@ -169,22 +171,24 @@ void dfs(int level) {
 		}
 		return;
 	}
-	Block temp[20][20]={0};
+	Block temp[20][20] = { 0 };
 	for (int i = 0; i < 20; i++) {
 		for (int j = 0; j < 20; j++) {
 			temp[i][j] = MAP[i][j];
 		}
 	}
 	for (int i = 0; i < 4; i++) {
-		move(i);
+		move(i, level + 1);
+		path.push_back(i);
 		dfs(level + 1);
+		path.pop_back();
+		// 이전 맵으로 복구
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 20; j++) {
 				MAP[i][j] = temp[i][j];
 			}
 		}
 	}
-
 }
 
 
