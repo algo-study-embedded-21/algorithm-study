@@ -158,6 +158,27 @@
       <a href="https://www.acmicpc.net/problem/15685">15685 드래곤커브</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="4">8주차</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/20057">20057 마법사 상어와 토네이도</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/20058">20058 마법사 상어와 파이어스톰</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/17825">17825 주사위 윷놀이</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/23291">23291 어항 정리</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
