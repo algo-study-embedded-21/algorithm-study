@@ -8,8 +8,8 @@
 #include<cmath>
 using namespace std;
 
-// 1:18  ¿¹Á¦ ¸ÂÃã
-// 1:32  Á¤´ä!
+// 1:18  ì˜ˆì œ ë§ì¶¤
+// 1:32  ì •ë‹µ!
 
 struct gps {
     int y;
@@ -20,17 +20,17 @@ int n,ans;
 vector<int> map[20];
 vector<int> path;
 
-int yy[4] = { -1,1,0,0 }; // À§ ¾Æ·¡ ¿ŞÂÊ ¿À¸¥ÂÊ ¼ø¼­
+int yy[4] = { -1,1,0,0 }; // ìœ„ ì•„ë˜ ì™¼ìª½ ì˜¤ë¥¸ìª½ ìˆœì„œ
 int xx[4] = { 0,0,-1,1 };
-vector<int> en; // 0 ¶Ç´Â n-1
-int plusminus[2] = { 1,-1 }; //Áõ°¡ °¨¼Ò Ç¥Çö
+vector<int> en; // 0 ë˜ëŠ” n-1
+int plusminus[2] = { 1,-1 }; //ì¦ê°€ ê°ì†Œ í‘œí˜„
 
-void slide(int d) // ÇÑÂÊ¹æÇâÀ¸·Î ¸ô±â
+void slide(int d) // í•œìª½ë°©í–¥ìœ¼ë¡œ ëª°ê¸°
 {
-    int dd = d % 2; // À§ ¶Ç´Â ¿ŞÂÊ¹æÇâÀÏ¶§ 0  ¾Æ·¡ ¶Ç´Â ¿À¸¥ÂÊ ¹æÇâÀÏ¶§ 1
-    int ddd = (d + 1) % 2; // dd¿Í ¹İ´ë
-    int i = en[dd]; // À­¹æÇâÀÏ¶§ 0 ¾Æ·¡¹æÇâÀÏ¶§ n-1
-    while (i != en[ddd] - plusminus[ddd]) // À­¹æÇâÀÏ¶§ n-1-(-1) = n ¾Æ·§¹æÇâÀÏ¶§ 0-1 = -1
+    int dd = d % 2; // ìœ„ ë˜ëŠ” ì™¼ìª½ë°©í–¥ì¼ë•Œ 0  ì•„ë˜ ë˜ëŠ” ì˜¤ë¥¸ìª½ ë°©í–¥ì¼ë•Œ 1
+    int ddd = (d + 1) % 2; // ddì™€ ë°˜ëŒ€
+    int i = en[dd]; // ìœ—ë°©í–¥ì¼ë•Œ 0 ì•„ë˜ë°©í–¥ì¼ë•Œ n-1
+    while (i != en[ddd] - plusminus[ddd]) // ìœ—ë°©í–¥ì¼ë•Œ n-1-(-1) = n ì•„ë«ë°©í–¥ì¼ë•Œ 0-1 = -1
     {
         int j = en[dd];
         while(j != en[ddd] - plusminus[ddd])
@@ -46,11 +46,11 @@ void slide(int d) // ÇÑÂÊ¹æÇâÀ¸·Î ¸ô±â
             map[yd][xd] = temp;
             j += plusminus[dd];
         }
-        i += plusminus[dd]; // À­¹æÇâÀÏ¶§ Áõ°¡ ¾Æ·§¹æÇâÀÏ¶§ °¨¼Ò
+        i += plusminus[dd]; // ìœ—ë°©í–¥ì¼ë•Œ ì¦ê°€ ì•„ë«ë°©í–¥ì¼ë•Œ ê°ì†Œ
     }
 }
 
-void make(int d) // °°Àº ¼ıÀÚ ÇÕÄ¡±â
+void make(int d) // ê°™ì€ ìˆ«ì í•©ì¹˜ê¸°
 {
     int dd = d % 2;
     int ddd = (d + 1) % 2;
@@ -63,7 +63,7 @@ void make(int d) // °°Àº ¼ıÀÚ ÇÕÄ¡±â
             if (i + yy[d] >= 0 && i + yy[d] <= n - 1 && j + xx[d] <= n - 1 && j + xx[d] >= 0 && map[i][j] == map[i + yy[d]][j + xx[d]])
             {
                 map[i][j] = 0;
-                map[i + yy[d]][j + xx[d]] *= 2; // ÇÕÃÄÁö´Â ¹æÇâÂÊ ºí·ÏX2
+                map[i + yy[d]][j + xx[d]] *= 2; // í•©ì³ì§€ëŠ” ë°©í–¥ìª½ ë¸”ë¡X2
             }
             j += plusminus[dd];
         }
@@ -71,7 +71,7 @@ void make(int d) // °°Àº ¼ıÀÚ ÇÕÄ¡±â
     }
 }
 
-int maxscore() // °¡ÀåÅ« ¼ıÀÚ ±¸ÇÏ±â
+int maxscore() // ê°€ì¥í° ìˆ«ì êµ¬í•˜ê¸°
 {
     int mmax = 1;
     for (int i = 0; i < n; i++)
@@ -84,27 +84,27 @@ int maxscore() // °¡ÀåÅ« ¼ıÀÚ ±¸ÇÏ±â
     return mmax;
 }
 
-void dfs(int level) // 5¹ø ¿òÁ÷ÀÌ´Â ¸ğµç °æ¿ì dfs
+void dfs(int level) // 5ë²ˆ ì›€ì§ì´ëŠ” ëª¨ë“  ê²½ìš° dfs
 {
-    if (level == 5) // 5¹ø ¿òÁ÷ÀÎµÚ °¡ÀåÅ« ¼ıÀÚ °»½Å
+    if (level == 5) // 5ë²ˆ ì›€ì§ì¸ë’¤ ê°€ì¥í° ìˆ«ì ê°±ì‹ 
     {
         ans = max(ans, maxscore());
         return;
     }
     for (int i = 0; i < 4; i++)
     {
-        vector<int> mapcopy[20]; // ¸Ê º¹»çÇØµÎ±â
+        vector<int> mapcopy[20]; // ë§µ ë³µì‚¬í•´ë‘ê¸°
         for (int i = 0; i < n; i++)
         {
             mapcopy[i] = map[i];
         }
-        slide(i); // ¿òÁ÷ÀÌ°í
-        make(i); // ÇÕÄ¡°í
-        slide(i); // ¿òÁ÷ÀÌ°í
+        slide(i); // ì›€ì§ì´ê³ 
+        make(i); // í•©ì¹˜ê³ 
+        slide(i); // ì›€ì§ì´ê³ 
         path.push_back(i);
         dfs(level + 1);
         path.pop_back();
-        for (int i = 0; i < n; i++) // ¸Ê º¹¿ø
+        for (int i = 0; i < n; i++) // ë§µ ë³µì›
         {
             map[i] = mapcopy[i];
         }
@@ -118,7 +118,7 @@ int main() {
     
     cin >> n;
     en.push_back(0);
-    en.push_back(n-1); // enÀ» 0 ¶Ç´Â n-1·Î ¼ÂÆÃ
+    en.push_back(n-1); // enì„ 0 ë˜ëŠ” n-1ë¡œ ì…‹íŒ…
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
