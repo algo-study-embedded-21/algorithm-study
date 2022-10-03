@@ -14,7 +14,7 @@ struct gps
 	int space;
 };
 
-bool cmp(gps l, gps r)  // ºó°ø°£ Å«¼ø > Çà¹øÈ£ ÀÛÀº¼ø > ¿­¹øÈ£ ÀÛÀº¼ø
+bool cmp(gps l, gps r)  // ë¹ˆê³µê°„ í°ìˆœ > í–‰ë²ˆí˜¸ ì‘ì€ìˆœ > ì—´ë²ˆí˜¸ ì‘ì€ìˆœ
 {
 	if (l.space > r.space)
 	{
@@ -44,10 +44,10 @@ bool cmp(gps l, gps r)  // ºó°ø°£ Å«¼ø > Çà¹øÈ£ ÀÛÀº¼ø > ¿­¹øÈ£ ÀÛÀº¼ø
 }
 
 int n;
-int map[20][20]; // ÁÂ¼®Ç¥
-vector<int> love[401]; // °¢ ÇĞ»ıÀÌ ÁÁ¾ÆÇÏ´Â ÇĞ»ı ÀúÀå
-vector<gps> chair[401]; // ÁÖº¯¿¡ ÁÁ¾ÆÇÏ´Â ÇĞ»ıÀÌ Á¦ÀÏ ¸¹Àº À§Ä¡'µé' ÀúÀå
-vector<int> line; // ÁÂ¼®À» °í¸¦ ÇĞ»ı ¼ø¼­ ÀúÀå
+int map[20][20]; // ì¢Œì„í‘œ
+vector<int> love[401]; // ê° í•™ìƒì´ ì¢‹ì•„í•˜ëŠ” í•™ìƒ ì €ì¥
+vector<gps> chair[401]; // ì£¼ë³€ì— ì¢‹ì•„í•˜ëŠ” í•™ìƒì´ ì œì¼ ë§ì€ ìœ„ì¹˜'ë“¤' ì €ì¥
+vector<int> line; // ì¢Œì„ì„ ê³ ë¥¼ í•™ìƒ ìˆœì„œ ì €ì¥
 
 void school(int st)
 {
@@ -58,12 +58,12 @@ void school(int st)
 		{
 			if (map[i][j] != 0)
 			{
-				continue; // ÀÌ¹Ì ´©±º°¡ ¾É¾ÆÀÖ´ÂÁÂ¼® Åë°ú
+				continue; // ì´ë¯¸ ëˆ„êµ°ê°€ ì•‰ì•„ìˆëŠ”ì¢Œì„ í†µê³¼
 			}
 			int yc[4] = { -1,0,0,1 };
 			int xc[4] = { 0,-1,1,0 };
-			int like = 0; // ÁÖº¯ÀÇ ¼±È£ÇÏ´Â ÇĞ»ı ¼ö
-			int spacecnt = 0; // ÁÖº¯ÀÇ ºó°ø°£ ¼ö
+			int like = 0; // ì£¼ë³€ì˜ ì„ í˜¸í•˜ëŠ” í•™ìƒ ìˆ˜
+			int spacecnt = 0; // ì£¼ë³€ì˜ ë¹ˆê³µê°„ ìˆ˜
 			for (int k = 0; k < 4; k++)
 			{
 				int yy = i + yc[k];
@@ -74,31 +74,31 @@ void school(int st)
 				}
 				for (int a = 0; a < 4; a++)
 				{
-					if (map[yy][xx] == love[st][a]) // ÀÎ±Ù¿¡ ¼±È£ÇÏ´Â ÇĞ»ıÀÌ ÀÖ´Â°æ¿ì
+					if (map[yy][xx] == love[st][a]) // ì¸ê·¼ì— ì„ í˜¸í•˜ëŠ” í•™ìƒì´ ìˆëŠ”ê²½ìš°
 					{
 						like++;
 					}
 				}
-				if (map[yy][xx] == 0) // ÀÎ±Ù¿¡ ºóÀÚ¸®°¡ ÀÖ´Â°æ¿ì
+				if (map[yy][xx] == 0) // ì¸ê·¼ì— ë¹ˆìë¦¬ê°€ ìˆëŠ”ê²½ìš°
 				{
 					spacecnt++;
 				}
 			}
-			if (maxlike == like) // ÁÁ¾ÆÇÏ´Â ÇĞ»ı¼ö°¡ ÃÖ´ëÄ¡¿Í °°À»¶§
+			if (maxlike == like) // ì¢‹ì•„í•˜ëŠ” í•™ìƒìˆ˜ê°€ ìµœëŒ€ì¹˜ì™€ ê°™ì„ë•Œ
 			{
-				chair[st].push_back({ i,j,spacecnt }); // ÈÄº¸ À§Ä¡ Ãß°¡
+				chair[st].push_back({ i,j,spacecnt }); // í›„ë³´ ìœ„ì¹˜ ì¶”ê°€
 			}
-			if (maxlike < like) // ÃÖ´ëÄ¡¸¦ °»½ÅÇßÀ»¶§
+			if (maxlike < like) // ìµœëŒ€ì¹˜ë¥¼ ê°±ì‹ í–ˆì„ë•Œ
 			{
 				maxlike = like;
 				vector<gps> newchair; 
-				chair[st] = newchair; // ±×Àü±îÁöÀÇ ÈÄº¸µéÀ» Áö¿ì°í
-				chair[st].push_back({ i,j,spacecnt }); // ÈÄº¸ À§Ä¡·Î µî·Ï
+				chair[st] = newchair; // ê·¸ì „ê¹Œì§€ì˜ í›„ë³´ë“¤ì„ ì§€ìš°ê³ 
+				chair[st].push_back({ i,j,spacecnt }); // í›„ë³´ ìœ„ì¹˜ë¡œ ë“±ë¡
 			}
 		}
 	}
-	sort(chair[st].begin(), chair[st].end(), cmp); // Á¶°Ç¿¡ ¸Â°Ô Á¤·ÄÇÏ¿©
-	map[chair[st][0].y][chair[st][0].x] =  st; // °¡Àå ÀûÇÕÇÑ ÈÄº¸ À§Ä¡¿¡ Âø¼®
+	sort(chair[st].begin(), chair[st].end(), cmp); // ì¡°ê±´ì— ë§ê²Œ ì •ë ¬í•˜ì—¬
+	map[chair[st][0].y][chair[st][0].x] =  st; // ê°€ì¥ ì í•©í•œ í›„ë³´ ìœ„ì¹˜ì— ì°©ì„
 }
 
 int main()
@@ -113,8 +113,8 @@ int main()
 	{
 		int st, a, b, c, d;
 		cin >> st >> a >> b >> c >> d;
-		line.push_back(st);  // ¼ø¼­ ÀúÀå
-		// °ü°èÀúÀå
+		line.push_back(st);  // ìˆœì„œ ì €ì¥
+		// ê´€ê³„ì €ì¥
 		love[st].push_back(a);  
 		love[st].push_back(b);
 		love[st].push_back(c);
@@ -122,7 +122,7 @@ int main()
 	}
 	for (int i = 0; i < student; i++)
 	{
-		school(line[i]); // ¸ğµç ÇĞ»ı Âø¼®
+		school(line[i]); // ëª¨ë“  í•™ìƒ ì°©ì„
 	}
 	int ans = 0;
 	for (int i = 0; i < n; i++)
@@ -150,12 +150,12 @@ int main()
 					}
 				}
 			}
-			if (like > 0) // Âø¼®ÇÑ ÀÚ¸® ÁÖº¯¿¡ ¼±È£ÇÏ´Â ÇĞ»ıÀÌ ÀÖ´Â°æ¿ì
+			if (like > 0) // ì°©ì„í•œ ìë¦¬ ì£¼ë³€ì— ì„ í˜¸í•˜ëŠ” í•™ìƒì´ ìˆëŠ”ê²½ìš°
 			{
 				int score = 1;
 				for (int a = 1; a < like; a++)
 				{
-					score = score * 10; // 1ÀÏ¶§ 1Á¡ 2ÀÏ¶§ 10Á¡ 3ÀÏ¶§ 100Á¡ 4ÀÏ¶§ 1000Á¡
+					score = score * 10; // 1ì¼ë•Œ 1ì  2ì¼ë•Œ 10ì  3ì¼ë•Œ 100ì  4ì¼ë•Œ 1000ì 
 				}
 				ans += score;
 			}
