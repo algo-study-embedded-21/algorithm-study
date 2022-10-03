@@ -8,23 +8,23 @@
 using namespace std;
 
 int n;
-vector<int> num; // ¼ö¸¦ ´ãÀ» º¤ÅÍ
-vector<int> process; // ¿¬»êÀÚ¸¦ ´ãÀ» º¤ÅÍ
-int usepro[10]; // ¿¬»êÀÚ Áßº¹ »ç¿ë ¹æÁö
+vector<int> num; // ìˆ˜ë¥¼ ë‹´ì„ ë²¡í„°
+vector<int> process; // ì—°ì‚°ìë¥¼ ë‹´ì„ ë²¡í„°
+int usepro[10]; // ì—°ì‚°ì ì¤‘ë³µ ì‚¬ìš© ë°©ì§€
 int maxresult = -2134567890;
 int minresult = 2134567890;
 int cost;
 
 void dfs(int index)
 {
-	if (index == n) // ¸¶Áö¸· ±îÁö ¼öÇà
+	if (index == n) // ë§ˆì§€ë§‰ ê¹Œì§€ ìˆ˜í–‰
 	{
 		if (cost > maxresult)
-		{ // ÃÖ´ñ°ª
+		{ // ìµœëŒ“ê°’
 			maxresult = cost;
 		}
 		if (cost < minresult)
-		{ // ÃÖ¼Ú°ª
+		{ // ìµœì†Ÿê°’
 			minresult = cost;
 		}
 		return;
@@ -36,7 +36,7 @@ void dfs(int index)
 		{
 			continue;
 		}
-		if (process[j] == 0) // µ¡¼À ¿¬»êÀÚ
+		if (process[j] == 0) // ë§ì…ˆ ì—°ì‚°ì
 		{
 			cost = cost + next;
 			usepro[j] = 1;
@@ -44,7 +44,7 @@ void dfs(int index)
 			usepro[j] = 0;
 			cost = cost - next;
 		}
-		else if (process[j] == 1) // »¬¼À ¿¬»êÀÚ
+		else if (process[j] == 1) // ëº„ì…ˆ ì—°ì‚°ì
 		{
 			cost = cost - next;
 			usepro[j] = 1;
@@ -52,7 +52,7 @@ void dfs(int index)
 			usepro[j] = 0;
 			cost = cost + next;
 		}
-		else if (process[j] == 2) // °ö¼À ¿¬»êÀÚ
+		else if (process[j] == 2) // ê³±ì…ˆ ì—°ì‚°ì
 		{
 			cost = cost * next;
 			usepro[j] = 1;
@@ -60,15 +60,15 @@ void dfs(int index)
 			usepro[j] = 0;
 			cost = cost / next;
 		}
-		else // ³ª´°¼À ¿¬»êÀÚ
+		else // ë‚˜ëˆ—ì…ˆ ì—°ì‚°ì
 		{
 			int ex;
-			ex = cost % next; // ³ª¸ÓÁö ´ã¾ÆµÎ±â
+			ex = cost % next; // ë‚˜ë¨¸ì§€ ë‹´ì•„ë‘ê¸°
 			cost = cost / next;
 			usepro[j] = 1;
 			dfs(index + 1);
 			usepro[j] = 0;
-			cost = cost * next+ ex; // º¹±¸½Ã ³ª¸ÓÁö ´õÇÏ±â
+			cost = cost * next+ ex; // ë³µêµ¬ì‹œ ë‚˜ë¨¸ì§€ ë”í•˜ê¸°
 		}
 
 	}
@@ -88,12 +88,12 @@ int main()
 		int a;
 		cin >> a;
 		for (int j = 0; j < a; j++)
-		{// ÀÔ·Â ¼ö¸¸Å­ ¿¬»êÀÚ º¤ÅÍ¿¡ ¹İº¹ ´ã±â
+		{// ì…ë ¥ ìˆ˜ë§Œí¼ ì—°ì‚°ì ë²¡í„°ì— ë°˜ë³µ ë‹´ê¸°
 			process.push_back(i);
 		}
 	}
-	cost = num[0];// ÃÖÃÊ ¼ö·Î ÃÊ±â°ª ¼¼ÆÃ
-	dfs(1);// ´ÙÀ½ ¼ö index = 1
+	cost = num[0];// ìµœì´ˆ ìˆ˜ë¡œ ì´ˆê¸°ê°’ ì„¸íŒ…
+	dfs(1);// ë‹¤ìŒ ìˆ˜ index = 1
 	cout << maxresult << "\n" << minresult;
 	return 0;
 }
