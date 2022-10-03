@@ -35,40 +35,40 @@ void game(gps start)
 
 	while (1)
 	{
-		while (direcNum_head >=go.size() || overtime != go[direcNum_head].time) // ´ÙÀ½ ¹æÇâÀ» Æ®´Â ½Ã°£±îÁö ÁøÇà
+		while (direcNum_head >=go.size() || overtime != go[direcNum_head].time) // ë‹¤ìŒ ë°©í–¥ì„ íŠ¸ëŠ” ì‹œê°„ê¹Œì§€ ì§„í–‰
 		{
 			gps now = q.front();
 			q.pop();
-			gps next; // ¸Ó¸®À§Ä¡ 
+			gps next; // ë¨¸ë¦¬ìœ„ì¹˜ 
 			next.y = now.y + yy[t_head];
 			next.x = now.x + xx[t_head];
 			if (next.y < 0 || next.y>n - 1 || next.x<0 || next.x>n - 1)
-			{ // º®¿¡ ´êÀ¸¸é °ÔÀÓ ¿À¹ö
+			{ // ë²½ì— ë‹¿ìœ¼ë©´ ê²Œì„ ì˜¤ë²„
 				overtime++;
 				return;
 			}
 			if (map[next.y][next.x] == 1)
-			{ // ¸ö¿¡ ´êÀ¸¸é °ÔÀÓ ¿À¹ö
+			{ // ëª¸ì— ë‹¿ìœ¼ë©´ ê²Œì„ ì˜¤ë²„
 				overtime++;
 				return;
 			}
 			if (map[next.y][next.x] == 5)
-			{ // »ç°ú¸¦ ¸ÔÀº°æ¿ì
+			{ // ì‚¬ê³¼ë¥¼ ë¨¹ì€ê²½ìš°
 				map[next.y][next.x] = 1;
 				overtime++;
-				body++; // ¸ö±æÀÌ Áõ°¡
+				body++; // ëª¸ê¸¸ì´ ì¦ê°€
 				q.push(next);
 			}
 			else
-			{ // ºó°ø°£À¸·Î ÀÌµ¿ÇÑ°æ¿ì
+			{ // ë¹ˆê³µê°„ìœ¼ë¡œ ì´ë™í•œê²½ìš°
 				map[next.y][next.x] = 1;
 				overtime++;
-				map[start.y][start.x] = 0; // ²¿¸® À§Ä¡¼öÃà
+				map[start.y][start.x] = 0; // ê¼¬ë¦¬ ìœ„ì¹˜ìˆ˜ì¶•
 				start.y = start.y + yy[t_tail];
 				start.x = start.x + xx[t_tail];
 				q.push(next);
 			}
-			if (direcNum_tail<go.size() && overtime - body == go[direcNum_tail].time) // ²¿¸®°¡ ²©´Â ¸Ó¸®°¡ ²©Àº À§Ä¡¿¡ µµ´ŞÇÑ °æ¿ì
+			if (direcNum_tail<go.size() && overtime - body == go[direcNum_tail].time) // ê¼¬ë¦¬ê°€ êº½ëŠ” ë¨¸ë¦¬ê°€ êº½ì€ ìœ„ì¹˜ì— ë„ë‹¬í•œ ê²½ìš°
 			{
 				if (go[direcNum_tail].direction == 'L')
 				{
@@ -90,7 +90,7 @@ void game(gps start)
 				}
 			}
 		}
-		if (go[direcNum_head].direction == 'L') // ¸Ó¸® ¹æÇâÀÌ ²ªÀÌ´Â ½Ã°£ÀÎ °æ¿ì
+		if (go[direcNum_head].direction == 'L') // ë¨¸ë¦¬ ë°©í–¥ì´ êº¾ì´ëŠ” ì‹œê°„ì¸ ê²½ìš°
 		{
 			t_head = t_head - 1;
 			if (t_head < 0)
@@ -120,7 +120,7 @@ int main()
 
 	cin >> n >> k;
 	for (int i = 0; i < k; i++)
-	{ // ¸ÊÀ» 0,0 ±âÁØÀ¸·Î ¼¼ÆÃ
+	{ // ë§µì„ 0,0 ê¸°ì¤€ìœ¼ë¡œ ì„¸íŒ…
 		int y, x;
 		cin >> y >> x;
 		map[y-1][x-1] = 5;
