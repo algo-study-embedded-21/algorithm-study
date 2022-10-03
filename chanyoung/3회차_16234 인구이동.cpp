@@ -14,11 +14,11 @@ struct gps
 
 int n, l, r;
 int map[50][50];
-int cnt; // ÀÎ±¸ÀÌµ¿ÀÌ ÀÏ¾î³­ ÀÏ¼ö
+int cnt; // ì¸êµ¬ì´ë™ì´ ì¼ì–´ë‚œ ì¼ìˆ˜
 
-void change(vector<gps> openworld, int worldpeople) //ÀÌµ¿µÈ ÀÎ±¸¸¦ ¸Ê¿¡ ±â·ÏÇÏ´Â ÇÔ¼ö
+void change(vector<gps> openworld, int worldpeople) //ì´ë™ëœ ì¸êµ¬ë¥¼ ë§µì— ê¸°ë¡í•˜ëŠ” í•¨ìˆ˜
 {
-	worldpeople = worldpeople / openworld.size(); // °³¹æµÈ ±¹°¡µéÀÇ Æò±Õ ÀÎ±¸
+	worldpeople = worldpeople / openworld.size(); // ê°œë°©ëœ êµ­ê°€ë“¤ì˜ í‰ê·  ì¸êµ¬
 	for (int i = 0; i < openworld.size(); i++)
 	{
 		map[openworld[i].y][openworld[i].x] = worldpeople;
@@ -27,9 +27,9 @@ void change(vector<gps> openworld, int worldpeople) //ÀÌµ¿µÈ ÀÎ±¸¸¦ ¸Ê¿¡ ±â·ÏÇÏ´
 
 int open(gps start,int use[50][50])
 {
-	int end = 0; // ÀÎ±¸ÀÌµ¿ÀÌ ÀÏ¾î³µ´ÂÁö ¿©ºÎ Ç¥½Ã¸¦ À§ÇÑ º¯¼ö
-	int worldpeople = 0;; // ÀÎ±¸ÀÌµ¿ÀÌ ÀÏ¾î³¯ ±¹°¡µéÀÇ ÀÎ±¸¼ö ÃÑÇÕ
-	vector<gps> openworld; // ÀÎ±¸ÀÌµ¿ÀÌ ÀÏ¾î³¯ ±¹°¡ ÁÂÇ¥ ÀúÀå
+	int end = 0; // ì¸êµ¬ì´ë™ì´ ì¼ì–´ë‚¬ëŠ”ì§€ ì—¬ë¶€ í‘œì‹œë¥¼ ìœ„í•œ ë³€ìˆ˜
+	int worldpeople = 0;; // ì¸êµ¬ì´ë™ì´ ì¼ì–´ë‚  êµ­ê°€ë“¤ì˜ ì¸êµ¬ìˆ˜ ì´í•©
+	vector<gps> openworld; // ì¸êµ¬ì´ë™ì´ ì¼ì–´ë‚  êµ­ê°€ ì¢Œí‘œ ì €ì¥
 	queue<gps> q;
 	q.push(start);
 	use[start.y][start.x] = 1;
@@ -54,23 +54,23 @@ int open(gps start,int use[50][50])
 			{
 				continue;
 			}
-			int gap = abs(map[next.y][next.x] - map[now.y][now.x]); // ÀÎ±Ù ±¹°¡¿ÍÀÇ ÀÎ±¸¼ö Â÷
-			if (gap < l || gap > r) // ÁÖ¾îÁø ¹üÀ§ ¹ÛÀÌ¸é ¹«½Ã
+			int gap = abs(map[next.y][next.x] - map[now.y][now.x]); // ì¸ê·¼ êµ­ê°€ì™€ì˜ ì¸êµ¬ìˆ˜ ì°¨
+			if (gap < l || gap > r) // ì£¼ì–´ì§„ ë²”ìœ„ ë°–ì´ë©´ ë¬´ì‹œ
 			{
 				continue;
 			}
 			openworld.push_back(next);
 			worldpeople += map[next.y][next.x];
 			use[next.y][next.x] = 1;
-			end = 1; // ÀÎ±¸ÀÌµ¿À» ½Ç½ÃÇØ¾ßÇÔÀ» Ç¥½Ã
+			end = 1; // ì¸êµ¬ì´ë™ì„ ì‹¤ì‹œí•´ì•¼í•¨ì„ í‘œì‹œ
 			q.push(next);
 		}
 	}
-	if (end == 1) // next°¡ ¹ß»ıÇÑÀûÀÌ ÀÖ´Ù¸é ÀÎ±¸ÀÌµ¿ ½Ç½Ã
+	if (end == 1) // nextê°€ ë°œìƒí•œì ì´ ìˆë‹¤ë©´ ì¸êµ¬ì´ë™ ì‹¤ì‹œ
 	{
 		change(openworld, worldpeople);
 	}
-	return end; // ÀÎ±¸ÀÌµ¿À» ½Ç½ÃÇß´ÂÁö ¿©ºÎ¸¦ ¸®ÅÏ
+	return end; // ì¸êµ¬ì´ë™ì„ ì‹¤ì‹œí–ˆëŠ”ì§€ ì—¬ë¶€ë¥¼ ë¦¬í„´
 }
 
 
@@ -89,28 +89,28 @@ int main()
 			cin >> map[i][j];
 		}
 	}
-	while (1) // ´õÀÌ»ó ÀÎ±¸ÀÌµ¿ÀÌ ÀÏ¾î³ªÁö ¾ÊÀ»¶§±îÁö ¹İº¹
+	while (1) // ë”ì´ìƒ ì¸êµ¬ì´ë™ì´ ì¼ì–´ë‚˜ì§€ ì•Šì„ë•Œê¹Œì§€ ë°˜ë³µ
 	{
-		int end = 0; // ÀÎ±¸ÀÌµ¿ ½Ç½Ã ¿©ºÎ ÃÊ±âÈ­
-		int use[50][50] = { 0 }; // ¸ÅÀÏ ±¹°¡ ¹æ¹®±â·Ï ÃÊ±âÈ­
+		int end = 0; // ì¸êµ¬ì´ë™ ì‹¤ì‹œ ì—¬ë¶€ ì´ˆê¸°í™”
+		int use[50][50] = { 0 }; // ë§¤ì¼ êµ­ê°€ ë°©ë¬¸ê¸°ë¡ ì´ˆê¸°í™”
 		for (int i = 0; i < n; i++)
 		{
 			for (int j = 0; j < n; j++)
 			{
-				if (use[i][j] == 1) // ÀÌ¹Ì È®ÀÎÇÑ ±¹°¡ ÆĞ½º
+				if (use[i][j] == 1) // ì´ë¯¸ í™•ì¸í•œ êµ­ê°€ íŒ¨ìŠ¤
 				{
 					continue;
 				}
-				end += open({ i,j },use); // ÀÎ±¸ÀÌµ¿ÀÌ ½Ç½ÃµÇ¾ú´Ù¸é end > 0
+				end += open({ i,j },use); // ì¸êµ¬ì´ë™ì´ ì‹¤ì‹œë˜ì—ˆë‹¤ë©´ end > 0
 			}
 		}
 		if (end > 0)
 		{
-			cnt++; // ÀÎ±¸ÀÌµ¿ÀÌ ½Ç½ÃµÇ¾ú´Ù¸é ³¯Â¥ Ä«¿îÆ®
+			cnt++; // ì¸êµ¬ì´ë™ì´ ì‹¤ì‹œë˜ì—ˆë‹¤ë©´ ë‚ ì§œ ì¹´ìš´íŠ¸
 		}
 		else
 		{
-			break; // ½Ç½ÃµÈÀûÀÌ ¾ø´Ù¸é Å»Ãâ
+			break; // ì‹¤ì‹œëœì ì´ ì—†ë‹¤ë©´ íƒˆì¶œ
 		}
 	}
 	cout << cnt;
