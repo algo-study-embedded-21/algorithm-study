@@ -26,22 +26,22 @@ int usecctv[8][8];
 int minsee = 2134567890;
 vector<cctvgps> cctvs;
 
-void yplus(gps cctv)  // ÇöÀç ÁÂÇ¥·Î ºÎÅÍ x°ªÀ¯Áö y¸¦ Å°¿ì¸ç °¨½Ã¿µ¿ª Ç¥½Ã
+void yplus(gps cctv)  // í˜„ì¬ ì¢Œí‘œë¡œ ë¶€í„° xê°’ìœ ì§€ yë¥¼ í‚¤ìš°ë©° ê°ì‹œì˜ì—­ í‘œì‹œ
 {
 	for (int i = cctv.y + 1; i < n; i++)
 	{
-		if (office[i][cctv.x] == 6) // º®ÀÌ¸é ½ºÅ¾
+		if (office[i][cctv.x] == 6) // ë²½ì´ë©´ ìŠ¤íƒ‘
 		{
 			break;
 		}
-		if ((office[i][cctv.x] <= 5 && office[i][cctv.x] >= 1) || office[i][cctv.x] == 10) // cctvÀÌ°Å³ª ÀÌ¹Ì °¨½ÃÇÑ¿µ¿ªÀÌ¸é ¹«½Ã
+		if ((office[i][cctv.x] <= 5 && office[i][cctv.x] >= 1) || office[i][cctv.x] == 10) // cctvì´ê±°ë‚˜ ì´ë¯¸ ê°ì‹œí•œì˜ì—­ì´ë©´ ë¬´ì‹œ
 		{
 			continue;
 		}
 		office[i][cctv.x] = 10;
 	}
 }
-void yminus(gps cctv) // ÇöÀç ÁÂÇ¥·Î ºÎÅÍ x°ªÀ¯Áö y¸¦ ÁÙÀÌ¸ç °¨½Ã¿µ¿ª Ç¥½Ã
+void yminus(gps cctv) // í˜„ì¬ ì¢Œí‘œë¡œ ë¶€í„° xê°’ìœ ì§€ yë¥¼ ì¤„ì´ë©° ê°ì‹œì˜ì—­ í‘œì‹œ
 {
 	for (int i = cctv.y - 1; i >= 0; i--)
 	{
@@ -56,7 +56,7 @@ void yminus(gps cctv) // ÇöÀç ÁÂÇ¥·Î ºÎÅÍ x°ªÀ¯Áö y¸¦ ÁÙÀÌ¸ç °¨½Ã¿µ¿ª Ç¥½Ã
 		office[i][cctv.x] = 10;
 	}
 }
-void xplus(gps cctv) // ÇöÀç ÁÂÇ¥·Î ºÎÅÍ y°ªÀ¯Áö x¸¦ Å°¿ì¸ç °¨½Ã¿µ¿ª Ç¥½Ã
+void xplus(gps cctv) // í˜„ì¬ ì¢Œí‘œë¡œ ë¶€í„° yê°’ìœ ì§€ xë¥¼ í‚¤ìš°ë©° ê°ì‹œì˜ì—­ í‘œì‹œ
 {
 	for (int i = cctv.x + 1; i < m; i++)
 	{
@@ -71,7 +71,7 @@ void xplus(gps cctv) // ÇöÀç ÁÂÇ¥·Î ºÎÅÍ y°ªÀ¯Áö x¸¦ Å°¿ì¸ç °¨½Ã¿µ¿ª Ç¥½Ã
 		office[cctv.y][i] = 10;
 	}
 }
-void xminus(gps cctv)  // ÇöÀç ÁÂÇ¥·Î ºÎÅÍ y°ªÀ¯Áö x¸¦ ÁÙÀÌ¸ç °¨½Ã¿µ¿ª Ç¥½Ã
+void xminus(gps cctv)  // í˜„ì¬ ì¢Œí‘œë¡œ ë¶€í„° yê°’ìœ ì§€ xë¥¼ ì¤„ì´ë©° ê°ì‹œì˜ì—­ í‘œì‹œ
 {
 	for (int i = cctv.x - 1; i >= 0; i--)
 	{
@@ -87,7 +87,7 @@ void xminus(gps cctv)  // ÇöÀç ÁÂÇ¥·Î ºÎÅÍ y°ªÀ¯Áö x¸¦ ÁÙÀÌ¸ç °¨½Ã¿µ¿ª Ç¥½Ã
 	}
 }
 
-void one(gps cctv, int direction) // 1¹ø cctvÀÎ °æ¿ì
+void one(gps cctv, int direction) // 1ë²ˆ cctvì¸ ê²½ìš°
 {
 	if (direction == 1)
 	{
@@ -107,7 +107,7 @@ void one(gps cctv, int direction) // 1¹ø cctvÀÎ °æ¿ì
 	}
 }
 
-void two(gps cctv, int direction) // 2¹ø cctvÀÎ °æ¿ì
+void two(gps cctv, int direction) // 2ë²ˆ cctvì¸ ê²½ìš°
 {
 	if (direction == 1 || direction ==3)
 	{
@@ -121,7 +121,7 @@ void two(gps cctv, int direction) // 2¹ø cctvÀÎ °æ¿ì
 	}
 }
 
-void three(gps cctv, int direction) // 3¹ø cctvÀÎ °æ¿ì
+void three(gps cctv, int direction) // 3ë²ˆ cctvì¸ ê²½ìš°
 {
 	if (direction == 1)
 	{
@@ -145,7 +145,7 @@ void three(gps cctv, int direction) // 3¹ø cctvÀÎ °æ¿ì
 	}
 }
 
-void four(gps cctv, int direction) // 4¹ø cctvÀÎ °æ¿ì
+void four(gps cctv, int direction) // 4ë²ˆ cctvì¸ ê²½ìš°
 {
 	if (direction == 1)
 	{
@@ -173,7 +173,7 @@ void four(gps cctv, int direction) // 4¹ø cctvÀÎ °æ¿ì
 	}
 }
 
-void five(gps cctv, int direction) // 5¹ø cctvÀÎ °æ¿ì
+void five(gps cctv, int direction) // 5ë²ˆ cctvì¸ ê²½ìš°
 {
 	xplus(cctv);
 	xminus(cctv);
@@ -181,7 +181,7 @@ void five(gps cctv, int direction) // 5¹ø cctvÀÎ °æ¿ì
 	yminus(cctv);
 }
 
-void resetmap(int officesave[8][8]) // ¸ÊÀ» ÀÌÀü»óÅÂ·Î º¹±¸½ÃÅ°´Â ÇÔ¼ö
+void resetmap(int officesave[8][8]) // ë§µì„ ì´ì „ìƒíƒœë¡œ ë³µêµ¬ì‹œí‚¤ëŠ” í•¨ìˆ˜
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -192,7 +192,7 @@ void resetmap(int officesave[8][8]) // ¸ÊÀ» ÀÌÀü»óÅÂ·Î º¹±¸½ÃÅ°´Â ÇÔ¼ö
 	}
 }
 
-void savemap(int officesave[8][8]) // Çö»óÅÂÀÇ ¸ÊÀ» ÀúÀåÇÏ´Â ÇÔ¼ö
+void savemap(int officesave[8][8]) // í˜„ìƒíƒœì˜ ë§µì„ ì €ì¥í•˜ëŠ” í•¨ìˆ˜
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -205,14 +205,14 @@ void savemap(int officesave[8][8]) // Çö»óÅÂÀÇ ¸ÊÀ» ÀúÀåÇÏ´Â ÇÔ¼ö
 
 void see(int index)
 {
-	if (index == cctvs.size()) // ¸ğµç cctvÀÇ °¨½Ã¿µ¿ªÀ» Ç¥½ÃÇß´Ù¸é
+	if (index == cctvs.size()) // ëª¨ë“  cctvì˜ ê°ì‹œì˜ì—­ì„ í‘œì‹œí–ˆë‹¤ë©´
 	{
 		int cnt = 0;
 		for (int i = 0; i < n; i++)
 		{
 			for (int j = 0; j < m; j++)
 			{
-				if (office[i][j] == 0) // »ç°¢Áö´ë¸¦ Ä«¿îÆ®
+				if (office[i][j] == 0) // ì‚¬ê°ì§€ëŒ€ë¥¼ ì¹´ìš´íŠ¸
 				{
 					cnt++;
 				}
@@ -224,22 +224,22 @@ void see(int index)
 		}
 		return;
 	}
-	for (int j = 1; j <= 4; j++) // cctvÀÇ direction ÃÖ´ë 4°³
+	for (int j = 1; j <= 4; j++) // cctvì˜ direction ìµœëŒ€ 4ê°œ
 	{
 		cctvgps now = cctvs[index];
-		if (usecctv[now.y][now.x] == 1) // ÀÌ¹Ì °ËÅäÇÑ cctv´Â ¹«½Ã
+		if (usecctv[now.y][now.x] == 1) // ì´ë¯¸ ê²€í† í•œ cctvëŠ” ë¬´ì‹œ
 		{
 			continue;
 		}
-		if (now.num == 1) // 1¹ø cctvÀÏ °æ¿ì
+		if (now.num == 1) // 1ë²ˆ cctvì¼ ê²½ìš°
 		{
-			usecctv[now.y][now.x] = 1; // »ç¿ëÇßÀ½À» ±â·ÏÇÏ°í
-			int officesave[8][8]; // ÇöÀç±îÁöÀÇ ¸ÊÀ» ±â·ÏÇÒ ¸Ê2¸¦ ¸¸µé°í
-			savemap(officesave); // ¸ÊÀ» ±â·ÏÇÏ°í
-			one({ now.y,now.x }, j); //  1¹ø cctvÀÇ °¨½Ã¿µ¿ªÀ» ±â·Ï
-			see(index+1);  // ´ÙÀ½ cctv·Î ÀÌµ¿
-			resetmap(officesave); // ÀÌÀü ¸ÊÀ¸·Î ÃÊ±âÈ­ÇÏ°í
-			usecctv[now.y][now.x] = 0; // cctv »ç¿ë±â·Ï ÃÊ±âÈ­
+			usecctv[now.y][now.x] = 1; // ì‚¬ìš©í–ˆìŒì„ ê¸°ë¡í•˜ê³ 
+			int officesave[8][8]; // í˜„ì¬ê¹Œì§€ì˜ ë§µì„ ê¸°ë¡í•  ë§µ2ë¥¼ ë§Œë“¤ê³ 
+			savemap(officesave); // ë§µì„ ê¸°ë¡í•˜ê³ 
+			one({ now.y,now.x }, j); //  1ë²ˆ cctvì˜ ê°ì‹œì˜ì—­ì„ ê¸°ë¡
+			see(index+1);  // ë‹¤ìŒ cctvë¡œ ì´ë™
+			resetmap(officesave); // ì´ì „ ë§µìœ¼ë¡œ ì´ˆê¸°í™”í•˜ê³ 
+			usecctv[now.y][now.x] = 0; // cctv ì‚¬ìš©ê¸°ë¡ ì´ˆê¸°í™”
 		}
 		else if (now.num == 2)
 		{
@@ -296,13 +296,13 @@ int main()
 		for (int j = 0; j < m; j++)
 		{
 			cin >> office[i][j];
-			if (office[i][j] >= 1 && office[i][j] <= 5) //cctvÀÏ °æ¿ì
+			if (office[i][j] >= 1 && office[i][j] <= 5) //cctvì¼ ê²½ìš°
 			{
-				cctvs.push_back({ i,j,office[i][j]}); // cctvÀÇ ÁÂÇ¥¿Í cctv ³Ñ¹ö¸¦ º¤ÅÍ¿¡ ÀúÀå
+				cctvs.push_back({ i,j,office[i][j]}); // cctvì˜ ì¢Œí‘œì™€ cctv ë„˜ë²„ë¥¼ ë²¡í„°ì— ì €ì¥
 			}
 		}
 	}
-	see(0); // Ã¹¹øÂ° cctvºÎÅÍ °¨½Ã¿µ¿ª °ËÅä ½ÃÀÛ
+	see(0); // ì²«ë²ˆì§¸ cctvë¶€í„° ê°ì‹œì˜ì—­ ê²€í†  ì‹œì‘
 	cout << minsee;
 	return 0;
 }
