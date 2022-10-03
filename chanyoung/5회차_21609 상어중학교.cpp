@@ -9,7 +9,7 @@
 
 using namespace std;
 
-// À¯´Ï¿Â ÆÄÀÎµå°¡ ÀûÇÕÇØº¸ÀÌÁö¸¸ BFS·Î...
+// ìœ ë‹ˆì˜¨ íŒŒì¸ë“œê°€ ì í•©í•´ë³´ì´ì§€ë§Œ BFSë¡œ...
 
 struct gps
 {
@@ -20,8 +20,8 @@ struct gps
 int n, m;
 int map[20][20];
 int visit[20][20];
-vector<gps> capgroup; // °¡ÀåÅ« ±×·ìÀÇ ºí·Ïµé
-gps cap = { -1,-1 }; // °¡Àå Å« ±×·ìÀÇ ±âÁØºí·Ï
+vector<gps> capgroup; // ê°€ì¥í° ê·¸ë£¹ì˜ ë¸”ë¡ë“¤
+gps cap = { -1,-1 }; // ê°€ì¥ í° ê·¸ë£¹ì˜ ê¸°ì¤€ë¸”ë¡
 int trytime = 1;
 int rainbowtime = -1;
 int score;
@@ -29,16 +29,16 @@ int maxbow = -1;
 int yy[4] = { 1,-1,0,0 };
 int xx[4] = { 0,0,1,-1 };
 
-void group(gps st) // ±×·ìÈ­ ÇÏ±â
+void group(gps st) // ê·¸ë£¹í™” í•˜ê¸°
 {
-	gps block = st; //±âÁØºí·Ï
-	vector<gps> thisgroup; // Áö±İ ±×·ìÈ­ µÇ´Â ±×·ì
+	gps block = st; //ê¸°ì¤€ë¸”ë¡
+	vector<gps> thisgroup; // ì§€ê¸ˆ ê·¸ë£¹í™” ë˜ëŠ” ê·¸ë£¹
 	queue<gps> q;
 	q.push(st);
 	thisgroup.push_back(st);
 	visit[st.y][st.x] = trytime; 
-	int color = map[st.y][st.x]; // ±×·ìÈ­ ÇÏ°íÀÚÇÏ´Â »ö
-	int rainbow = 0; // ÀÌ¹ø ±×·ì¿¡ Æ÷ÇÔµÇ´Â ¹«Áö°³ ºí·Ï¼ö
+	int color = map[st.y][st.x]; // ê·¸ë£¹í™” í•˜ê³ ìí•˜ëŠ” ìƒ‰
+	int rainbow = 0; // ì´ë²ˆ ê·¸ë£¹ì— í¬í•¨ë˜ëŠ” ë¬´ì§€ê°œ ë¸”ë¡ìˆ˜
 	while (!q.empty())
 	{
 		gps now = q.front();
@@ -52,33 +52,33 @@ void group(gps st) // ±×·ìÈ­ ÇÏ±â
 			{
 				continue;
 			}
-			if (visit[next.y][next.x] == trytime) // ÀÌ¹ø ½Ãµµ¿¡ ´Ù³à°£°÷Àº Á¦¿Ü
+			if (visit[next.y][next.x] == trytime) // ì´ë²ˆ ì‹œë„ì— ë‹¤ë…€ê°„ê³³ì€ ì œì™¸
 			{
 				continue;
 			}
-			if (map[next.y][next.x] != color && map[next.y][next.x] != 0) // °°Àº ÄÃ·¯ ¶Ç´Â ¹«Áö°³°¡ ¾Æ´Ï¸é Á¦¿Ü
+			if (map[next.y][next.x] != color && map[next.y][next.x] != 0) // ê°™ì€ ì»¬ëŸ¬ ë˜ëŠ” ë¬´ì§€ê°œê°€ ì•„ë‹ˆë©´ ì œì™¸
 			{
 				continue;
 			}
 			if (map[next.y][next.x] == 0)
 			{
-				if (visit[next.y][next.x] == rainbowtime) // ¹«Áö°³Áß ÀÌ¹Ì ÀÌ ±×·ì¿¡ ¼ÓÇÑ ºí·ÏÀº Á¦¿Ü
+				if (visit[next.y][next.x] == rainbowtime) // ë¬´ì§€ê°œì¤‘ ì´ë¯¸ ì´ ê·¸ë£¹ì— ì†í•œ ë¸”ë¡ì€ ì œì™¸
 				{
 					continue;
 				}
 				rainbow++;
-				visit[next.y][next.x] = rainbowtime; // Ã³À½ ÀÌ ±×·ì¿¡ Æ÷ÇÔµÇ´Â ¹«Áö°³ ºí·Ï
+				visit[next.y][next.x] = rainbowtime; // ì²˜ìŒ ì´ ê·¸ë£¹ì— í¬í•¨ë˜ëŠ” ë¬´ì§€ê°œ ë¸”ë¡
 			}
 			else
 			{
-				visit[next.y][next.x] = trytime; // °°Àº ÄÃ·¯ÀÇ ºí·Ï
+				visit[next.y][next.x] = trytime; // ê°™ì€ ì»¬ëŸ¬ì˜ ë¸”ë¡
 			}
 			thisgroup.push_back(next);
 			q.push(next);
 		}
 	}
-	rainbowtime--; // ´ÙÀ½ ±×·ìÈ­¿¡¼­ ÀÌ¹ø±×·ìÈ­¿¡ ½è´ø ¹«Áö°³ºí·ÏÀ» »ç¿ëÇÒ¼ö ÀÖµµ·Ï
-	if (thisgroup.size() > capgroup.size()) // ÀÌ ±×·ìÀÌ Áö±İ±îÁöÀÇ ±×·ìÁß¿¡ °¡Àå Å«°æ¿ì
+	rainbowtime--; // ë‹¤ìŒ ê·¸ë£¹í™”ì—ì„œ ì´ë²ˆê·¸ë£¹í™”ì— ì¼ë˜ ë¬´ì§€ê°œë¸”ë¡ì„ ì‚¬ìš©í• ìˆ˜ ìˆë„ë¡
+	if (thisgroup.size() > capgroup.size()) // ì´ ê·¸ë£¹ì´ ì§€ê¸ˆê¹Œì§€ì˜ ê·¸ë£¹ì¤‘ì— ê°€ì¥ í°ê²½ìš°
 	{
 		capgroup.clear();
 		capgroup = thisgroup;
@@ -87,14 +87,14 @@ void group(gps st) // ±×·ìÈ­ ÇÏ±â
 	}
 	else if (thisgroup.size() == capgroup.size())
 	{
-		if (maxbow < rainbow) // ±×·ì »çÀÌÁî´Â °°Áö¸¸ ¹«Áö°³°¡ ¸¹Àº°æ¿ì
+		if (maxbow < rainbow) // ê·¸ë£¹ ì‚¬ì´ì¦ˆëŠ” ê°™ì§€ë§Œ ë¬´ì§€ê°œê°€ ë§ì€ê²½ìš°
 		{
 			capgroup.clear();
 			capgroup = thisgroup;
 			cap = block;
 			maxbow = rainbow;
 		}
-		else if (maxbow == rainbow) // ±×·ì,¹«Áö°³ °°Àº °æ¿ì ±âÁØºí·Ï ºñ±³
+		else if (maxbow == rainbow) // ê·¸ë£¹,ë¬´ì§€ê°œ ê°™ì€ ê²½ìš° ê¸°ì¤€ë¸”ë¡ ë¹„êµ
 		{
 			if (cap.y < block.y)
 			{
@@ -117,7 +117,7 @@ void group(gps st) // ±×·ìÈ­ ÇÏ±â
 	}
 }
 
-void fall(gps st) // Áß·ÂÆÄÆ®
+void fall(gps st) // ì¤‘ë ¥íŒŒíŠ¸
 {
 	int color = map[st.y][st.x];
 	map[st.y][st.x] = 6;
@@ -129,7 +129,7 @@ void fall(gps st) // Áß·ÂÆÄÆ®
 	map[yyy - 1][st.x] = color;
 }
 
-void turn() // È¸ÀüÆÄÆ®
+void turn() // íšŒì „íŒŒíŠ¸
 {
 	int turnmap[20][20];
 	for (int i = 0; i < n; i++)
@@ -168,7 +168,7 @@ int main()
 		{
 			for (int j = 0; j < n; j++)
 			{
-				if (visit[i][j] == trytime) // ±×·ìÈ­µÈ ºí·ÏÀº ¹«½Ã
+				if (visit[i][j] == trytime) // ê·¸ë£¹í™”ëœ ë¸”ë¡ì€ ë¬´ì‹œ
 				{
 					continue;
 				}
@@ -179,21 +179,21 @@ int main()
 				group({ i,j });
 			}
 		}
-		trytime++; // ¸Ê ÀüÃ¼ ±×·ìÈ­°¡ ³¡³ª¸é ´ÙÀ½ Å¸ÀÓ¶§ vistÀ» ÃÊ±âÈ­ ÇÏÁö ¾Ê°í »ç¿ëÇÏ±â À§ÇØ
+		trytime++; // ë§µ ì „ì²´ ê·¸ë£¹í™”ê°€ ëë‚˜ë©´ ë‹¤ìŒ íƒ€ì„ë•Œ vistì„ ì´ˆê¸°í™” í•˜ì§€ ì•Šê³  ì‚¬ìš©í•˜ê¸° ìœ„í•´
 		if (capgroup.size() < 2)
 		{
-			break; // °¡Àå Å« ±×·ìÀÌ 2º¸´Ù ÀÛ´Ù¸é ¿ÀÅäÇÃ·¹ÀÌ Á¾·á
+			break; // ê°€ì¥ í° ê·¸ë£¹ì´ 2ë³´ë‹¤ ì‘ë‹¤ë©´ ì˜¤í† í”Œë ˆì´ ì¢…ë£Œ
 		}
 		score += pow(capgroup.size(), 2);
 		for (int i = 0; i < capgroup.size(); i++)
 		{
 			gps b = capgroup[i];
-			map[b.y][b.x] = 6; // ¼±ÅÃµÈ ºí·ÏÀ» ¸ğµÎ Á¦°Å (=6)
+			map[b.y][b.x] = 6; // ì„ íƒëœ ë¸”ë¡ì„ ëª¨ë‘ ì œê±° (=6)
 		}
-		capgroup.clear(); // ÃÊ±âÈ­
+		capgroup.clear(); // ì´ˆê¸°í™”
 		cap = { -1,-1 };
 		maxbow = -1;
-		for (int i = n - 2; i >= 0; i--) // Áß·ÂÀº ¹Ø¿¡¼­ºÎÅÍ ÀÛ¿ëÇÏ°í ¸Ç¹ØÁÙÀº ½ÃÇàÇÒ ÇÊ¿ä°¡ ¾ø´Ù
+		for (int i = n - 2; i >= 0; i--) // ì¤‘ë ¥ì€ ë°‘ì—ì„œë¶€í„° ì‘ìš©í•˜ê³  ë§¨ë°‘ì¤„ì€ ì‹œí–‰í•  í•„ìš”ê°€ ì—†ë‹¤
 		{
 			for (int j = 0; j < n; j++)
 			{
