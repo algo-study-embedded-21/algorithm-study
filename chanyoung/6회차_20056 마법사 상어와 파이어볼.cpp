@@ -7,9 +7,9 @@
 #include<unordered_map>
 #include<cmath>
 
-// 1:13 ¿¹Á¦ ÀÏºÎ ¸ÂÃã
-// 2:01 ¿¹Á¦ 1,2,3 ¸ÂÃã
-// 2:15 Á¤´ä
+// 1:13 ì˜ˆì œ ì¼ë¶€ ë§ì¶¤
+// 2:01 ì˜ˆì œ 1,2,3 ë§ì¶¤
+// 2:15 ì •ë‹µ
 
 
 using namespace std;
@@ -18,7 +18,7 @@ struct fire {
 	int m;
 	int s;
 	int d;
-	int t; // ÇØ´çÀ§Ä¡¿¡ ÆÄÀÌ¾îº¼ °¹¼ö 
+	int t; // í•´ë‹¹ìœ„ì¹˜ì— íŒŒì´ì–´ë³¼ ê°¯ìˆ˜ 
 };
 
 struct gps {
@@ -36,24 +36,24 @@ struct allfire {
 
 int n, m, k;
 fire map[50][50];
-vector<gps> fireball; // ½ÇÁ¦ ÆÄÀÌ¾îº¼
-vector<allfire> movefire; // ÀÌµ¿ÇÒ ÆÄÀÌ¾îº¼ Á¤º¸(ÀÌµ¿Àü)
+vector<gps> fireball; // ì‹¤ì œ íŒŒì´ì–´ë³¼
+vector<allfire> movefire; // ì´ë™í•  íŒŒì´ì–´ë³¼ ì •ë³´(ì´ë™ì „)
 
 int yy[8] = { -1,-1,0,1,1,1,0,-1 };
 int xx[8] = { 0,1,1,1,0,-1,-1,-1 };
 
-void move() // ÀÌµ¿
+void move() // ì´ë™
 {
 	fireball.clear();
 	for (int i = 0; i < movefire.size(); i++)
 	{
 		allfire now = movefire[i];
-		if (map[now.r][now.c].m == 0) { // ¸Ê¿¡ ºÒÀÌ ¾ø´Â °æ¿ì Ã¹ºÒ
+		if (map[now.r][now.c].m == 0) { // ë§µì— ë¶ˆì´ ì—†ëŠ” ê²½ìš° ì²«ë¶ˆ
 			map[now.r][now.c].d = now.d;
 			fireball.push_back({ now.r,now.c });
 		}
 		else {
-			if (map[now.r][now.c].d != -1) // ¹æÇâÀÇ È¦Â¦ÀÌ ´Ù¸¥ºÒµéÀÌ ÇÕÃÄÁ³´Ù¸é ¹æÇâÀ» -1·Î Ç¥½Ã
+			if (map[now.r][now.c].d != -1) // ë°©í–¥ì˜ í™€ì§ì´ ë‹¤ë¥¸ë¶ˆë“¤ì´ í•©ì³ì¡Œë‹¤ë©´ ë°©í–¥ì„ -1ë¡œ í‘œì‹œ
 			{
 				if (map[now.r][now.c].d % 2 != now.d % 2)
 				{
@@ -63,11 +63,11 @@ void move() // ÀÌµ¿
 		}
 		map[now.r][now.c].m += now.m;
 		map[now.r][now.c].s += now.s;
-		map[now.r][now.c].t += 1; // ±× À§Ä¡¿¡ ÆÄÀÌ¾îº¼ °¹¼ö ´©Àû
+		map[now.r][now.c].t += 1; // ê·¸ ìœ„ì¹˜ì— íŒŒì´ì–´ë³¼ ê°¯ìˆ˜ ëˆ„ì 
 	}
 }
 
-void div() // ³ª´²Áü°ú µ¿½Ã¿¡ ¾îµğ·Î ÀÌµ¿ÇÏ´ÂÁö ÆÄ¾Ç(ÀÌµ¿ ÁØºñ)
+void div() // ë‚˜ëˆ ì§ê³¼ ë™ì‹œì— ì–´ë””ë¡œ ì´ë™í•˜ëŠ”ì§€ íŒŒì•…(ì´ë™ ì¤€ë¹„)
 {
 	movefire.clear();
 	for (int i = 0; i < fireball.size(); i++)
@@ -76,35 +76,35 @@ void div() // ³ª´²Áü°ú µ¿½Ã¿¡ ¾îµğ·Î ÀÌµ¿ÇÏ´ÂÁö ÆÄ¾Ç(ÀÌµ¿ ÁØºñ)
 		fire now = map[st.y][st.x];
 		map[st.y][st.x] = { 0,0,0,0 };
 		gps next;
-		if (now.t == 1) // ÆÄÀÌ¾îº¼ÀÌ ÇÑ°³¶ó¸é ³ª´²ÁöÁö ¾Ê´Â´Ù
+		if (now.t == 1) // íŒŒì´ì–´ë³¼ì´ í•œê°œë¼ë©´ ë‚˜ëˆ ì§€ì§€ ì•ŠëŠ”ë‹¤
 		{
 			next.y = st.y + yy[now.d] * now.s;
 			next.x = st.x + xx[now.d] * now.s;
-			next.y = ((next.y % n) + n) % n; //À½¼ö±îÁö Ä¿¹ö
+			next.y = ((next.y % n) + n) % n; //ìŒìˆ˜ê¹Œì§€ ì»¤ë²„
 			next.x = ((next.x % n) + n) % n;
 			movefire.push_back({ next.y,next.x,now.m ,now.s,now.d });
 			continue;
 		}
-		if (now.m / 5 == 0) // ÇÕÃÄÁø ÆÄÀÌ¾îº¼ÀÌ ³ª´²Áø Áú·®ÀÌ 0ÀÌ¶ó¸é ¼Ò¸ê
+		if (now.m / 5 == 0) // í•©ì³ì§„ íŒŒì´ì–´ë³¼ì´ ë‚˜ëˆ ì§„ ì§ˆëŸ‰ì´ 0ì´ë¼ë©´ ì†Œë©¸
 		{
 			continue;
 		}
-		if (now.d == -1) // ÇÕÃÄÁø ÆÄÀÌ¾îº¼µé ¹æÇâÀÇ Â¦/È¦ÀÌ ´Ù¸¥°æ¿ì
+		if (now.d == -1) // í•©ì³ì§„ íŒŒì´ì–´ë³¼ë“¤ ë°©í–¥ì˜ ì§/í™€ì´ ë‹¤ë¥¸ê²½ìš°
 		{
 			for (int j = 1; j < 8; j += 2) {
-				next.y = st.y + yy[j] * now.s / now.t; // °¹¼ö¸¸Å­ ³ª´®
+				next.y = st.y + yy[j] * now.s / now.t; // ê°¯ìˆ˜ë§Œí¼ ë‚˜ëˆ”
 				next.x = st.x + xx[j] * now.s / now.t;
-				next.y = ((next.y % n) + n) % n; //À½¼ö±îÁö Ä¿¹ö
+				next.y = ((next.y % n) + n) % n; //ìŒìˆ˜ê¹Œì§€ ì»¤ë²„
 				next.x = ((next.x % n) + n) % n;
 				movefire.push_back({ next.y,next.x,now.m / 5,now.s / now.t,j });
 			}
 		}
-		else // ÇÕÃÄÁø ÆÄÀÌ¾îº¼µéÀÇ ¹æÇâÀÌ ¸ğµÎ Â¦or ¸ğµÎ È¦ÀÎ °æ¿ì
+		else // í•©ì³ì§„ íŒŒì´ì–´ë³¼ë“¤ì˜ ë°©í–¥ì´ ëª¨ë‘ ì§or ëª¨ë‘ í™€ì¸ ê²½ìš°
 		{
 			for (int j = 0; j < 8; j += 2) {
 				next.y = st.y + yy[j] * now.s / now.t;
 				next.x = st.x + xx[j] * now.s / now.t;
-				next.y = ((next.y % n) + n) % n; //À½¼ö±îÁö Ä¿¹ö
+				next.y = ((next.y % n) + n) % n; //ìŒìˆ˜ê¹Œì§€ ì»¤ë²„
 				next.x = ((next.x % n) + n) % n;
 				movefire.push_back({ next.y,next.x,now.m / 5,now.s / now.t,j });
 			}
@@ -112,7 +112,7 @@ void div() // ³ª´²Áü°ú µ¿½Ã¿¡ ¾îµğ·Î ÀÌµ¿ÇÏ´ÂÁö ÆÄ¾Ç(ÀÌµ¿ ÁØºñ)
 	}
 }
 
-int main() // °úÁ¤ : ÀÌµ¿ÁØºñ > ÀÌµ¿ ÈÄ ÀÌµ¿ÁØºñ > ÀÌµ¿ ÈÄ ÀÌµ¿ÁØºñ > ¹İº¹
+int main() // ê³¼ì • : ì´ë™ì¤€ë¹„ > ì´ë™ í›„ ì´ë™ì¤€ë¹„ > ì´ë™ í›„ ì´ë™ì¤€ë¹„ > ë°˜ë³µ
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie();
@@ -127,7 +127,7 @@ int main() // °úÁ¤ : ÀÌµ¿ÁØºñ > ÀÌµ¿ ÈÄ ÀÌµ¿ÁØºñ > ÀÌµ¿ ÈÄ ÀÌµ¿ÁØºñ > ¹İº¹
 		map[r - 1][c - 1] = { mm,s,d,1 };
 		fireball.push_back({ r - 1,c - 1 });
 	}
-	div(); // ÃÖÃÊ 1¹ø ÀÌµ¿ÁØºñ 
+	div(); // ìµœì´ˆ 1ë²ˆ ì´ë™ì¤€ë¹„ 
 	for (int i = 0; i < k; i++)
 	{
 		move();
