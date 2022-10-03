@@ -17,14 +17,14 @@ struct gps
 
 int r, c, t;
 int map[50][50];
-vector<gps> air; // °ø±âÃ»Á¤±âÀÇ À§Ä¡
-queue<gps> dust; // ¸ÕÁöµéÀÇ À§Ä¡
+vector<gps> air; // ê³µê¸°ì²­ì •ê¸°ì˜ ìœ„ì¹˜
+queue<gps> dust; // ë¨¼ì§€ë“¤ì˜ ìœ„ì¹˜
 
 int yy[4] = { 1,-1,0,0 };
 int xx[4] = { 0,0,1,-1 };
 
 void aircondition()
-{  // °ø±âÃ»Á¤±â »óºÎ ¼øÈ¯
+{  // ê³µê¸°ì²­ì •ê¸° ìƒë¶€ ìˆœí™˜
 	for (int i = air[0].y - 1; i > 0; i--)
 	{
 		map[i][0] = map[i - 1][0];
@@ -58,7 +58,7 @@ void aircondition()
 		}
 	}
 	map[air[0].y][1] = 0;
-	// °ø±âÃ»Á¤±â ÇÏºÎ ¼øÈ¯
+	// ê³µê¸°ì²­ì •ê¸° í•˜ë¶€ ìˆœí™˜
 	for (int i = air[1].y + 1; i < r - 1; i++)
 	{
 		map[i][0] = map[i + 1][0];
@@ -96,30 +96,30 @@ void aircondition()
 
 void wind()
 {
-	int dustmap[50][50] ={0}; // È®»êµÇ´Â ¸ÕÁöµéÀ» ±â·ÏÇÒ ¸Ê (È®»êÀº µ¿½Ã¿¡ ÀÏ¾î³²À¸·Î ¿µÇâÀ» ÁÖÁö ¾Ê±â À§ÇØ)
+	int dustmap[50][50] ={0}; // í™•ì‚°ë˜ëŠ” ë¨¼ì§€ë“¤ì„ ê¸°ë¡í•  ë§µ (í™•ì‚°ì€ ë™ì‹œì— ì¼ì–´ë‚¨ìœ¼ë¡œ ì˜í–¥ì„ ì£¼ì§€ ì•Šê¸° ìœ„í•´)
 	int visit[50][50] = { 0 };
-	int manydust = dust.size(); // Å¥¿¡ º¯µ¿ÀÌ ÀÖ±âÀü Å©±â¸¸Å­¸¸ ¹İº¹ÇÏ±â À§ÇÔ 
-	queue<gps> plusdust; // ¸ÕÁö°¡ È®»êµÈ °÷µéÀÇ À§Ä¡
+	int manydust = dust.size(); // íì— ë³€ë™ì´ ìˆê¸°ì „ í¬ê¸°ë§Œí¼ë§Œ ë°˜ë³µí•˜ê¸° ìœ„í•¨ 
+	queue<gps> plusdust; // ë¨¼ì§€ê°€ í™•ì‚°ëœ ê³³ë“¤ì˜ ìœ„ì¹˜
 	for (int k = 0; k < manydust; k++)
 	{
 		gps now = dust.front();
 		dust.pop();
-		if (map[now.y][now.x] == 0) // ¸ÕÁö°¡ ¾ø´Â°÷Àº Á¦¿Ü
+		if (map[now.y][now.x] == 0) // ë¨¼ì§€ê°€ ì—†ëŠ”ê³³ì€ ì œì™¸
 		{
 			continue;
 		}
-		if (visit[now.y][now.x] > 0) // ÀÌ¹Ì È®»êÀ» ½ÃµµÇÑ °÷Àº Á¦¿Ü
+		if (visit[now.y][now.x] > 0) // ì´ë¯¸ í™•ì‚°ì„ ì‹œë„í•œ ê³³ì€ ì œì™¸
 		{
 			continue;
 		}
 		dust.push(now);
 		visit[now.y][now.x] = 1;
-		int minidust = map[now.y][now.x] / 5; // È®»êµÉ ¸ÕÁöÀÇ ¾ç
+		int minidust = map[now.y][now.x] / 5; // í™•ì‚°ë  ë¨¼ì§€ì˜ ì–‘
 		if (minidust == 0)
 		{
-			continue; // È®»êÇÒ ¸ÕÁöÅ©±â°¡ 0ÀÌ¸é Á¦¿Ü
+			continue; // í™•ì‚°í•  ë¨¼ì§€í¬ê¸°ê°€ 0ì´ë©´ ì œì™¸
 		}
-		int cnt = 0; // ¸î °÷ÀÌ³ª È®»êµÇ¾ú´ÂÁö Ä«¿îÆÃ
+		int cnt = 0; // ëª‡ ê³³ì´ë‚˜ í™•ì‚°ë˜ì—ˆëŠ”ì§€ ì¹´ìš´íŒ…
 		for (int i = 0; i < 4; i++)
 		{
 			gps next;
@@ -129,18 +129,18 @@ void wind()
 			{
 				continue;
 			}
-			if (map[next.y][next.x] == -1) // °ø±âÃ»Á¤·Î´Â È®»ê X
+			if (map[next.y][next.x] == -1) // ê³µê¸°ì²­ì •ë¡œëŠ” í™•ì‚° X
 			{
 				continue;
 			}
 			cnt++;
-			if (dustmap[next.y][next.x] == 0) // È®»êµÈÀû ¾ø´Â°÷ÀÌ¸é À§Ä¡ ÀúÀå(Áßº¹¹æÁö)
+			if (dustmap[next.y][next.x] == 0) // í™•ì‚°ëœì  ì—†ëŠ”ê³³ì´ë©´ ìœ„ì¹˜ ì €ì¥(ì¤‘ë³µë°©ì§€)
 			{
 				plusdust.push(next);
 			}
 			dustmap[next.y][next.x] += minidust;
 		}
-		map[now.y][now.x] -= minidust * cnt; // now·Î ºÎÅÍ È®»êÀÌ ³¡³ª¸é È®»êµÈ ¸ÕÁö¸¸Å­ Â÷°¨
+		map[now.y][now.x] -= minidust * cnt; // nowë¡œ ë¶€í„° í™•ì‚°ì´ ëë‚˜ë©´ í™•ì‚°ëœ ë¨¼ì§€ë§Œí¼ ì°¨ê°
 	}
 	manydust = plusdust.size(); 
 	for (int i = 0; i < manydust; i++)
@@ -149,11 +149,11 @@ void wind()
 		plusdust.pop();
 		if (map[now.y][now.x] == 0)
 		{
-			dust.push(now); // ¸ÕÁö°¡ ¾ø´ø À§Ä¡¶ó¸é °»½Å
+			dust.push(now); // ë¨¼ì§€ê°€ ì—†ë˜ ìœ„ì¹˜ë¼ë©´ ê°±ì‹ 
 		}
-		map[now.y][now.x] += dustmap[now.y][now.x]; // º» ¸Ê¿¡ È®»êµÈ ¸ÕÁö Ãß°¡
+		map[now.y][now.x] += dustmap[now.y][now.x]; // ë³¸ ë§µì— í™•ì‚°ëœ ë¨¼ì§€ ì¶”ê°€
 	}
-	aircondition(); // °ø±âÃ»Á¤±â °¡µ¿
+	aircondition(); // ê³µê¸°ì²­ì •ê¸° ê°€ë™
 }
 
 int main()
@@ -181,11 +181,11 @@ int main()
 			}
 		}
 	}
-	for (int i = 0; i < t; i++) // tÃÊµ¿¾È ¹İº¹
+	for (int i = 0; i < t; i++) // tì´ˆë™ì•ˆ ë°˜ë³µ
 	{
 		wind();
 	}
-	int totaldust = 0; // ÃÑ ¸ÕÁöÀÇ ¾ç
+	int totaldust = 0; // ì´ ë¨¼ì§€ì˜ ì–‘
 	for (int i = 0; i < r; i++)
 	{
 		for (int j = 0; j < c; j++)
