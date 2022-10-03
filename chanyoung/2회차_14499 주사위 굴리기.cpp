@@ -6,29 +6,29 @@
 
 using namespace std;
 
-struct gps {  // ÁÂÇ¥ ±¸Á¶Ã¼
+struct gps {  // ì¢Œí‘œ êµ¬ì¡°ì²´
 	int y;
 	int x;
 };
 
 int n, m, x, y, k;
-int map[20][20]; // ¸Ê
-int dice[6]; // ÁÖ»çÀ§ Àü°³µµ ÀúÀå ¹è¿­
+int map[20][20]; // ë§µ
+int dice[6]; // ì£¼ì‚¬ìœ„ ì „ê°œë„ ì €ìž¥ ë°°ì—´
 /*0
-1 2 3    5°¡ ¹Ù´Ú¸é 2°¡ À­¸é
+1 2 3    5ê°€ ë°”ë‹¥ë©´ 2ê°€ ìœ—ë©´
   4
   5*/
-int save; // ÁÖ»çÀ§°ª ±³Ã¼¸¦ À§ÇÑ ÀúÀåº¯¼ö
-vector<int> go; // ¸í·É ÀúÀå º¤ÅÍ
+int save; // ì£¼ì‚¬ìœ„ê°’ êµì²´ë¥¼ ìœ„í•œ ì €ìž¥ë³€ìˆ˜
+vector<int> go; // ëª…ë ¹ ì €ìž¥ ë²¡í„°
 
-void change(gps now) // µµÂøÇÑ ¸ÊÀÇ ¼ýÀÚ¿¡ µû¸¥ ÁÖ»çÀ§ ¹Ø¸é ¼ýÀÚ ¹Ù²Þ ÇÔ¼ö
+void change(gps now) // ë„ì°©í•œ ë§µì˜ ìˆ«ìžì— ë”°ë¥¸ ì£¼ì‚¬ìœ„ ë°‘ë©´ ìˆ«ìž ë°”ê¿ˆ í•¨ìˆ˜
 {
 	if (map[now.y][now.x] == 0)
-	{ // ¸ÊÀÌ 0ÀÌ¸é ÁÖ»çÀ§ ¹Ø¸é ¼ýÀÚ¸¦ º¹»çÇØ¿Â´Ù
+	{ // ë§µì´ 0ì´ë©´ ì£¼ì‚¬ìœ„ ë°‘ë©´ ìˆ«ìžë¥¼ ë³µì‚¬í•´ì˜¨ë‹¤
 		map[now.y][now.x] = dice[5];
 	}
 	else
-	{ // ¸ÊÀÌ 0ÀÌ ¾Æ´Ï¸é ±× ¼ýÀÚ¸¦ ÁÖ»çÀ§ ¹Ø¸é¿¡ º¹»çÇÏ°í ¸ÊÀ» 0À¸·Î ¸¸µç´Ù
+	{ // ë§µì´ 0ì´ ì•„ë‹ˆë©´ ê·¸ ìˆ«ìžë¥¼ ì£¼ì‚¬ìœ„ ë°‘ë©´ì— ë³µì‚¬í•˜ê³  ë§µì„ 0ìœ¼ë¡œ ë§Œë“ ë‹¤
 		dice[5] = map[now.y][now.x];
 		map[now.y][now.x] = 0;
 	}
@@ -39,17 +39,17 @@ void roll(gps start)
 	queue<gps> q;
 	q.push(start);
 	/*change(start);*/
-	for (int i = 0; i < k; i++) // ¸í·É¼ö ¸¸Å­ ¹Ýº¹
+	for (int i = 0; i < k; i++) // ëª…ë ¹ìˆ˜ ë§Œí¼ ë°˜ë³µ
 	{
 		gps now = q.front();
 		q.pop();
 		gps next;
-		if (go[i] == 1) // ¸í·ÉÀÌ 1 >> µ¿ÂÊÀ¸·Î ±¼¸²
+		if (go[i] == 1) // ëª…ë ¹ì´ 1 >> ë™ìª½ìœ¼ë¡œ êµ´ë¦¼
 		{
 			next.y = now.y;
 			next.x = now.x + 1;
 			if (next.y<0 || next.y>n - 1 || next.x<0 || next.x>m - 1)
-			{ // ¸ÊÀ» ¹þ¾î³ª´Â °æ¿ì ¹«½ÃÇÏ°í ´Ù½Ã ÇöÀçÀ§Ä¡·Î °»½Å
+			{ // ë§µì„ ë²—ì–´ë‚˜ëŠ” ê²½ìš° ë¬´ì‹œí•˜ê³  ë‹¤ì‹œ í˜„ìž¬ìœ„ì¹˜ë¡œ ê°±ì‹ 
 				q.push(now);
 				continue;
 			}
@@ -58,12 +58,12 @@ void roll(gps start)
 			dice[1] = dice[5];
 			dice[5] = dice[3];
 			dice[3] = save;
-			change(next); // µµÂøÇÑ Ä­¿¡¼­ ÁÖ»çÀ§ ¹Ø¸é ¹Ù²Þ
-			q.push(next); // ÇöÀç À§Ä¡ °»½Å
-			cout << dice[2] << "\n"; // À­¸é Ãâ·Â
+			change(next); // ë„ì°©í•œ ì¹¸ì—ì„œ ì£¼ì‚¬ìœ„ ë°‘ë©´ ë°”ê¿ˆ
+			q.push(next); // í˜„ìž¬ ìœ„ì¹˜ ê°±ì‹ 
+			cout << dice[2] << "\n"; // ìœ—ë©´ ì¶œë ¥
 
 		}
-		else if (go[i] == 2) // ¸í·ÉÀÌ 2 >> ¼­ÂÊÀ¸·Î ±¼¸²
+		else if (go[i] == 2) // ëª…ë ¹ì´ 2 >> ì„œìª½ìœ¼ë¡œ êµ´ë¦¼
 		{
 			next.y = now.y;
 			next.x = now.x - 1;
@@ -82,7 +82,7 @@ void roll(gps start)
 			cout << dice[2] << "\n";
 
 		}
-		else if (go[i] == 3) // ¸í·ÉÀÌ 3 >> ºÏÂÊÀ¸·Î ±¼¸²
+		else if (go[i] == 3) // ëª…ë ¹ì´ 3 >> ë¶ìª½ìœ¼ë¡œ êµ´ë¦¼
 		{
 			next.y = now.y - 1;
 			next.x = now.x;
@@ -101,7 +101,7 @@ void roll(gps start)
 			cout << dice[2] << "\n";
 
 		}
-		else if (go[i] == 4) // ¸í·ÉÀÌ 4 >> ³²ÂÊÀ¸·Î ±¼¸²
+		else if (go[i] == 4) // ëª…ë ¹ì´ 4 >> ë‚¨ìª½ìœ¼ë¡œ êµ´ë¦¼
 		{
 			next.y = now.y + 1;
 			next.x = now.x;
