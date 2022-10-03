@@ -1,4 +1,4 @@
-// 2½Ã°£ 10ºĞ
+// 2ì‹œê°„ 10ë¶„
 
 #include<iostream>
 #include<string>
@@ -19,28 +19,28 @@ struct gps
 
 int n;
 int map[21][21];
-int group[5]; // °¢ ¼±°Å±¸ÀÇ ÀÎ±¸ÇÕ
-int maxvote = -1; // °¡Àå ÀÎ±¸°¡ ¸¹Àº ¼±°Å±¸
-int minvote = 2134567890; // °¡Àå ÀÎ±¸°¡ ÀûÀº ¼±°Å±¸
-int ans = 2134567890; // Ãâ·Â°ª
+int group[5]; // ê° ì„ ê±°êµ¬ì˜ ì¸êµ¬í•©
+int maxvote = -1; // ê°€ì¥ ì¸êµ¬ê°€ ë§ì€ ì„ ê±°êµ¬
+int minvote = 2134567890; // ê°€ì¥ ì¸êµ¬ê°€ ì ì€ ì„ ê±°êµ¬
+int ans = 2134567890; // ì¶œë ¥ê°’
 
 void vote(gps st, int dl , int dr)
 {
 	if (st.y + dl + dr > n)
 	{
-		return; // ¾Æ·¡·Î ÀÎµ¦½º ³Ñ¾î°¨
+		return; // ì•„ë˜ë¡œ ì¸ë±ìŠ¤ ë„˜ì–´ê°
 	}
 	if (st.x - dl <1)
 	{
-		return; // ¿ŞÂÊÀ¸·Î ÀÎµ¦½º ³Ñ¾î°¨
+		return; // ì™¼ìª½ìœ¼ë¡œ ì¸ë±ìŠ¤ ë„˜ì–´ê°
 	}
 	if (st.x + dr > n)
 	{
-		return; // ¿À¸¥ÂÊÀ¸·Î ÀÎµ¦½º ³Ñ¾î°¨
+		return; // ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì¸ë±ìŠ¤ ë„˜ì–´ê°
 	}
 	int left=0;
 	int right=1;
-	for (int i = 1; i < st.y; i++) // ´ÙÀÌ¾Æ¸ó À§ºÎºĞ
+	for (int i = 1; i < st.y; i++) // ë‹¤ì´ì•„ëª¬ ìœ„ë¶€ë¶„
 	{
 		for (int j = 1; j <= st.x; j++)
 		{
@@ -55,7 +55,7 @@ void vote(gps st, int dl , int dr)
 	{
 		for (int j = 0; j < st.x - left; j++)
 		{
-			group[0] += map[i][j]; // ´ÙÀÌ¾Æ ¿ŞÂÊ À§ ºÎºĞ
+			group[0] += map[i][j]; // ë‹¤ì´ì•„ ì™¼ìª½ ìœ„ ë¶€ë¶„
 		}
 		left++;
 	}
@@ -63,7 +63,7 @@ void vote(gps st, int dl , int dr)
 	{
 		for (int j = st.x + right; j <= n; j++)
 		{
-			group[1] += map[i][j]; // ´ÙÀÌ¾Æ ¿À¸¥ÂÊ À§ºÎºĞ
+			group[1] += map[i][j]; // ë‹¤ì´ì•„ ì˜¤ë¥¸ìª½ ìœ„ë¶€ë¶„
 		}
 		right++;
 	}
@@ -72,7 +72,7 @@ void vote(gps st, int dl , int dr)
 	{
 		for (int j = 1; j < st.x - dl + left; j++)
 		{
-			group[2] += map[i][j]; // ´ÙÀÌ¾Æ ¿ŞÂÊ ¾Æ·¡ ºÎºĞ
+			group[2] += map[i][j]; // ë‹¤ì´ì•„ ì™¼ìª½ ì•„ë˜ ë¶€ë¶„
 		}
 		left++;
 	}
@@ -81,11 +81,11 @@ void vote(gps st, int dl , int dr)
 	{
 		for (int j = st.x + dr - right; j <= n; j++)
 		{
-			group[3] += map[i][j]; // ´ÙÀÌ¾Æ ¿À¸¥ÂÊ ¾Æ·¡ºÎºĞ
+			group[3] += map[i][j]; // ë‹¤ì´ì•„ ì˜¤ë¥¸ìª½ ì•„ë˜ë¶€ë¶„
 		}
 		right++;
 	}
-	for (int i = st.y + dr + dl + 1; i <= n; i++) // ´ÙÀÌ¾Æ ¾Æ·¡ºÎºĞ
+	for (int i = st.y + dr + dl + 1; i <= n; i++) // ë‹¤ì´ì•„ ì•„ë˜ë¶€ë¶„
 	{
 		for (int j = 1; j < st.x - dl + dr; j++)
 		{
@@ -99,13 +99,13 @@ void vote(gps st, int dl , int dr)
 	left = 0;
 	right = 0;
 	int h = 0;
-	while (h<=dr+dl) // ´ÙÀÌ¾Æ ºÎºĞ
+	while (h<=dr+dl) // ë‹¤ì´ì•„ ë¶€ë¶„
 	{
 		for (int j = st.x - left; j <= st.x + right; j++)
 		{
 			group[4] += map[st.y + h][j];
 		}
-		if (h < dl) // ¿ŞÂÊÀº dlÀ» ±âÁØÀ¸·Î Áõ°¡¿¡¼­ °¨¼Ò·Î º¯È­
+		if (h < dl) // ì™¼ìª½ì€ dlì„ ê¸°ì¤€ìœ¼ë¡œ ì¦ê°€ì—ì„œ ê°ì†Œë¡œ ë³€í™”
 		{
 			left++;
 		}
@@ -113,7 +113,7 @@ void vote(gps st, int dl , int dr)
 		{
 			left--;
 		}
-		if (h < dr) // ¿À¸¥ÂÊÀº drÀ» ±âÁØÀ¸·Î Áõ°¡¿¡¼­ °¨¼Ò·Î º¯È­
+		if (h < dr) // ì˜¤ë¥¸ìª½ì€ drì„ ê¸°ì¤€ìœ¼ë¡œ ì¦ê°€ì—ì„œ ê°ì†Œë¡œ ë³€í™”
 		{
 			right++;
 		}
@@ -123,16 +123,16 @@ void vote(gps st, int dl , int dr)
 		}
 		h++;
 	}
-	for (int i = 0; i < 5; i++) // ¼±°Å±¸ 5°÷¿¡ ´ëÇÏ¿©
+	for (int i = 0; i < 5; i++) // ì„ ê±°êµ¬ 5ê³³ì— ëŒ€í•˜ì—¬
 	{
-		maxvote = max(maxvote, group[i]); // °¡Àå ÀÎ¿øÀÌ ¸¹Àº ¼±°Å±¸
-		minvote = min(minvote, group[i]); // °¡Àå ÀÎ¿øÀÌ ÀûÀº ¼±°Å±¸
-		group[i] = 0; // Å½»öÀ» ¸¶Ä£ ¼±°Å±¸ ÃÊ±âÈ­
+		maxvote = max(maxvote, group[i]); // ê°€ì¥ ì¸ì›ì´ ë§ì€ ì„ ê±°êµ¬
+		minvote = min(minvote, group[i]); // ê°€ì¥ ì¸ì›ì´ ì ì€ ì„ ê±°êµ¬
+		group[i] = 0; // íƒìƒ‰ì„ ë§ˆì¹œ ì„ ê±°êµ¬ ì´ˆê¸°í™”
 	}
-	ans = min(ans, maxvote - minvote); // Â÷ÀÌ°ªÀÌ ÃÖ¼ÒÀÎ °æ¿ì·Î Ãâ·Â °»½Å
+	ans = min(ans, maxvote - minvote); // ì°¨ì´ê°’ì´ ìµœì†Œì¸ ê²½ìš°ë¡œ ì¶œë ¥ ê°±ì‹ 
 	maxvote = -1;
 	minvote = 2134567890;
-	vote(st, dl + 1, dr); // dl °ú dr¿¡ ´ëÇÏ¿© µÎ¹ø¾¿ dfs ÇØÁà¾ßÇÔ
+	vote(st, dl + 1, dr); // dl ê³¼ drì— ëŒ€í•˜ì—¬ ë‘ë²ˆì”© dfs í•´ì¤˜ì•¼í•¨
 	vote(st, dl, dr + 1);
 }
 
@@ -151,10 +151,10 @@ int main()
 		}
 	}
 	for (int i = 1; i <= n - 2; i++) 
-	{ // ±âÁØÁ¡Àº dl°ú dr°ªÀÌ ÃÖ¼Ò°ªÀÎ 1À» ±âÁØÀ¸·Î y´Â n-2 / x´Â 2~n-1 ±îÁö °¡´É
+	{ // ê¸°ì¤€ì ì€ dlê³¼ drê°’ì´ ìµœì†Œê°’ì¸ 1ì„ ê¸°ì¤€ìœ¼ë¡œ yëŠ” n-2 / xëŠ” 2~n-1 ê¹Œì§€ ê°€ëŠ¥
 		for (int j = 2; j <= n - 1; j++)
 		{
-			vote({ i,j },1,1);// ÃÖÃÊÀÇ dl=dr=1
+			vote({ i,j },1,1);// ìµœì´ˆì˜ dl=dr=1
 		}
 	}
 	cout << ans;
