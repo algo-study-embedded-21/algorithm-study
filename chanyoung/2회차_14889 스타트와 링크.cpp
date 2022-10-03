@@ -13,27 +13,27 @@ struct node {
 };
 
 int n;
-int soccer[21][21]; // °ü°èµµ
-int start; // ½ºÅ¸Æ® ÆÀ ´É·ÂÄ¡
-int link; // ¸µÅ© ÆÀ ´É·ÂÄ¡
-int use[21]; // Áßº¹¹æÁö
+int soccer[21][21]; // ê´€ê³„ë„
+int start; // ìŠ¤íƒ€íŠ¸ íŒ€ ëŠ¥ë ¥ì¹˜
+int link; // ë§í¬ íŒ€ ëŠ¥ë ¥ì¹˜
+int use[21]; // ì¤‘ë³µë°©ì§€
 int minvs = 2134567890;
 
 void dfs(int s, int num)
 {
-	if (num == n / 2) // Àı¹İÈ÷ »ÌÇû´Ù¸é °è»ê
+	if (num == n / 2) // ì ˆë°˜íˆ ë½‘í˜”ë‹¤ë©´ ê³„ì‚°
 	{
-		vector<int> vlink; // ¸µÅ© ÆÀ¿ø ¸®½ºÆ®
-		vector<int> vstart; // ½ºÅ¸Æ® ÆÀ¿ø ¸®½ºÆ®
+		vector<int> vlink; // ë§í¬ íŒ€ì› ë¦¬ìŠ¤íŠ¸
+		vector<int> vstart; // ìŠ¤íƒ€íŠ¸ íŒ€ì› ë¦¬ìŠ¤íŠ¸
 		for (int i = 0; i < n; i++)
 		{
 			if (use[i] == 0) 
 			{
-				vlink.push_back(i); // »ÌÈ÷Áö ¾ÊÀº »ç¶÷À» ¸µÅ© ÆÀÀ¸·Î
+				vlink.push_back(i); // ë½‘íˆì§€ ì•Šì€ ì‚¬ëŒì„ ë§í¬ íŒ€ìœ¼ë¡œ
 			}
 			else
 			{
-				vstart.push_back(i); // »ÌÈù »ç¶÷À» ½ºÅ¸Æ® ÆÀÀ¸·Î
+				vstart.push_back(i); // ë½‘íŒ ì‚¬ëŒì„ ìŠ¤íƒ€íŠ¸ íŒ€ìœ¼ë¡œ
 			}
 		}
 		link = 0;
@@ -41,7 +41,7 @@ void dfs(int s, int num)
 		{
 			for (int j = 0; j < vlink.size(); j++)
 			{
-				link = link + soccer[vlink[i]][vlink[j]]; // ¸µÅ©ÆÀ ´É·ÂÄ¡ °è»ê
+				link = link + soccer[vlink[i]][vlink[j]]; // ë§í¬íŒ€ ëŠ¥ë ¥ì¹˜ ê³„ì‚°
 			}
 		}
 		start = 0;
@@ -49,7 +49,7 @@ void dfs(int s, int num)
 		{
 			for (int j = 0; j < vstart.size(); j++)
 			{
-				start = start + soccer[vstart[i]][vstart[j]]; // ½ºÅ¸Æ®ÆÀ ´É·ÂÄ¡ °è»ê
+				start = start + soccer[vstart[i]][vstart[j]]; // ìŠ¤íƒ€íŠ¸íŒ€ ëŠ¥ë ¥ì¹˜ ê³„ì‚°
 			}
 		}
 		int vs = abs(link - start);
@@ -60,7 +60,7 @@ void dfs(int s, int num)
 		return;
 	}
 	for (int i = s; i < n; i++)
-	{   // ½ºÅ¸Æ® ÆÀ¿¡ µé¾î°¥ ÆÀ¿ø »Ì±â
+	{   // ìŠ¤íƒ€íŠ¸ íŒ€ì— ë“¤ì–´ê°ˆ íŒ€ì› ë½‘ê¸°
 		int team = i;
 		if (use[team] == 1)
 		{
