@@ -26,7 +26,7 @@ int xx[4] = { 1,-1,0,0 };
 
 void four(gps st,int level)
 {
-	if (level == 3) // ½ÃÀÛÁÂÇ¥¿Í 3°³¸¦ Ãß°¡·Î °ñ¶ú´Ù = ÃÑ 4°³°¡ ¼±ÅÃµÇ¾ú´Ù
+	if (level == 3) // ì‹œì‘ì¢Œí‘œì™€ 3ê°œë¥¼ ì¶”ê°€ë¡œ ê³¨ëë‹¤ = ì´ 4ê°œê°€ ì„ íƒë˜ì—ˆë‹¤
 	{
 		maxsum = max(maxsum, score);
 		return;
@@ -54,7 +54,7 @@ void four(gps st,int level)
 	}
 }
 
-void ttsum(int level,int st) // T¸ğ¾ç °æ¿ìÀÇ¼ö ±¸ÇÏ±â
+void ttsum(int level,int st) // Tëª¨ì–‘ ê²½ìš°ì˜ìˆ˜ êµ¬í•˜ê¸°
 {
 	if (level == 3)
 	{
@@ -63,7 +63,7 @@ void ttsum(int level,int st) // T¸ğ¾ç °æ¿ìÀÇ¼ö ±¸ÇÏ±â
 	}
 	for (int i = st; i < 4; i++)
 	{
-		gps now = trans[i]; // ÇöÀçÁÂÇ¥¸¦ Áß½ÉÀ¸·Î ÇÏ´Â T¸ğ¾ç ¼±ÅÃ ¹è¿­
+		gps now = trans[i]; // í˜„ì¬ì¢Œí‘œë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ í•˜ëŠ” Tëª¨ì–‘ ì„ íƒ ë°°ì—´
 		if (now.y<0 || now.y>n - 1 || now.x<0 || now.x>m - 1)
 		{
 			continue;
@@ -76,7 +76,7 @@ void ttsum(int level,int st) // T¸ğ¾ç °æ¿ìÀÇ¼ö ±¸ÇÏ±â
 	}
 }
 
-void tt(gps st) // T ¸ğ¾ç ¼±ÅÃ¹è¿­À» ±¸ÇÏ´Â ÇÔ¼ö
+void tt(gps st) // T ëª¨ì–‘ ì„ íƒë°°ì—´ì„ êµ¬í•˜ëŠ” í•¨ìˆ˜
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -111,10 +111,10 @@ int main()
 			score = map[i][j];
 			use[i][j] = 1;
 			path.push_back({ i,j }); 
-			four({ i,j }, 0); // ÇöÀç ÁÂÇ¥¸¦ ±âÁØÀ¸·Î 3°³ ´õ ¼±ÅÃÇÏ±â
+			four({ i,j }, 0); // í˜„ì¬ ì¢Œí‘œë¥¼ ê¸°ì¤€ìœ¼ë¡œ 3ê°œ ë” ì„ íƒí•˜ê¸°
 			path.pop_back(); 
 			use[i][j] = 0;
-			tt({ i,j }); // ÇöÀçÁÂÇ¥¸¦ Áß½ÉÀ¸·ÎÇÏ´Â T¸ğ¾ç °í¸£±â
+			tt({ i,j }); // í˜„ì¬ì¢Œí‘œë¥¼ ì¤‘ì‹¬ìœ¼ë¡œí•˜ëŠ” Tëª¨ì–‘ ê³ ë¥´ê¸°
 		}
 	}
 	cout << maxsum;
