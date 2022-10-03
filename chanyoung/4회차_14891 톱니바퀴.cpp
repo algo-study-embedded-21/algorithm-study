@@ -8,15 +8,15 @@
 
 using namespace std;
 
-int wheel[5][8];  // wheel[¹ÙÄûÀÇ¹øÈ£][Åé´ÏÀÇ¹øÈ£] = ±Ø
+int wheel[5][8];  // wheel[ë°”í€´ì˜ë²ˆí˜¸][í†±ë‹ˆì˜ë²ˆí˜¸] = ê·¹
 int k;
-int turnox[5]; // Åé´Ï¹ÙÄû°¡ µ¹¾Ò´ÂÁö ¿©ºÎ
+int turnox[5]; // í†±ë‹ˆë°”í€´ê°€ ëŒì•˜ëŠ”ì§€ ì—¬ë¶€
 
 void turn(int wheelnum, int direction)
 {
-	turnox[wheelnum] = 1; // Áö±İ ÇØ´ç ¹øÈ£ÀÇ Åé´Ï ¹ÙÄû¸¦ µ¹¸±°ÍÀÌ´Ù
+	turnox[wheelnum] = 1; // ì§€ê¸ˆ í•´ë‹¹ ë²ˆí˜¸ì˜ í†±ë‹ˆ ë°”í€´ë¥¼ ëŒë¦´ê²ƒì´ë‹¤
 	int opo;
-	if (direction == 1) // ¹İ´ë¹æÇâ ÀúÀå
+	if (direction == 1) // ë°˜ëŒ€ë°©í–¥ ì €ì¥
 	{
 		opo = -1;
 	}
@@ -25,14 +25,14 @@ void turn(int wheelnum, int direction)
 		opo = 1;
 	}
 	if (wheelnum < 4 && turnox[wheelnum + 1] == 0 && wheel[wheelnum][2] != wheel[wheelnum + 1][6])
-	{ // µŞ¹øÈ£ Åé´Ï¹ÙÄû¿¡ ¿µÇâÀ» ÁÖ´Â °æ¿ì ÀÌ¸é¼­ µŞ¹øÈ£°¡ ¾ÆÁ÷ µ¹Áö ¾ÊÀº°æ¿ì
+	{ // ë’·ë²ˆí˜¸ í†±ë‹ˆë°”í€´ì— ì˜í–¥ì„ ì£¼ëŠ” ê²½ìš° ì´ë©´ì„œ ë’·ë²ˆí˜¸ê°€ ì•„ì§ ëŒì§€ ì•Šì€ê²½ìš°
 		turn(wheelnum + 1, opo);
 	}
 	if (wheelnum > 1 && turnox[wheelnum - 1] == 0 && wheel[wheelnum - 1][2] != wheel[wheelnum][6])
-	{ // ¾Õ¹øÈ£ Åé´Ï¹ÙÄû¿¡ ¿µÇâÀ» ÁÖ´Â °æ¿ì ÀÌ¸é¼­ ¾Õ¹øÈ£°¡ ¾ÆÁ÷ µ¹Áö ¾ÊÀº°æ¿ì
+	{ // ì•ë²ˆí˜¸ í†±ë‹ˆë°”í€´ì— ì˜í–¥ì„ ì£¼ëŠ” ê²½ìš° ì´ë©´ì„œ ì•ë²ˆí˜¸ê°€ ì•„ì§ ëŒì§€ ì•Šì€ê²½ìš°
 		turn(wheelnum - 1, opo);
 	}
-	if (direction == 1) // ½Ã°è¹æÇâÀ¸·Î µ¹±â
+	if (direction == 1) // ì‹œê³„ë°©í–¥ìœ¼ë¡œ ëŒê¸°
 	{
 		int temp = wheel[wheelnum][7];
 		for (int i = 7; i >=1; i--)
@@ -41,7 +41,7 @@ void turn(int wheelnum, int direction)
 		}
 		wheel[wheelnum][0] = temp;
 	}
-	else // ¹İ½Ã°è¹æÇâÀ¸·Î µ¹±â
+	else // ë°˜ì‹œê³„ë°©í–¥ìœ¼ë¡œ ëŒê¸°
 	{
 		int temp = wheel[wheelnum][0];
 		for (int i = 0; i < 7; i++)
@@ -73,20 +73,20 @@ int main()
 		int wheelnum, direction;
 		cin >> wheelnum >> direction;
 		turn(wheelnum, direction);
-		for (int j = 1; j < 5; j++) // Åé´Ï¹ÙÄû µ¹¾Ò´ÂÁö ¿©ºÎ ÃÊ±âÈ­
+		for (int j = 1; j < 5; j++) // í†±ë‹ˆë°”í€´ ëŒì•˜ëŠ”ì§€ ì—¬ë¶€ ì´ˆê¸°í™”
 		{
 			turnox[j] = 0;
 		}
 	}
-	int score = 1; // Åé´Ï¹ÙÄû ¹øÈ£°¡ 1ÀÏ¶§ 1Á¡
+	int score = 1; // í†±ë‹ˆë°”í€´ ë²ˆí˜¸ê°€ 1ì¼ë•Œ 1ì 
 	int totalscore = 0;
 	for (int i = 1; i < 6; i++)
 	{
-		if (wheel[i][0] == 1) // 12½ÃÀÇ ±Ø¼ºÀÌ  sÀÏ¶§¸¸ Á¡¼ö Ãß°¡
+		if (wheel[i][0] == 1) // 12ì‹œì˜ ê·¹ì„±ì´  sì¼ë•Œë§Œ ì ìˆ˜ ì¶”ê°€
 		{
 			totalscore += score;
 		}
-		score = score * 2; // Åé´Ï¹ÙÄûÀÇ Á¡¼ö = 2^(Åé´Ï¹ÙÄû¹øÈ£-1)
+		score = score * 2; // í†±ë‹ˆë°”í€´ì˜ ì ìˆ˜ = 2^(í†±ë‹ˆë°”í€´ë²ˆí˜¸-1)
 	}
 	cout << totalscore;
 	return 0;
