@@ -17,18 +17,18 @@ int t;
 int tsave;
 int mincost = 2134567890;
 vector<int> use;
-vector<chicken> store;  // Ä¡Å²Áı ÁÂÇ¥ ÀúÀå º¤ÅÍ
-vector<chicken> home;  // Áı ÁÂÇ¥ ÀúÀå º¤ÅÍ
-vector<chicken> storecheck; // ¼±ÅÃµÈ Ä¡Å²Áı ÁÂÇ¥ ÀúÀåº¤ÅÍ
+vector<chicken> store;  // ì¹˜í‚¨ì§‘ ì¢Œí‘œ ì €ì¥ ë²¡í„°
+vector<chicken> home;  // ì§‘ ì¢Œí‘œ ì €ì¥ ë²¡í„°
+vector<chicken> storecheck; // ì„ íƒëœ ì¹˜í‚¨ì§‘ ì¢Œí‘œ ì €ì¥ë²¡í„°
 
 void bfs(chicken house)
 {
 	int mindist = 2134567890;
 	int dist = 0;
-	for (int j = 0; j < storecheck.size(); j++) // È®Á¤µÈ Ä¡Å²ÁıÀ» ±âÁØÀ¸·Î
+	for (int j = 0; j < storecheck.size(); j++) // í™•ì •ëœ ì¹˜í‚¨ì§‘ì„ ê¸°ì¤€ìœ¼ë¡œ
 	{
 		int xx, yy;
-		// yÃà°Å¸® °è»ê
+		// yì¶•ê±°ë¦¬ ê³„ì‚°
 		if (storecheck[j].y > house.y)
 		{
 			yy = storecheck[j].y - house.y;
@@ -37,7 +37,7 @@ void bfs(chicken house)
 		{
 			yy = house.y - storecheck[j].y;
 		}
-		// xÃà°Å¸® °è»ê
+		// xì¶•ê±°ë¦¬ ê³„ì‚°
 		if (storecheck[j].x > house.x)
 		{
 			xx = storecheck[j].x - house.x;
@@ -46,38 +46,38 @@ void bfs(chicken house)
 		{
 			xx = house.x - storecheck[j].x;
 		}
-		dist = yy + xx; // yÃà°Å¸® + xÃà°Å¸® = ÃÑ°Å¸®
-		if (dist < mindist) // ÃÖ¼Ò°Å¸® = Ä¡Å²°Å¸®
+		dist = yy + xx; // yì¶•ê±°ë¦¬ + xì¶•ê±°ë¦¬ = ì´ê±°ë¦¬
+		if (dist < mindist) // ìµœì†Œê±°ë¦¬ = ì¹˜í‚¨ê±°ë¦¬
 		{
 			mindist = dist;
 		}
 	}
-	cost = cost + mindist;  // °¢ ÁıÀÇ Ä¡Å²°Å¸® ´©ÀûÇÕ
+	cost = cost + mindist;  // ê° ì§‘ì˜ ì¹˜í‚¨ê±°ë¦¬ ëˆ„ì í•©
 }
 
-void dfs(int s) // m°³ÀÇ Ä¡Å²ÁıÀ» °í¸£´Â ¸ğµç °æ¿ìÀÇ¼ö
+void dfs(int s) // mê°œì˜ ì¹˜í‚¨ì§‘ì„ ê³ ë¥´ëŠ” ëª¨ë“  ê²½ìš°ì˜ìˆ˜
 {
-	if (s == m) // m°³ÀÇ Ä¡Å²ÁıÀ» °ñ¶ú´Ù¸é °è»ê
+	if (s == m) // mê°œì˜ ì¹˜í‚¨ì§‘ì„ ê³¨ëë‹¤ë©´ ê³„ì‚°
 	{
 		cost = 0;
 		for (int i = 0; i < home.size(); i++)
 		{
-			// m°³ÀÇ Ä¡Å²Áı ¼±ÅÃÈÄ Ä¡Å²°Å¸® °è»ê
+			// mê°œì˜ ì¹˜í‚¨ì§‘ ì„ íƒí›„ ì¹˜í‚¨ê±°ë¦¬ ê³„ì‚°
 			bfs(home[i]);
 		}
 		if (cost < mincost)
-		{  // ÀÌÀüÀÇ Ä¡Å²°Å¸®º¸´Ù ÀÛ´Ù¸é ÀúÀå
+		{  // ì´ì „ì˜ ì¹˜í‚¨ê±°ë¦¬ë³´ë‹¤ ì‘ë‹¤ë©´ ì €ì¥
 			mincost = cost;
 		}
 		return;
 	}
 	for (int i = t; i < store.size(); i++)
 	{
-		if (use[i] == 1) // ÀÌ¹Ì ¼±ÅÃÇÑ Ä¡Å²ÁıÀÌ¶ó¸é ¹«½Ã
+		if (use[i] == 1) // ì´ë¯¸ ì„ íƒí•œ ì¹˜í‚¨ì§‘ì´ë¼ë©´ ë¬´ì‹œ
 		{
 			continue;
 		}
-		storecheck.push_back({ store[i].y,store[i].x }); // ¼±ÅÃµÈ Ä¡Å²Áı ÁÂÇ¥ ÀúÀå
+		storecheck.push_back({ store[i].y,store[i].x }); // ì„ íƒëœ ì¹˜í‚¨ì§‘ ì¢Œí‘œ ì €ì¥
 		use[i] = 1;
 		tsave = t;
 		t = i;
@@ -96,16 +96,16 @@ int main()
 		for (int j = 1; j < n + 1; j++)
 		{
 			int a;
-			cin >> a; // ¸ÊÀ» ÀÔ·Â ¹ŞÀ½
+			cin >> a; // ë§µì„ ì…ë ¥ ë°›ìŒ
 			if (a == 2)
 			{
-				// Ä¡Å²Áı ÁÂÇ¥ÀúÀå
+				// ì¹˜í‚¨ì§‘ ì¢Œí‘œì €ì¥
 				store.push_back({ i,j });
-				use.push_back(0);  // Ä¡Å²ÁıÀÇ ÃÑ ¼ö¸¸Å­ use º¤ÅÍ °ø°£ È®º¸
+				use.push_back(0);  // ì¹˜í‚¨ì§‘ì˜ ì´ ìˆ˜ë§Œí¼ use ë²¡í„° ê³µê°„ í™•ë³´
 			}
 			if (a == 1)
 			{
-				// ÁıµéÀÇ ÁÂÇ¥ ÀúÀå
+				// ì§‘ë“¤ì˜ ì¢Œí‘œ ì €ì¥
 				home.push_back({ i,j });
 			}
 		}
