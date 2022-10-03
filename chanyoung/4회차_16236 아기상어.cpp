@@ -42,22 +42,22 @@ gps shark;
 int totaltime;
 int cnt;
 
-int yy[4] = { 1,0,0,-1 }; // ÃÖ´ëÇÑ À§ÂÊºÎÅÍ
-int xx[4] = { 0,-1,1,0 }; // ÃÖ´ëÇÑ ¿ŞÂÊºÎÅÍ
+int yy[4] = { 1,0,0,-1 }; // ìµœëŒ€í•œ ìœ„ìª½ë¶€í„°
+int xx[4] = { 0,-1,1,0 }; // ìµœëŒ€í•œ ì™¼ìª½ë¶€í„°
 
 int eat(gps st)
 {
-	vector<gps> fish; // ¸öÅ©±â º¸´Ù ÀÛÀº ¹°°í±âµé º¸°ü
-	vector<gps> catchfish; // ÃÖ¼Ò°Å¸® ¹°°í±âµéÁß µµ´ŞÇÒ¼ö ÀÖ´Â ¹°°í±âµé¸¸ º¸°ü
+	vector<gps> fish; // ëª¸í¬ê¸° ë³´ë‹¤ ì‘ì€ ë¬¼ê³ ê¸°ë“¤ ë³´ê´€
+	vector<gps> catchfish; // ìµœì†Œê±°ë¦¬ ë¬¼ê³ ê¸°ë“¤ì¤‘ ë„ë‹¬í• ìˆ˜ ìˆëŠ” ë¬¼ê³ ê¸°ë“¤ë§Œ ë³´ê´€
 	for (int i = 0; i < aqua.size(); i++)
 	{
 		gps g = aqua[i];
-		if (map[g.y][g.x] < body && map[g.y][g.x] != 0 && map[g.y][g.x]!=9)  // map[g.y][g.x]!=9 ¾ø¾î¼­ °è¼ÓÆ²·È´Ù..... ¤Ğ
+		if (map[g.y][g.x] < body && map[g.y][g.x] != 0 && map[g.y][g.x]!=9)  // map[g.y][g.x]!=9 ì—†ì–´ì„œ ê³„ì†í‹€ë ¸ë‹¤..... ã… 
 		{
-			fish.push_back({ g.y,g.x }); // ¸ÔÀ»¼ö ÀÖ´Â ¹°°í±â À§Ä¡ ÀúÀå
+			fish.push_back({ g.y,g.x }); // ë¨¹ì„ìˆ˜ ìˆëŠ” ë¬¼ê³ ê¸° ìœ„ì¹˜ ì €ì¥
 		}
 	}
-	if (fish.size() == 0) // ¸ÔÀ»¼ö ÀÖ´Â ¹°°í±â°¡ ¾ø´Ù¸é Á¾·á
+	if (fish.size() == 0) // ë¨¹ì„ìˆ˜ ìˆëŠ” ë¬¼ê³ ê¸°ê°€ ì—†ë‹¤ë©´ ì¢…ë£Œ
 	{
 		return 0;
 	}
@@ -74,16 +74,16 @@ int eat(gps st)
 		for (int i = 0; i < fish.size(); i++)
 		{
 			gps fishup = fish[i];
-			if (fishup.y == now.y && fishup.x == now.x) // Áö±İÀÇ À§Ä¡°¡ ¸ÔÀ»¼ö ÀÖ´Â ¹°°í±â À§Ä¡Áß ÇÏ³ª¶ó¸é
+			if (fishup.y == now.y && fishup.x == now.x) // ì§€ê¸ˆì˜ ìœ„ì¹˜ê°€ ë¨¹ì„ìˆ˜ ìˆëŠ” ë¬¼ê³ ê¸° ìœ„ì¹˜ì¤‘ í•˜ë‚˜ë¼ë©´
 			{
-				if (use[now.y][now.x] <= mindist) // ±×Áß °¡Àå °¡±î¿î ¹°°í±â¶ó¸é
+				if (use[now.y][now.x] <= mindist) // ê·¸ì¤‘ ê°€ì¥ ê°€ê¹Œìš´ ë¬¼ê³ ê¸°ë¼ë©´
 				{
 					mindist = use[now.y][now.x];
-					catchfish.push_back({ now.y,now.x }); // ÃÖÁ¾ ÈÄº¸ ¹°°í±â µî·Ï
+					catchfish.push_back({ now.y,now.x }); // ìµœì¢… í›„ë³´ ë¬¼ê³ ê¸° ë“±ë¡
 				}
 				else
 				{
-					hungry = 1; // ¹°°í±â°¡ ÀÖ´Â À§Ä¡ÀÌÁö¸¸ ´õ °¡±î¿î¹°°í±â°¡ ÀÖ´Â°æ¿ì Å½»ö Áß´Ü
+					hungry = 1; // ë¬¼ê³ ê¸°ê°€ ìˆëŠ” ìœ„ì¹˜ì´ì§€ë§Œ ë” ê°€ê¹Œìš´ë¬¼ê³ ê¸°ê°€ ìˆëŠ”ê²½ìš° íƒìƒ‰ ì¤‘ë‹¨
 				}
 				break;
 			}
@@ -99,7 +99,7 @@ int eat(gps st)
 				{
 					continue;
 				}
-				if (map[next.y][next.x] > body) // ¸öÁıº¸´Ù Å« ¹°°í±â´Â ¸øÁö³ª°£´Ù
+				if (map[next.y][next.x] > body) // ëª¸ì§‘ë³´ë‹¤ í° ë¬¼ê³ ê¸°ëŠ” ëª»ì§€ë‚˜ê°„ë‹¤
 				{
 					continue;
 				}
@@ -108,7 +108,7 @@ int eat(gps st)
 					continue;
 				}
 				q.push(next);
-				use[next.y][next.x] = use[now.y][now.x] + 1; // ¹°°í±â±îÁöÀÇ °Å¸® ÀúÀå
+				use[next.y][next.x] = use[now.y][now.x] + 1; // ë¬¼ê³ ê¸°ê¹Œì§€ì˜ ê±°ë¦¬ ì €ì¥
 			}
 		}
 		else
@@ -116,25 +116,25 @@ int eat(gps st)
 			break;
 		}
 	}
-	if (catchfish.size() > 0) // ÃÖÁ¾ÈÄº¸°¡ ÀÖ´Ù¸é
+	if (catchfish.size() > 0) // ìµœì¢…í›„ë³´ê°€ ìˆë‹¤ë©´
 	{
-		sort(catchfish.begin(), catchfish.end(), cmp); // Á¶°Ç¿¡¸Â°Ô Á¤·Ä
-		gps eatfish = catchfish[0]; // Á¶°Ç¿¡ °¡Àå ÀûÇÕÇÑ ¹°°í±â
-		map[shark.y][shark.x] = 0; // »ó¾î°¡ ÀÖ´ø°÷Àº ºóÄ­À¸·Î
+		sort(catchfish.begin(), catchfish.end(), cmp); // ì¡°ê±´ì—ë§ê²Œ ì •ë ¬
+		gps eatfish = catchfish[0]; // ì¡°ê±´ì— ê°€ì¥ ì í•©í•œ ë¬¼ê³ ê¸°
+		map[shark.y][shark.x] = 0; // ìƒì–´ê°€ ìˆë˜ê³³ì€ ë¹ˆì¹¸ìœ¼ë¡œ
 		shark.y = eatfish.y;
 		shark.x = eatfish.x;
-		map[shark.y][shark.x] = 9; // ¸ÔÀº ¹°°í±â Ä­À¸·Î ÀÌµ¿
-		cnt++; // ¸ÔÀº ¹°°í±âÀÇ ¼ö Áõ°¡
-		if (cnt == body) // ¸öÁı Å©±â¸¸Å­ ¸Ô¾ú´Ù¸é ¼ºÀå
+		map[shark.y][shark.x] = 9; // ë¨¹ì€ ë¬¼ê³ ê¸° ì¹¸ìœ¼ë¡œ ì´ë™
+		cnt++; // ë¨¹ì€ ë¬¼ê³ ê¸°ì˜ ìˆ˜ ì¦ê°€
+		if (cnt == body) // ëª¸ì§‘ í¬ê¸°ë§Œí¼ ë¨¹ì—ˆë‹¤ë©´ ì„±ì¥
 		{
 			body++;
 			cnt = 0;
 		}
-		return use[shark.y][shark.x] - 1; // ¹°°í±â±îÁöÀÇ °Å¸® = °É¸° ½Ã°£
+		return use[shark.y][shark.x] - 1; // ë¬¼ê³ ê¸°ê¹Œì§€ì˜ ê±°ë¦¬ = ê±¸ë¦° ì‹œê°„
 	}
 	else
 	{
-		return 0;  // ¸ÔÀ»¼ö ÀÖ´Â ¹°°í±â´Â ÀÖÁö¸¸ °¥¼ö ¾ø´Â°æ¿ì
+		return 0;  // ë¨¹ì„ìˆ˜ ìˆëŠ” ë¬¼ê³ ê¸°ëŠ” ìˆì§€ë§Œ ê°ˆìˆ˜ ì—†ëŠ”ê²½ìš°
 	}
 }
 
@@ -165,10 +165,10 @@ int main()
 	}
 	int eating = eat({ shark.y,shark.x });
 	totaltime = eating;
-	while (eating != 0) // °É¸°½Ã°£ÀÌ 0ÀÌ ¾Æ´Òµ¿¾È = ¹°°í±â¸¦ ¸ÔÀ»¼ö ÀÖ´Â µ¿¾È
+	while (eating != 0) // ê±¸ë¦°ì‹œê°„ì´ 0ì´ ì•„ë‹ë™ì•ˆ = ë¬¼ê³ ê¸°ë¥¼ ë¨¹ì„ìˆ˜ ìˆëŠ” ë™ì•ˆ
 	{
 		eating = eat({ shark.y,shark.x });
-		totaltime += eating; // ½Ã°£ ´©ÀûÇÕ
+		totaltime += eating; // ì‹œê°„ ëˆ„ì í•©
 	}
 	cout << totaltime;
 	return 0;
