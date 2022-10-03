@@ -7,7 +7,7 @@
 #include<unordered_map>
 #include<cmath>
 
-// 59ºĞ ÄÆ!
+// 59ë¶„ ì»·!
 
 using namespace std;
 
@@ -18,16 +18,16 @@ struct gps
 };
 
 int n, ans;
-int maxx = -1, maxy = -1; // µå·¡°ï Ä¿ºêÁß °¡Àå Å« y°ª°ú x°ª
+int maxx = -1, maxy = -1; // ë“œë˜ê³¤ ì»¤ë¸Œì¤‘ ê°€ì¥ í° yê°’ê³¼ xê°’
 int map[101][101];
-vector<gps> curve; // µå·¡°ï Ä¿ºêÀÇ ¸ğµç ÁÂÇ¥ ÀúÀå
+vector<gps> curve; // ë“œë˜ê³¤ ì»¤ë¸Œì˜ ëª¨ë“  ì¢Œí‘œ ì €ì¥
 
 int xx[4] = { 1,0,-1,0 };
 int yy[4] = { 0,-1,0,1 };
 
-void dragon(gps st , int d, int g) // µå·¡°ï Ä¿ºê ¸¸µé±â
+void dragon(gps st , int d, int g) // ë“œë˜ê³¤ ì»¤ë¸Œ ë§Œë“¤ê¸°
 {
-	vector<int> direction; // ÀÌ¹ø µå·¡°ïÄ¿ºêÀÇ ÁøÇà ¹æÇâ
+	vector<int> direction; // ì´ë²ˆ ë“œë˜ê³¤ì»¤ë¸Œì˜ ì§„í–‰ ë°©í–¥
 	int gen = 0;
 	direction.push_back(d);
 	curve.push_back(st);
@@ -36,16 +36,16 @@ void dragon(gps st , int d, int g) // µå·¡°ï Ä¿ºê ¸¸µé±â
 	while (gen < g)
 	{
 		int size = direction.size();
-		for (int i = size-1; i >=0; i--) // ÀÌÀü ¼¼´ë ¹æÇâÁß °¡Àå ¸¶Áö¸· ¹æÇâºÎÅÍ ½ÃÀÛ
+		for (int i = size-1; i >=0; i--) // ì´ì „ ì„¸ëŒ€ ë°©í–¥ì¤‘ ê°€ì¥ ë§ˆì§€ë§‰ ë°©í–¥ë¶€í„° ì‹œì‘
 		{
 			int dir = direction[i];
-			direction.push_back((dir + 1) % 4); // ÀÌÀü ¼¼´ë¹æÇâÀ» ½Ã°è¹æÇâÀ¸·Î È¸Àü
+			direction.push_back((dir + 1) % 4); // ì´ì „ ì„¸ëŒ€ë°©í–¥ì„ ì‹œê³„ë°©í–¥ìœ¼ë¡œ íšŒì „
 		}
-		gen++; // ´ÙÀ½¼¼´ë·Î
+		gen++; // ë‹¤ìŒì„¸ëŒ€ë¡œ
 	}
 	for (int i = 0; i < direction.size(); i++)
 	{
-		gps now = curve[curve.size() - 1]; // ÇöÀç À§Ä¡(ÁøÇàÁßÀÎ µå·¡°ïÄ¿ºêÀÇ °¡Àå ¸¶Áö¸· À§Ä¡)
+		gps now = curve[curve.size() - 1]; // í˜„ì¬ ìœ„ì¹˜(ì§„í–‰ì¤‘ì¸ ë“œë˜ê³¤ì»¤ë¸Œì˜ ê°€ì¥ ë§ˆì§€ë§‰ ìœ„ì¹˜)
 		gps next;
 		next.x = now.x + xx[direction[i]];
 		next.y = now.y + yy[direction[i]];
@@ -55,20 +55,20 @@ void dragon(gps st , int d, int g) // µå·¡°ï Ä¿ºê ¸¸µé±â
 	}
 }
 
-void sq() // »ç°¢Çü °¹¼ö¼¼±â
+void sq() // ì‚¬ê°í˜• ê°¯ìˆ˜ì„¸ê¸°
 {
-	for (int i = 0; i < curve.size(); i++) // µå·¡°ï Ä¿ºê ÀüÃ¼ ¸ÊÀ¸·Î ¿Å±â±â
+	for (int i = 0; i < curve.size(); i++) // ë“œë˜ê³¤ ì»¤ë¸Œ ì „ì²´ ë§µìœ¼ë¡œ ì˜®ê¸°ê¸°
 	{
 		gps now = curve[i];
 		map[now.x][now.y] = 1;
 	}
-	for (int i = 0; i <= maxx; i++) // °¢°¢ µå·¡°ïÄ¿ºêÀÇ ÃÖ´ë ÁÂÇ¥³»¿¡¼­ Á¶»ç
+	for (int i = 0; i <= maxx; i++) // ê°ê° ë“œë˜ê³¤ì»¤ë¸Œì˜ ìµœëŒ€ ì¢Œí‘œë‚´ì—ì„œ ì¡°ì‚¬
 	{
 		for (int j = 0; j <= maxy; j++)
 		{
 			if (map[i][j] == 1 && map[i + 1][j] == 1 && map[i][j + 1] == 1 && map[i + 1][j + 1] == 1)
 			{
-				ans++; // »ç°¢ÇüÀÌ ¸ğµÎ µå·¡°ï Ä¿ºê¿¡ Æ÷ÇÔµÇ´Â °æ¿ì +1
+				ans++; // ì‚¬ê°í˜•ì´ ëª¨ë‘ ë“œë˜ê³¤ ì»¤ë¸Œì— í¬í•¨ë˜ëŠ” ê²½ìš° +1
 			}
 		}
 	}
