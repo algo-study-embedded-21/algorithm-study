@@ -1,5 +1,4 @@
 #include <iostream>
-#include <math.h>
 using namespace std;
 
 int N, Q;
@@ -13,7 +12,7 @@ int diry[4] = { 0,0,1,-1 };
 int dirx[4] = { 1,-1,0,0 };
 
 void turn(int L) {
-	int bsize = (int)pow(2, L);
+	int bsize = 1 << L;
 
 
 	// 맵 복사
@@ -67,8 +66,8 @@ void melt() {
 	}
 }
 
-int parent[100] = { 0 };
-int groupsize[100] = { 0 };
+int parent[10000] = { 0 };
+int groupsize[10000] = { 0 };
 
 int Find(int node) {
 	if (node == parent[node]) {
@@ -90,7 +89,8 @@ void Union(int a, int b) {
 int main() {
 	cin >> N >> Q;
 
-	msize = pow(2, N);
+	msize = 1 << N;
+	cout << msize << "\n";
 
 	for (int i = 0; i < msize; i++) {
 		for (int j = 0; j < msize; j++) {
@@ -109,7 +109,7 @@ int main() {
 		// 얼음 양 감소
 		melt();
 	}
-
+	cout << "\n";
 	for (int i = 0; i < msize; i++) {
 		for (int j = 0; j < msize; j++) {
 			cout << MAP[i][j] << " ";
@@ -126,10 +126,8 @@ int main() {
 			parent[n] = n;
 			MAPid[i][j] = n;
 			groupsize[n] = 1;
-			cout << MAPid[i][j] << " ";
 			n++;
 		}
-		cout << "\n";
 	}
 
 	int sumice = 0; // 남은 얼음 합
@@ -140,7 +138,10 @@ int main() {
 	for (int i = 0; i < msize; i++) {
 		for (int j = 0; j < msize; j++) {
 			// 얼음 없으면 continue
-			if (MAP[i][j] == 0) continue;
+			if (MAP[i][j] == 0) {
+				groupsize[MAPid[i][j] = 0];
+				continue;
+			}
 
 			// 남은 얼음 합 추가
 			sumice += MAP[i][j];
