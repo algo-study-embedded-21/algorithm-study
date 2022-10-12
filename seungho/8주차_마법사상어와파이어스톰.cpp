@@ -90,7 +90,6 @@ int main() {
 	cin >> N >> Q;
 
 	msize = 1 << N;
-	cout << msize << "\n";
 
 	for (int i = 0; i < msize; i++) {
 		for (int j = 0; j < msize; j++) {
@@ -109,12 +108,9 @@ int main() {
 		// 얼음 양 감소
 		melt();
 	}
-	cout << "\n";
 	for (int i = 0; i < msize; i++) {
 		for (int j = 0; j < msize; j++) {
-			cout << MAP[i][j] << " ";
 		}
-		cout << "\n";
 	}
 
 	// 덩어리 찾기
@@ -159,11 +155,8 @@ int main() {
 			}
 		}
 	}
-	for (int i = 0; i < msize * msize; i++) {
-		cout << groupsize[i] << " ";
-	}
-	cout << "\n";
 
+	if (maxsize <= 1) maxsize = 0;
 	cout << sumice;
 	cout << "\n";
 	cout << maxsize;
