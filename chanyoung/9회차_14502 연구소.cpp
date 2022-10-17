@@ -6,7 +6,7 @@
 #include<cmath>
 #include<queue>
 
-// 36ºÐ ÄÆ!
+// 36ë¶„ ì»·!
 
 using namespace std;
 
