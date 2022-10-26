@@ -200,6 +200,17 @@
       <a href="https://www.acmicpc.net/problem/17140">17140 이차원 배열과 연산</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="2">10주차</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/16985">16985 Maaaaaaaaaze</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/4577">4577 소코반</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
