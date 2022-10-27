@@ -33,15 +33,15 @@ int main()
 				else if (MAP[i][j] == '+') MAP2[i][j] = 3;
 			}
 		}
-		string cmd;
+		string cmd;		// 입력
 		cin >> cmd;
 		for (int c = 0; c < cmd.length(); c++) {
 			if (cmd[c] == 'U') {
-				int ny = wy - 1;
+				int ny = wy - 1;	
 				if (ny < 0) continue;
-				if (MAP[ny][wx] == '#') continue;
-				if (MAP[ny][wx] == 'b' || MAP[ny][wx] == 'B') {
-					if (MAP[ny - 1][wx] == 'b' || MAP[ny - 1][wx] == 'B' || MAP[ny - 1][wx] == '#') continue;
+				if (MAP[ny][wx] == '#') continue;	// 다음 칸 벽이면 continue
+				if (MAP[ny][wx] == 'b' || MAP[ny][wx] == 'B') {		// 다음 칸 상자인 경우
+					if (MAP[ny - 1][wx] == 'b' || MAP[ny - 1][wx] == 'B' || MAP[ny - 1][wx] == '#') continue;	// 두 칸 뒤가 상자나 벽인 경우
 					if (MAP2[ny - 1][wx] == 3) MAP[ny - 1][wx] = 'B';
 					else MAP[ny - 1][wx] = 'b';
 				}
@@ -104,7 +104,12 @@ int main()
 				else MAP[wy][wx] = '.';
 				wx = nx;
 			}
-			// 게임이 끝났는지 확인
+			cout << "\n==========\n";
+			cout << cmd[c]<<"\n";
+			for (int i = 0; i < R; i++) {
+				cout << MAP[i] << "\n";
+			}
+			cout << "\n";
 			int flag = 1;
 			for (int i = 0; i < R; i++) {
 				for (int j = 0; j < C; j++) {
@@ -133,6 +138,7 @@ int main()
 		}
 		t++;
 	}
+
 
 	return 0;
 }
