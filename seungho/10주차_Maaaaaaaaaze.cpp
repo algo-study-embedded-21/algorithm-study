@@ -3,10 +3,10 @@
 using namespace std;
 
 int MAP[5][5][5];
-
-int dirz[6] = {-1,0,0,0,0,1};
-int diry[6] = {0,0,1,0,-1,0};
-int dirx[6] = {0,1,0,-1,0,0};
+int MAP3[5][5][5];
+int dirz[6] = { -1,0,0,0,0,1 };
+int diry[6] = { 0,0,1,0,-1,0 };
+int dirx[6] = { 0,1,0,-1,0,0 };
 
 struct Node {
 	int z; int y; int x;
@@ -32,7 +32,7 @@ void turn(int r, int level) {
 	else if (r == 2) {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
-				MAP[level][4-i][4-j] = MAP2[i][j];
+				MAP[level][4 - i][4 - j] = MAP2[i][j];
 			}
 		}
 	}
@@ -67,20 +67,6 @@ int bfs() {
 			if (nz == 4 && ny == 4 && nx == 4)	return visited[nz][ny][nx];
 		}
 	}
-	
-	cout << "MAP\n";
-
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 5; j++) {
-			for (int k = 0; k < 5; k++) {
-				cout<< MAP[i][j][k]<<" ";
-			}
-			cout << "\n";
-		}
-		cout << "\n\n";
-	}
-	cout << "==================\n";
-
 	return -1;
 }
 
@@ -90,7 +76,6 @@ void dfs(int level) {
 	if (level > 4) {
 		// 출발 또는 도착 칸 막혀있으면 return
 		if (MAP[0][0][0] * MAP[4][4][4] == 0) return;
-		cout << "\n\nlevel4\n\n";
 		int route = bfs();
 		if (route > 0) {
 			ans = min(ans, route);
@@ -108,7 +93,7 @@ void dfs(int level) {
 
 	for (int r = 0; r < 4; r++) {
 		turn(r, level);
-		
+
 		dfs(level + 1);
 		// 맵 복원
 		for (int i = 0; i < 5; i++) {
@@ -117,9 +102,28 @@ void dfs(int level) {
 			}
 		}
 	}
-	
 }
 
+int DAT[5] = { 0 };
+
+void leveldfs(int level) {
+	if (level > 4) {
+		dfs(0);
+		return;
+	}
+
+	for (int i = 0; i < 5; i++) {
+		if (DAT[i] == 1) continue;
+		for (int j = 0; j < 5; j++) {
+			for (int k = 0; k < 5; k++) {
+				MAP[level][j][k] = MAP3[i][j][k];
+			}
+		}
+		DAT[i] = 1;
+		leveldfs(level + 1);
+		DAT[i] = 0;
+	}
+}
 
 int main()
 {
@@ -131,11 +135,11 @@ int main()
 		for (int j = 0; j < 5; j++) {
 			for (int k = 0; k < 5; k++) {
 				cin >> MAP[i][j][k];
+				MAP3[i][j][k] = MAP[i][j][k];
 			}
 		}
 	}
-
-	dfs(0);
+	leveldfs(0);
 	if (ans == 2134567890) ans = -1;
 	cout << ans;
 
