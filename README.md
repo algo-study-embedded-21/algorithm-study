@@ -222,12 +222,12 @@
       <a href="https://www.acmicpc.net/problem/23289">23289 온풍기 안녕!</a>
     </td>
   </tr>
-   <tr>
+  <tr>
     <td>
       <a href="https://www.acmicpc.net/problem/23288">23288 주사위 굴리기2</a>
     </td>
   </tr>
-   <tr>
+  <tr>
     <td>
       <a href="https://www.acmicpc.net/problem/19238">19238 스타트 택시</a>
     </td>
