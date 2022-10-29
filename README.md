@@ -212,24 +212,24 @@
     </td>
   </tr>
   <tr>
-    <td rowspan="2">11주차</td>
+    <td rowspan="4">9주차</td>
     <td>
-      <a href="https://www.acmicpc.net/problem/17837">17837 새로운게임2</a>
+      <a href="https://www.acmicpc.net/problem/14502">14502 연구소</a>
     </td>
   </tr>
   <tr>
     <td>
-      <a href="https://www.acmicpc.net/problem/23289">23289 온풍기 안녕!</a>
+      <a href="https://www.acmicpc.net/problem/17142">17142 연구소3</a>
     </td>
   </tr>
   <tr>
     <td>
-      <a href="https://www.acmicpc.net/problem/23288">23288 주사위 굴리기2</a>
+      <a href="https://www.acmicpc.net/problem/19236">19236 청소년 상어</a>
     </td>
   </tr>
   <tr>
     <td>
-      <a href="https://www.acmicpc.net/problem/19238">19238 스타트 택시</a>
+      <a href="https://www.acmicpc.net/problem/17140">17140 이차원 배열과 연산</a>
     </td>
   </tr>
 </table>
