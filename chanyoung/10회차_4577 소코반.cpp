@@ -6,7 +6,7 @@
 #include <string>
 using namespace std;
 
-//40ºĞ Á¤´ä
+//40ë¶„ ì •ë‹µ
 
 struct gps { int y; int x; };
 
@@ -29,7 +29,7 @@ int main()
 
 	while (1) {
 		cin >> r >> c;
-		if (r == 0 && c == 0) break; // ¸¶Áö¸· ÁÙ Ã³¸®
+		if (r == 0 && c == 0) break; // ë§ˆì§€ë§‰ ì¤„ ì²˜ë¦¬
 		command.clear();
 		goalcnt = 0;
 		complete = 0;
@@ -52,12 +52,12 @@ int main()
 				}
 				if (map[i][j] == 'W' || map[i][j] == '+')
 				{
-					goalcnt++; // ¸ñÀûÁö °¹¼ö ¼¼±â
+					goalcnt++; // ëª©ì ì§€ ê°¯ìˆ˜ ì„¸ê¸°
 				}
 				else if (map[i][j] == 'B')
 				{
-					goalcnt++; // ¸ñÀûÁö °¹¼ö ¼¼±â
-					complete++; // ÀÌ¹Ì ¼º°øÇÑ ¹Ú½º °¹¼ö ¼¼±â
+					goalcnt++; // ëª©ì ì§€ ê°¯ìˆ˜ ì„¸ê¸°
+					complete++; // ì´ë¯¸ ì„±ê³µí•œ ë°•ìŠ¤ ê°¯ìˆ˜ ì„¸ê¸°
 				}
 			}
 		}
@@ -90,24 +90,24 @@ int main()
 			gps next = { ch.y + yy[direc],ch.x + xx[direc] };
 			if (next.y<0 || next.y>r - 1 || next.x<0 || next.x>c - 1)continue;
 			if (map[next.y][next.x] == '#')continue;
-			if (map[next.y][next.x] == 'b' || map[next.y][next.x] == 'B') // ÀÌµ¿À§Ä¡°¡ ¹Ú½ºÀÏ°æ¿ì
+			if (map[next.y][next.x] == 'b' || map[next.y][next.x] == 'B') // ì´ë™ìœ„ì¹˜ê°€ ë°•ìŠ¤ì¼ê²½ìš°
 			{
-				gps box = { next.y + yy[direc],next.x + xx[direc] }; // ¹Ú½º°¡ ¹Ğ·Á³ª°¥ À§Ä¡
+				gps box = { next.y + yy[direc],next.x + xx[direc] }; // ë°•ìŠ¤ê°€ ë°€ë ¤ë‚˜ê°ˆ ìœ„ì¹˜
 				if (box.y<0 || box.y>r - 1 || box.x<0 || box.x>c - 1)continue;
 				if (map[box.y][box.x] == '#' || map[box.y][box.x] == 'b' || map[box.y][box.x] == 'B')continue;
-				if (map[box.y][box.x] == '+') { // ¸ñÇ¥Á¡ÀÏ°æ¿ì
+				if (map[box.y][box.x] == '+') { // ëª©í‘œì ì¼ê²½ìš°
 					complete++;
 					map[box.y][box.x] = 'B';
 				}
-				else map[box.y][box.x] = 'b'; // ºó°ø°£ÀÎ°æ¿ì
-				if (map[next.y][next.x] == 'B') { // ¹Ğ¸®´Â »óÀÚ°¡ ¸ñÇ¥ÁöÁ¡¿¡ ÀÖ¾ú´Ù¸é
+				else map[box.y][box.x] = 'b'; // ë¹ˆê³µê°„ì¸ê²½ìš°
+				if (map[next.y][next.x] == 'B') { // ë°€ë¦¬ëŠ” ìƒìê°€ ëª©í‘œì§€ì ì— ìˆì—ˆë‹¤ë©´
 					complete--;
 					map[next.y][next.x] = '+';
 				}
 				else map[next.y][next.x] = '.';
 			}
 			ch = next;
-			if (complete == goalcnt)break; // ÃÖÁ¾ ¼º°øÀÎ°æ¿ì
+			if (complete == goalcnt)break; // ìµœì¢… ì„±ê³µì¸ê²½ìš°
 		}
 		if (map[ch.y][ch.x] == '+') map[ch.y][ch.x] = 'W';
 		else map[ch.y][ch.x] = 'w';
