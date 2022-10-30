@@ -229,7 +229,7 @@
   </tr>
   <tr>
     <td>
-      <a href="https://www.acmicpc.net/problem/19238">19238 스타트 </a>
+      <a href="https://www.acmicpc.net/problem/19238">19238 스타트 택시</a>
     </td>
   </tr>
 </table>
