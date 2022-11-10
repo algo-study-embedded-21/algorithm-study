@@ -63,19 +63,18 @@ int bfs(int new_r, int new_c){
         result++;
     }
 
-    return -1; // 갈수 없는 경우
+    return -1;
 }
 
 void find_shortest(){
 
     for (int i = 0; i < customers.size(); i++){
         int sum = bfs(customers[i].start_r, customers[i].start_c);
-        if (sum == -1) // 갈수 없음!!{
+        if (sum == -1)
             flag = 1;
         return;
     }
     else if (how_far > sum){
-        // 더 짧으면
         how_far = sum;
         go_to = i;
     }
