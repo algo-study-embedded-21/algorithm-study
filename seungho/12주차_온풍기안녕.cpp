@@ -1,11 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <string.h>
 using namespace std;
 
 int R, C, K, W;
 int MAP[21][21];
-int temp[21][21];
+long long temp[21][21] = { 0 };
 struct Node {
 	int y; int x; int t;
 };
@@ -49,7 +50,9 @@ int wdirx[4][3][2] = {
 
 
 void bfs(int y, int x, int t) {
-	int visited[21][21] = { 0 };
+	long long visited[21][21] = { 0 };
+
+	memset(visited, 0, sizeof(visited));
 
 	queue<Node> q;
 	int fy = y + hdiry[t];
@@ -67,7 +70,7 @@ void bfs(int y, int x, int t) {
 			int ny = now.y + diry[t][a];
 			int nx = now.x + dirx[t][a];
 			if (ny < 0 || nx < 0 || ny >= R || nx >= C) continue;
-			if (MAP[ny][nx] > 0 && MAP[ny][nx] < 5) continue;	// 온풍기 있는 칸이면 continue
+			//if (MAP[ny][nx] > 0 && MAP[ny][nx] < 5) continue;	// 온풍기 있는 칸이면 continue
 			if (visited[ny][nx] > 0) continue;
 
 			// 벽이 있으면 continue
@@ -138,53 +141,18 @@ void bfs(int y, int x, int t) {
 					break;
 				}
 			}
-
 			if (flag == 1) continue;
 
 			q.push({ ny,nx,t });
 			visited[ny][nx] = visited[now.y][now.x] - 1;
-			cout << "\n\nvisited: " << visited[ny][nx] << "\n\n";
-			cout << "\n---------------temp---------------\n";
-			for (int i = 0; i < R; i++) {
-				for (int j = 0; j < C; j++) {
-					cout << temp[i][j] << " ";
-				}
-				cout << "\n";
-			}
-
-			cout << "\n----------------------------------\n";
-
-			cout << "\n---------------visited---------------\n";
-			for (int i = 0; i < R; i++) {
-				for (int j = 0; j < C; j++) {
-					cout << visited[i][j] << " ";
-				}
-				cout << "\n";
-			}
-
-			cout << "\n----------------------------------\n";
-
-			int aaa = 1;
 		}
 	}
-
-	cout << "\n---------------visited 최종---------------\n";
-	for (int i = 0; i < R; i++) {
-		for (int j = 0; j < C; j++) {
-			cout << visited[i][j] << " ";
-		}
-		cout << "\n";
-	}
-
-	cout << "\n----------------------------------\n";
 
 	for (int i = 0; i < R; i++) {
 		for (int j = 0; j < C; j++) {
-			cout << temp[i][j]<<","<<visited[i][j] << " ";
-			if (visited[i][j] > 0)	temp[i][j] = temp[i][j] + visited[i][j];
+			if (visited[i][j] > 0)	temp[i][j] += visited[i][j];
 		}
 	}
-	cout << "\n";
 }
 
 
@@ -240,7 +208,7 @@ int main()
 		int dirdx[2] = { 0,1 };
 
 		// 온도 조절
-		int temp2[21][21];	// temp 복사
+		int temp2[21][21] = { 0 };	// temp 복사
 		for (int i = 0; i < R; i++) {
 			for (int j = 0; j < C; j++) {
 				temp2[i][j] = temp[i][j];
@@ -251,7 +219,7 @@ int main()
 				for (int d = 0; d < 2; d++) {
 					int ny = i + dirdy[d];
 					int nx = j + dirdx[d];
-					if (ny >= R || nx >= C) continue;
+					if (ny < 0 || nx >= C) continue;
 
 					// 벽이 있으면 continue
 					if (wall[i][j][d] == 1) continue;
@@ -270,12 +238,12 @@ int main()
 
 		// 온도 1 이상인 가장 바깥쪽 칸 온도 1씩 감소
 		for (int j = 0; j < C; j++) {
-			if (MAP[0][j] > 0) MAP[0][j]--;
-			if (MAP[R - 1][j] > 0) MAP[R - 1][j]--;
+			if (temp[0][j] > 0) temp[0][j]--;
+			if (temp[R - 1][j] > 0) temp[R - 1][j]--;
 		}
 		for (int i = 1; i < R - 1; i++) {
-			if (MAP[i][0] > 0) MAP[i][0]--;
-			if (MAP[i][C - 1] > 0) MAP[i][C - 1]--;
+			if (temp[i][0] > 0) temp[i][0]--;
+			if (temp[i][C - 1] > 0) temp[i][C - 1]--;
 		}
 
 		// 초콜릿
