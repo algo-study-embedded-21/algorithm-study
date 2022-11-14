@@ -233,19 +233,35 @@
     </td>
   </tr>
   <tr>
-    <td rowspan="4">11주차</td>
+    <td rowspan="4">12주차</td>
     <td>
-      <a href="https://www.acmicpc.net/problem/17837">17837 새로운게임2</a>
+      <a href="https://www.acmicpc.net/problem/19237">19237 어른 상어</a>
     </td>
   </tr>
   <tr>
     <td>
-      <a href="https://www.acmicpc.net/problem/23289">23289 온풍기 안녕!</a>
+      <a href="https://www.acmicpc.net/problem/20327">20327 배열돌리기 6</a>
     </td>
   </tr>
   <tr>
     <td>
-      <a href="https://www.acmicpc.net/problem/23288">23288 주사위 굴리기2</a>
+      <a href="https://www.acmicpc.net/problem/21610">21610 마법사상어와 비바라기</a>
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="4">13주차</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/21611">21611 마법사 상어와 블리자드</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/23290">23290 마법사 상어와 복제</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/5373">5373 큐빙</a>
     </td>
   </tr>
   
