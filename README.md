@@ -248,22 +248,7 @@
       <a href="https://www.acmicpc.net/problem/21610">21610 마법사상어와 비바라기</a>
     </td>
   </tr>
-  <tr>
-    <td rowspan="4">13주차</td>
-    <td>
-      <a href="https://www.acmicpc.net/problem/21611">21611 마법사 상어와 블리자드</a>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://www.acmicpc.net/problem/23290">23290 마법사 상어와 복제</a>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://www.acmicpc.net/problem/5373">5373 큐빙</a>
-    </td>
-  </tr>
+  
   
 </table>
 
