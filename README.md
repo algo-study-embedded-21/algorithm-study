@@ -233,7 +233,7 @@
     </td>
   </tr>
   <tr>
-    <td rowspan="4">12주차</td>
+    <td rowspan="3">12주차</td>
     <td>
       <a href="https://www.acmicpc.net/problem/19237">19237 어른 상어</a>
     </td>
@@ -250,7 +250,7 @@
   </tr>
   
   <tr>
-    <td rowspan="4">13주차</td>
+    <td rowspan="3">13주차</td>
     <td>
       <a href="https://www.acmicpc.net/problem/21611">21611 마법사 상어와 블리자드</a>
     </td>
