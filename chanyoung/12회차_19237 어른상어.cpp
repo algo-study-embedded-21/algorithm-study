@@ -7,15 +7,15 @@
 using namespace std;
 
 struct gps { int y, x; };
-struct smell { int snum, last; }; // ³¿»õÀÇ ÁÖÀÎ¹øÈ£ , ³²Àº½Ã°£
+struct smell { int snum, last; }; // ëƒ„ìƒˆì˜ ì£¼ì¸ë²ˆí˜¸ , ë‚¨ì€ì‹œê°„
 
 int n, m, k;
 int map[20][20];
-smell smellmap[20][20]; //°¢ À§Ä¡¿¡ ³²Àº ³¿»õ Ç¥½Ã
-gps shark[400]; // »ó¾îµéÀÇ ÇöÀç À§Ä¡
-int nowdir[400]; // »ó¾îµéÀÌ º¸°íÀÖ´Â ¹æÇâ
-int outshark[400]; // ÅğÃâµÈ »ó¾î Ç¥½Ã
-vector<int> sdir[400][4]; // »ó¾îµéÀÇ ¹æÇâ ¿ì¼±¼øÀ§
+smell smellmap[20][20]; //ê° ìœ„ì¹˜ì— ë‚¨ì€ ëƒ„ìƒˆ í‘œì‹œ
+gps shark[400]; // ìƒì–´ë“¤ì˜ í˜„ì¬ ìœ„ì¹˜
+int nowdir[400]; // ìƒì–´ë“¤ì´ ë³´ê³ ìˆëŠ” ë°©í–¥
+int outshark[400]; // í‡´ì¶œëœ ìƒì–´ í‘œì‹œ
+vector<int> sdir[400][4]; // ìƒì–´ë“¤ì˜ ë°©í–¥ ìš°ì„ ìˆœìœ„
 
 int yy[4] = { -1,1,0,0 };
 int xx[4] = { 0,0,-1,1 };
@@ -23,57 +23,57 @@ int xx[4] = { 0,0,-1,1 };
 void move()
 {
     int tmp[20][20] = { 0 };
-    for (int i = 1; i <= m; i++) // 1¹ø »ó¾îºÎÅÍ ÀÌµ¿
+    for (int i = 1; i <= m; i++) // 1ë²ˆ ìƒì–´ë¶€í„° ì´ë™
     {
-        if (outshark[i])continue; // ÅğÃâµÈ »ó¾î Á¦¿Ü
+        if (outshark[i])continue; // í‡´ì¶œëœ ìƒì–´ ì œì™¸
         gps now = shark[i];
         int d = nowdir[i];
-        gps check = { 30,30 }; // ÀÌµ¿ÇÒ À§Ä¡ ÃÊ±â°ª(¸Ê¹Û)
-        int checkd; // ÀÌµ¿ÇÑ ÈÄ ¹Ù¶óº¸´Â ¹æÇâ
+        gps check = { 30,30 }; // ì´ë™í•  ìœ„ì¹˜ ì´ˆê¸°ê°’(ë§µë°–)
+        int checkd; // ì´ë™í•œ í›„ ë°”ë¼ë³´ëŠ” ë°©í–¥
         for (int j = 0; j < 4; j++)
         {
-            int dd = sdir[i][d][j]; // ¿ì¼±¼øÀ§¿¡ µû¸¥ ¹æÇâ
+            int dd = sdir[i][d][j]; // ìš°ì„ ìˆœìœ„ì— ë”°ë¥¸ ë°©í–¥
             gps next = { now.y + yy[dd], now.x + xx[dd] };
             if (next.y<0 || next.y>n - 1 || next.x<0 || next.x>n - 1)continue;
             if (check.y == 30 && smellmap[next.y][next.x].snum==i) 
-            { // ÀÚ±â³¿»õÀÎ ÀÎÁ¢Ä­Áß ¿ì¼±¼øÀ§ ¹æÇâ¿¡ µû¶ó °¡Àå Ã¹¹øÂ° Ä­
+            { // ìê¸°ëƒ„ìƒˆì¸ ì¸ì ‘ì¹¸ì¤‘ ìš°ì„ ìˆœìœ„ ë°©í–¥ì— ë”°ë¼ ê°€ì¥ ì²«ë²ˆì§¸ ì¹¸
                 check = next;
                 checkd = dd;
             }
             else if (smellmap[next.y][next.x].snum==0)
-            { // ³¿»õ°¡ ¾ø´Â Ä­ Á¸Àç½Ã ÀÌµ¿Ä­À¸·Î È®Á¤!
+            { // ëƒ„ìƒˆê°€ ì—†ëŠ” ì¹¸ ì¡´ì¬ì‹œ ì´ë™ì¹¸ìœ¼ë¡œ í™•ì •!
                 check = next;
                 checkd = dd;
                 break;
             }
         }
-        if (check.y == 30)continue; // ÀÌµ¿ÇÒ¼ö ÀÖ´Â Ä­ÀÌ ¾ø´Â°æ¿ì
+        if (check.y == 30)continue; // ì´ë™í• ìˆ˜ ìˆëŠ” ì¹¸ì´ ì—†ëŠ”ê²½ìš°
         if (tmp[check.y][check.x] == 0 || tmp[check.y][check.x]>i)
-        { // ±× Ä­À¸·ÎÀÇ ÀÌµ¿ÀÌ ³»°¡ Ã³À½ÀÌ°Å³ª ³ªº¸´Ù Å«¹øÈ£ÀÇ »ó¾î°¡ ÀÖ´Â°æ¿ì ÀÚ¸®Â÷Áö
+        { // ê·¸ ì¹¸ìœ¼ë¡œì˜ ì´ë™ì´ ë‚´ê°€ ì²˜ìŒì´ê±°ë‚˜ ë‚˜ë³´ë‹¤ í°ë²ˆí˜¸ì˜ ìƒì–´ê°€ ìˆëŠ”ê²½ìš° ìë¦¬ì°¨ì§€
             outshark[tmp[check.y][check.x]] = 1;
             tmp[check.y][check.x] = i;
             map[check.y][check.x] = i;
             shark[i] = check;
             nowdir[i] = checkd;
         }
-        else if(tmp[check.y][check.x] < i) outshark[i] = 1; // ³ªº¸´Ù ÀÛÀº ¹øÈ£ÀÇ »ó¾î°¡ ÀÖ´Â°æ¿ì ³»°¡ ÅğÃâ
+        else if(tmp[check.y][check.x] < i) outshark[i] = 1; // ë‚˜ë³´ë‹¤ ì‘ì€ ë²ˆí˜¸ì˜ ìƒì–´ê°€ ìˆëŠ”ê²½ìš° ë‚´ê°€ í‡´ì¶œ
     }
 }
 
-void makesmell() // ³¿»õ °»½Å
+void makesmell() // ëƒ„ìƒˆ ê°±ì‹ 
 {
     for (int i = 0; i < 20; i++)
     {
-        for (int j = 0; j < 20; j++) // ¸ğµç ¸Ê¿¡ ´ëÇØ
+        for (int j = 0; j < 20; j++) // ëª¨ë“  ë§µì— ëŒ€í•´
         {
             if (smellmap[i][j].last > 0)
             {
-                smellmap[i][j].last -= 1; // ³¿»õ ÁÙÀÌ°í
-                if (smellmap[i][j].last == 0) smellmap[i][j].snum = 0; // ³¿»õ°¡ ´Ù ºüÁö¸é ÃÊ±âÈ­
+                smellmap[i][j].last -= 1; // ëƒ„ìƒˆ ì¤„ì´ê³ 
+                if (smellmap[i][j].last == 0) smellmap[i][j].snum = 0; // ëƒ„ìƒˆê°€ ë‹¤ ë¹ ì§€ë©´ ì´ˆê¸°í™”
             }
         }
     }
-    for (int i = 1; i <= m; i++) // »ó¾îµé ÇöÀçÀ§Ä¡¿¡ ³¿»õ ³²±â±â
+    for (int i = 1; i <= m; i++) // ìƒì–´ë“¤ í˜„ì¬ìœ„ì¹˜ì— ëƒ„ìƒˆ ë‚¨ê¸°ê¸°
     {
         if (outshark[i])continue;
         gps now = shark[i];
@@ -82,7 +82,7 @@ void makesmell() // ³¿»õ °»½Å
     }
 }
 
-int check() // Á¾·áÁ¶°Ç
+int check() // ì¢…ë£Œì¡°ê±´
 {
     for (int i = 2; i <= m; i++) if (outshark[i] == 0)return 0;
     return 1;
@@ -122,7 +122,7 @@ int main()
             }
         }
     }
-    makesmell(); // ÃÖÃÊ¿¡ ³¿»õ ³²±â°í ½ÃÀÛ
+    makesmell(); // ìµœì´ˆì— ëƒ„ìƒˆ ë‚¨ê¸°ê³  ì‹œì‘
     for (int i = 1; i <= 1000; i++)
     {
         move();
