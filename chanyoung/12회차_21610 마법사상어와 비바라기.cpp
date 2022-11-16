@@ -8,23 +8,23 @@ using namespace std;
 
 struct gps { int y,x; };
 int n, m;
-vector<int> dir; // ÀÌµ¿ ¹æÇâ
-vector<int> dis; // ÀÌµ¿ °Å¸®
-vector<gps> cloud; // »ı¼ºµÈ (ÀÌµ¿Àü) ±¸¸§
-vector<gps> rain; // ÀÌµ¿ÇÑ ±¸¸§ (ºñ ³»¸±°÷)
+vector<int> dir; // ì´ë™ ë°©í–¥
+vector<int> dis; // ì´ë™ ê±°ë¦¬
+vector<gps> cloud; // ìƒì„±ëœ (ì´ë™ì „) êµ¬ë¦„
+vector<gps> rain; // ì´ë™í•œ êµ¬ë¦„ (ë¹„ ë‚´ë¦´ê³³)
 
 int map[51][51];
 
 int yy[8] = { 0,-1,-1,-1,0,1,1,1 };
 int xx[8] = { -1,-1,0,1,1,1,0,-1 };
 
-int side[4] = { 1,3,5,7 }; // ´ë°¢¹æÇâ ÀÎµ¦½º
+int side[4] = { 1,3,5,7 }; // ëŒ€ê°ë°©í–¥ ì¸ë±ìŠ¤
 
-void move(int t) // ±¸¸§ ÀÌµ¿
+void move(int t) // êµ¬ë¦„ ì´ë™
 {
     rain.clear();
     int dd = dir[t] - 1;
-    int ss = dis[t] % n; // ¸Ê ³»¿¡¼­¸¸ ÀÌµ¿ÇÏµµ·Ï
+    int ss = dis[t] % n; // ë§µ ë‚´ì—ì„œë§Œ ì´ë™í•˜ë„ë¡
     for (int i = 0; i < cloud.size(); i++)
     {
         gps now = cloud[i];
@@ -43,13 +43,13 @@ void rainy()
     for (int i = 0; i < rain.size(); i++)
     {
         gps now = rain[i];
-        map[now.y][now.x] += 1; // ºñ³»¸®±â
+        map[now.y][now.x] += 1; // ë¹„ë‚´ë¦¬ê¸°
     }
     int rmap[51][51] = { 0 };
     for (int i = 0; i < rain.size(); i++)
     {
         gps now = rain[i];
-        int cnt = 1; // ´ë°¢¿¡ ¹°ÀÖ´Â ¹Ù±¸´Ï °¹¼ö (ºñ³»¸° ÀÚ¸® ÆÇº°À§ÇØ 1·Î ¼ÂÆÃ)
+        int cnt = 1; // ëŒ€ê°ì— ë¬¼ìˆëŠ” ë°”êµ¬ë‹ˆ ê°¯ìˆ˜ (ë¹„ë‚´ë¦° ìë¦¬ íŒë³„ìœ„í•´ 1ë¡œ ì…‹íŒ…)
         for (int d = 0; d < 4; d++)
         {
             int dd = side[d];
@@ -63,13 +63,13 @@ void rainy()
     for (int i = 0; i < rain.size(); i++)
     {
         gps now = rain[i];
-        map[now.y][now.x] += rmap[now.y][now.x]-1; // ¼ÂÆÃµÈ 1»©°í ´õÇØÁÖ±â
+        map[now.y][now.x] += rmap[now.y][now.x]-1; // ì…‹íŒ…ëœ 1ë¹¼ê³  ë”í•´ì£¼ê¸°
     }
     for (int i = 1; i <= n; i++)
     {
-        for (int j = 1; j <= n; j++) // »õ·Î¿î ±¸¸§ »ı¼º
+        for (int j = 1; j <= n; j++) // ìƒˆë¡œìš´ êµ¬ë¦„ ìƒì„±
         {
-            if (rmap[i][j] > 0)continue; // ±¸¸§ÀÌ »ç¶óÁø ÀÚ¸® ÆÇº°
+            if (rmap[i][j] > 0)continue; // êµ¬ë¦„ì´ ì‚¬ë¼ì§„ ìë¦¬ íŒë³„
             if (map[i][j] < 2)continue; 
             map[i][j] -= 2;
             cloud.push_back({ i,j });
@@ -79,13 +79,13 @@ void rainy()
 
 int go()
 {
-    for (int i = 0; i < m; i++) // m¹øÀÌµ¿
+    for (int i = 0; i < m; i++) // më²ˆì´ë™
     {
         move(i);
         rainy();
     }
     int cnt = 0;
-    for (int i = 1; i <= n; i++) // ³²Àº ¹°ÀÇ¾ç Ä«¿îÆ®
+    for (int i = 1; i <= n; i++) // ë‚¨ì€ ë¬¼ì˜ì–‘ ì¹´ìš´íŠ¸
     {
         for (int j = 1; j <= n; j++)
         {
@@ -116,7 +116,7 @@ int main()
         dir.push_back(d);
         dis.push_back(s);
     } 
-    // ÃÖÃÊ ±¸¸§ ¼ÂÆÃ
+    // ìµœì´ˆ êµ¬ë¦„ ì…‹íŒ…
     cloud.push_back({ n,1 });
     cloud.push_back({ n,2 });
     cloud.push_back({ n-1,1 });
