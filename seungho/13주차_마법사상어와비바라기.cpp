@@ -1,21 +1,37 @@
 #include <iostream>
-#include <queue>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-int N, M;
-int MAP[50][50];
+int N, M, k;
+int MAP[20][20];
+
 
 struct Node {
-	int y; int x;
+	int n; int t;
 };
 
-Node moves[100];
+struct Node2 {
+	int n; int y; int x;
+};
 
-queue<Node> cloud;
-queue<Node> rain;
+bool cmp(Node2 a, Node2 b) {
+	if (a.n < b.n) return true;
+	else if (a.n > b.n) return false;
+	return false;
+}
 
-int diry2[4] = { -1,-1,1,1 };
-int dirx2[4] = { -1,1,1,-1 };
+// 냄새
+Node scent[20][20];
+
+// 상어 방향
+int sharkd[400];
+
+//상어 방향 우선순위
+int direction[400][4][4];
+
+int diry[4] = { -1,1,0,0 };
+int dirx[4] = { 0,0,-1,1 };
 
 int main()
 {
@@ -23,82 +39,119 @@ int main()
 	cin.tie();
 	cout.tie();
 
-	cin >> N >> M;
+	cin >> N >> M >> k;
+
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			cin >> MAP[i][j];
 		}
 	}
-	
-	int diry[8] = { 0,N - 1,N - 1,N - 1,0,1,1,1 };
-	int dirx[8] = { N - 1,N - 1,0,1,1,1,0,N - 1 };
 
-	// 0. 비구름 생성
-	cloud.push({ N - 1,0 });
-	cloud.push({ N - 1,1 });
-	cloud.push({ N - 2,0 });
-	cloud.push({ N - 2,1 });
+	for (int i = 0; i < M; i++) {
+		int d;
+		cin >> d;
+		sharkd[i] = d-1;
+	}
 
-	for (int m = 0; m < M; m++) {
-		int d, s;
-		cin >> d >> s;
-
-		int cloudMAP[50][50]={0};
-
-		// 1. 모든 구름이 d 방향으로 s칸 이동
-		// -> cloud에서 rain으로 이동
-		while (!cloud.empty()) {
-			Node now = cloud.front();
-			int ny = now.y + s * diry[d-1];
-			int nx = now.x + s * dirx[d-1];
-			ny %= N;
-			nx %= N;
-			rain.push({ ny,nx });
-
-			// 2. 각 구름에서 비
-			MAP[ny][nx]++;
-
-
-			// 3. 구름이 모두 사라진다.
-			cloud.pop();
-			cloudMAP[ny][nx] = 1; // 이번 턴에 구름이 사라진 칸 체크
-		}
-		// 4. 2에서 물이 증가한 칸에 물복사버그
-		while(!rain.empty()){
-			Node now = rain.front();
-			rain.pop();
-			
-			// 대각선 방향에 물이 있는 바구니 수 count
-			int cnt = 0;
-			for (int r = 0; r < 4; r++) {
-				int ny = now.y + diry2[r];
-				int nx = now.x + dirx2[r];
-				if (ny < 0 || nx < 0 || ny >= N || nx >= N) continue;
-				if (MAP[ny][nx] == 0) continue;
-				cnt++;
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < 4; j++) {
+			for (int k = 0; k < 4; k++) {
+				int d;
+				cin >> d;
+				direction[i][j][k] = d - 1;
 			}
-			MAP[now.y][now.x] += cnt;
 		}
+	}
 
-		// 5. 물의 양 2 이상인 모든 칸에 구름
+	int time = 0;
+	while (true) {
+
+		if (time > 1000) {
+			cout << -1;
+			return 0;
+		}
+		int MAP2[20][20] = { 0 };
+		vector<Node2> v;
+
+		// 자신의 위치에 냄새 뿌린다.
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				if (cloudMAP[i][j]) continue;
-				if (MAP[i][j] >= 2) {
-					cloud.push({ i,j });
-					MAP[i][j] -= 2;
+				if (MAP[i][j]) {
+					v.push_back({ MAP[i][j],i,j });
+					MAP2[i][j] = MAP[i][j];
+					scent[i][j] = { MAP[i][j],k };
+					MAP[i][j] = 0;
 				}
 			}
 		}
-	}
-	int ans = 0;
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			ans += MAP[i][j];
+
+		sort(v.begin(), v.end(), cmp);
+
+		// 인접한 칸으로 상어 이동
+		// 우선순위에 따라 방향 결정
+		for (int a = 0; a < v.size(); a++) {
+			Node2 now = v[a];
+			int num = now.n;
+			int dir = sharkd[num];
+			int flag = 0;
+			// 아무 냄새 없는 칸으로 이동
+			for (int d = 0; d < 4; d++) {
+				int dnow = direction[num][dir][d];
+				int ny = now.y + diry[dnow];
+				int nx = now.x + dirx[dnow];
+				if (ny < 0 || nx < 0 || ny >= N || nx >= N) continue;
+				if (scent[ny][nx].t > 0) continue;
+				MAP[ny][nx] = num;
+				sharkd[num] = dnow;
+				flag = 1;
+				break;
+			}
+			if (flag == 1) continue;
+			// 자신의 냄새 있는 칸으로 이동
+			for (int d = 0; d < 4; d++) {
+				int dnow = direction[num][dir][d];
+				int ny = now.y + diry[dnow];
+				int nx = now.x + dirx[dnow];
+				if (ny < 0 || nx < 0 || ny >= N || nx >= N) continue;
+				if (scent[ny][nx].n == num) {
+					MAP[ny][nx] = num;
+					sharkd[num] = dnow;
+					break;
+				}
+			}
 		}
+		// 이동할 칸에 이미 상어가 있는 경우 가장 작은 번호 가진 상어만 남는다.
+		// 결정된 방향으로 이동
+
+		int cnt = 0;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				// 모든 칸 냄새 남은 시간 -1
+				scent[i][j].t--;
+				// 상어가 새로 이동한 칸에 냄새 뿌린다.
+				if (MAP[i][j] > 0) {
+					cnt++;
+					scent[i][j] = { MAP[i][j],k };
+				}
+			}
+		}
+
+		time++;
+
+		cout << "\n======중간=======\n";
+
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				cout << MAP[i][j] << " ";
+			}
+			cout << "\n";
+		}
+
+
+		// 1번 상어만 남았으면 종료
+		if (cnt == 1) break;
 	}
 
-	cout << ans;
-
+	cout << time;
 	return 0;
 }
