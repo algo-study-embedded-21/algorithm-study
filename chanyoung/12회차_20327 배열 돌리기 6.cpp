@@ -13,7 +13,7 @@ vector<int> Cmap[128];
 vector<int> Rmap[128];
 int endM;
 
-void copymap(int d)  // d=0ÀÏ¶§ Cmap¿¡ RmapÀ» Ä«ÇÇ 
+void copymap(int d)  // d=0ì¼ë•Œ Cmapì— Rmapì„ ì¹´í”¼ 
 {
     for (int i = 0; i < endM; i++)
     {
@@ -25,7 +25,7 @@ void copymap(int d)  // d=0ÀÏ¶§ Cmap¿¡ RmapÀ» Ä«ÇÇ
     }
 }
 
-void movemap() // CmapÀ» tmp·Î ÀÌ¿ëÇÑ°æ¿ì ¸Ê ¿Å±â±â
+void movemap() // Cmapì„ tmpë¡œ ì´ìš©í•œê²½ìš° ë§µ ì˜®ê¸°ê¸°
 {
     for (int i = 0; i < endM; i++)
     {
@@ -37,14 +37,14 @@ void cal(int k, int l)
 {
     int sep = pow(2, l);
     int block = 1;
-    if (k > 4) // 5~8¹ø ¿¬»êÀ» 1~4¹ø ¿¬»ê¿¡ ¸ÅÄª
+    if (k > 4) // 5~8ë²ˆ ì—°ì‚°ì„ 1~4ë²ˆ ì—°ì‚°ì— ë§¤ì¹­
     {
         k = k % 4;
-        block = sep; // 1ºí·ÏÀÇ ±âÁØÀ» ºÎºĞ¹è¿­Å©±â·Î º¯°æ
-        sep = endM; // ºÎºĞ¹è¿­ÀÇ Å©±â¸¦ ¹è¿­ ÀüÃ¼ Å©±â·Î º¯°æ
+        block = sep; // 1ë¸”ë¡ì˜ ê¸°ì¤€ì„ ë¶€ë¶„ë°°ì—´í¬ê¸°ë¡œ ë³€ê²½
+        sep = endM; // ë¶€ë¶„ë°°ì—´ì˜ í¬ê¸°ë¥¼ ë°°ì—´ ì „ì²´ í¬ê¸°ë¡œ ë³€ê²½
     }
     int st = 0;
-    if (k == 1) // »óÇÏ¹İÀü
+    if (k == 1) // ìƒí•˜ë°˜ì „
     {
         for (int i = st; i <= endM - sep; i += sep)
         {
@@ -60,7 +60,7 @@ void cal(int k, int l)
         }
         copymap(0);
     }
-    else if (k == 2) // ÁÂ¿ì¹İÀü
+    else if (k == 2) // ì¢Œìš°ë°˜ì „
     {
         for (int i = st; i <= endM - sep; i += sep)
         {
@@ -76,7 +76,7 @@ void cal(int k, int l)
         }
         copymap(1);
     }
-    else if (k == 3) // ¿À¸¥ÂÊ 90µµ È¸Àü
+    else if (k == 3) // ì˜¤ë¥¸ìª½ 90ë„ íšŒì „
     {
         for (int ist = st; ist <= endM - sep; ist += sep)
         {
@@ -100,7 +100,7 @@ void cal(int k, int l)
         movemap();
         copymap(0);
     }
-    else { // ¿ŞÂÊ 90µµ È¸Àü
+    else { // ì™¼ìª½ 90ë„ íšŒì „
         for (int ist = st; ist <= endM - sep; ist += sep)
         {
             for (int jst = st; jst <= endM - sep; jst += sep)
