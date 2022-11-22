@@ -1,4 +1,3 @@
-![header](https://capsule-render.vercel.app/api?type=모양&color=auto&height=높이&section=header&text=텍스트&fontSize=폰트크기)
 # 스터디 목표 
 
 - 삼성 SW 역량 테스트 문제집 1회독
