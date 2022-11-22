@@ -269,27 +269,27 @@
    <tr>
     <td rowspan="5">14주차(11/25~)</td>
     <td>
-      <a href="https://www.acmicpc.net/problem/21611">21611 마법사 상어와 블리자드</a>
+      <a href="https://www.acmicpc.net/problem/1309">1309 동물원</a>
     </td>
   </tr>
   <tr>
     <td>
-      <a href="https://www.acmicpc.net/problem/23290">23290 마법사 상어와 복제</a>
+      <a href="https://www.acmicpc.net/problem/17404">17404 RGB거리2</a>
     </td>
   </tr>
   <tr>
     <td>
-      <a href="https://www.acmicpc.net/problem/5373">5373 큐빙</a>
+      <a href="https://www.acmicpc.net/problem/2225">2225 합분해</a>
     </td>
   </tr>
   <tr>
     <td>
-      <a href="https://www.acmicpc.net/problem/5373">5373 큐빙</a>
+      <a href="https://www.acmicpc.net/problem/12865">12865 평범한 배낭</a>
     </td>
   </tr>
   <tr>
     <td>
-      <a href="https://www.acmicpc.net/problem/5373">5373 큐빙</a>
+      <a href="https://www.acmicpc.net/problem/2234">2234 성곽</a>
     </td>
   </tr>
 </table>
