@@ -9,22 +9,22 @@ using namespace std;
 struct gps { int y, x; };
 
 vector<int> map[4][4]; 
-vector<int> cmap[4][4]; // ¸¶¹ı º¹Á¦ ¸Ê
-vector<int> mvmap[4][4]; // ¹°°í±â ÀÌµ¿ ¸Ê
-vector<gps> shpath; // »ó¾î°¡ ¿òÁ÷ÀÎ °æ·Î
-vector<gps> path; // dfs °æ·Î
-int smell[4][4]; // ³¿»õ¸Ê
+vector<int> cmap[4][4]; // ë§ˆë²• ë³µì œ ë§µ
+vector<int> mvmap[4][4]; // ë¬¼ê³ ê¸° ì´ë™ ë§µ
+vector<gps> shpath; // ìƒì–´ê°€ ì›€ì§ì¸ ê²½ë¡œ
+vector<gps> path; // dfs ê²½ë¡œ
+int smell[4][4]; // ëƒ„ìƒˆë§µ
 int visit[4][4]; // dfs visit
-int outfish; // °İÀÚ¿¡¼­ Á¦¿ÜµÇ´Â ¹°°í±â ¾ç
+int outfish; // ê²©ìì—ì„œ ì œì™¸ë˜ëŠ” ë¬¼ê³ ê¸° ì–‘
 int m, s;
-gps sh; // »ó¾îÀÇ À§Ä¡
+gps sh; // ìƒì–´ì˜ ìœ„ì¹˜
 
-int yy[8] = { 0,-1,-1,-1,0,1,1,1 }; // »ó:2,ÇÏ:6,ÁÂ0,¿ì:4
+int yy[8] = { 0,-1,-1,-1,0,1,1,1 }; // ìƒ:2,í•˜:6,ì¢Œ0,ìš°:4
 int xx[8] = { -1,-1,0,1,1,1,0,-1 };
 
-int shdir[4] = { 2, 0, 6, 4 }; // »óÁÂÇÏ¿ì »çÀü¼ø »ó¾î ÀÌµ¿ ¹è¿­ ÀÎµ¦½º
+int shdir[4] = { 2, 0, 6, 4 }; // ìƒì¢Œí•˜ìš° ì‚¬ì „ìˆœ ìƒì–´ ì´ë™ ë°°ì—´ ì¸ë±ìŠ¤
 
-void copy(int finish) // »ó¾î ¸¶¹ı finish = 0 ÀÏ¶§ ¸¶¹ı ½ÃÀü , 1ÀÏ¶§ º¹Á¦¿Ï·á
+void copy(int finish) // ìƒì–´ ë§ˆë²• finish = 0 ì¼ë•Œ ë§ˆë²• ì‹œì „ , 1ì¼ë•Œ ë³µì œì™„ë£Œ
 {
     if (!finish)
     {
@@ -55,37 +55,37 @@ void copy(int finish) // »ó¾î ¸¶¹ı finish = 0 ÀÏ¶§ ¸¶¹ı ½ÃÀü , 1ÀÏ¶§ º¹Á¦¿Ï·á
     }
 }
 
-void move() // ¹°°í±â ÀÌµ¿
+void move() // ë¬¼ê³ ê¸° ì´ë™
 {
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 4; j++)
         {
             vector<int> tmp;
-            for (int n = 0; n < map[i][j].size(); n++)// ¸Ê¿¡ ÀÖ´Â ¹°°í±â ¼ö ¸¸Å­
+            for (int n = 0; n < map[i][j].size(); n++)// ë§µì— ìˆëŠ” ë¬¼ê³ ê¸° ìˆ˜ ë§Œí¼
             {
                 int dd = map[i][j][n];
                 int flag = 1;
-                for (int d = 0; d < 8; d++) // 8¹æÇâ
+                for (int d = 0; d < 8; d++) // 8ë°©í–¥
                 {
-                    int dr = (8 + dd - d) % 8; // ¹İ½Ã°è¹æÇâ
+                    int dr = (8 + dd - d) % 8; // ë°˜ì‹œê³„ë°©í–¥
                     gps mv = { i + yy[dr],j + xx[dr] };
                     if (mv.y < 0 || mv.y>3 || mv.x < 0 || mv.x>3)continue;
                     if (smell[mv.y][mv.x]> 0)continue;
                     if (mv.y == sh.y && mv.x == sh.x)continue;
                     mvmap[mv.y][mv.x].push_back(dr);
-                    flag = 0; // ¹°°í±â°¡ ÀÌµ¿ÇßÀ»½Ã
+                    flag = 0; // ë¬¼ê³ ê¸°ê°€ ì´ë™í–ˆì„ì‹œ
                     break;
                 }
-                if (flag)tmp.push_back(dd); // ÀÌµ¿ÇÏÁö ¾Ê¾Ò´Ù¸é ´Ù½Ã ±×ÀÚ¸®¿¡ ³Ö¾îÁÖ±â À§ÇØ tmp¿¡ ´ã±â
+                if (flag)tmp.push_back(dd); // ì´ë™í•˜ì§€ ì•Šì•˜ë‹¤ë©´ ë‹¤ì‹œ ê·¸ìë¦¬ì— ë„£ì–´ì£¼ê¸° ìœ„í•´ tmpì— ë‹´ê¸°
             }
-            for (int n = 0; n < tmp.size(); n++) // ÀÌµ¿¸øÇÑ ¹°°í±â ¿øÀ§Ä¡
+            for (int n = 0; n < tmp.size(); n++) // ì´ë™ëª»í•œ ë¬¼ê³ ê¸° ì›ìœ„ì¹˜
             {
                 mvmap[i][j].push_back(tmp[n]);
             }
         }
     }
-    for (int i = 0; i < 4; i++) // ÀÌµ¿¸ÊÀ¸·Î º»·¡ ¸Ê µ¤¾î¾º¿ì±â
+    for (int i = 0; i < 4; i++) // ì´ë™ë§µìœ¼ë¡œ ë³¸ë˜ ë§µ ë®ì–´ì”Œìš°ê¸°
     {
         for (int j = 0; j < 4; j++)
         {
@@ -95,11 +95,11 @@ void move() // ¹°°í±â ÀÌµ¿
     }
 }
 
-void dfs(int level,gps mvsh,int cnt) // »ó¾î ÀÌµ¿°æ·Î Ã£±â
+void dfs(int level,gps mvsh,int cnt) // ìƒì–´ ì´ë™ê²½ë¡œ ì°¾ê¸°
 {
     if (level == 3)
     {
-        if (cnt > outfish) // °¡Àå ¸¹Àº ¹°°í±â¸¦ Á¦¿Ü½ÃÅ³¼ö ÀÖ´Â°æ¿ì
+        if (cnt > outfish) // ê°€ì¥ ë§ì€ ë¬¼ê³ ê¸°ë¥¼ ì œì™¸ì‹œí‚¬ìˆ˜ ìˆëŠ”ê²½ìš°
         {
             outfish = cnt;
             shpath = path;
@@ -108,10 +108,10 @@ void dfs(int level,gps mvsh,int cnt) // »ó¾î ÀÌµ¿°æ·Î Ã£±â
     }
     for (int i = 0; i < 4; i ++)
     {
-        int d = shdir[i]; // »óÁÂÇÏ¿ì ÀÎµ¦½º
+        int d = shdir[i]; // ìƒì¢Œí•˜ìš° ì¸ë±ìŠ¤
         gps next = { mvsh.y + yy[d],mvsh.x + xx[d] };
         if (next.y < 0 || next.y>3 || next.x < 0 || next.x>3)continue;
-        if (visit[next.y][next.x] == 1) // Áßº¹µÈ À§Ä¡´Â ÀÌµ¿°¡´ÉÇÏÁö¸¸ Á¦¿ÜµÇ´Â ¹°°í±â¼ö Áßº¹ ¹æÁö
+        if (visit[next.y][next.x] == 1) // ì¤‘ë³µëœ ìœ„ì¹˜ëŠ” ì´ë™ê°€ëŠ¥í•˜ì§€ë§Œ ì œì™¸ë˜ëŠ” ë¬¼ê³ ê¸°ìˆ˜ ì¤‘ë³µ ë°©ì§€
         {
             path.push_back(next);
             dfs(level + 1, next, cnt);
@@ -130,20 +130,20 @@ void dfs(int level,gps mvsh,int cnt) // »ó¾î ÀÌµ¿°æ·Î Ã£±â
     }
 }
 
-void shmove() // »ó¾î ÀÌµ¿
+void shmove() // ìƒì–´ ì´ë™
 {
-    for (int i = 0; i < shpath.size(); i++) // Ã£Àº °æ·Î·Î ¿òÁ÷ÀÌ±â
+    for (int i = 0; i < shpath.size(); i++) // ì°¾ì€ ê²½ë¡œë¡œ ì›€ì§ì´ê¸°
     {
         gps now = shpath[i];
         if (map[now.y][now.x].size() > 0)
         {
-            smell[now.y][now.x] = 3; // ÃÖÃÊ¿¡ 3À¸·Î ¼ÂÆÃ, ³¿»õ´Â °¡Àå ÃÖ±Ù ³¿»õ 1°³·Î ÆÇ´Ü°¡´É
+            smell[now.y][now.x] = 3; // ìµœì´ˆì— 3ìœ¼ë¡œ ì…‹íŒ…, ëƒ„ìƒˆëŠ” ê°€ì¥ ìµœê·¼ ëƒ„ìƒˆ 1ê°œë¡œ íŒë‹¨ê°€ëŠ¥
             map[now.y][now.x].clear();
         }
     }
-    sh = shpath[2]; // ¸¶Áö¸· »ó¾îÀÇ À§Ä¡
+    sh = shpath[2]; // ë§ˆì§€ë§‰ ìƒì–´ì˜ ìœ„ì¹˜
     shpath.clear();
-    for (int i = 0; i < 4; i++) // ÀÌÀü¿¡ ³²¾ÆÀÖ´Â ³¿»õ -1
+    for (int i = 0; i < 4; i++) // ì´ì „ì— ë‚¨ì•„ìˆëŠ” ëƒ„ìƒˆ -1
     {
         for (int j = 0; j < 4; j++)
         {
