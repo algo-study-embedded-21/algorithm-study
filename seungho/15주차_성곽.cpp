@@ -7,15 +7,15 @@ int N, M;
 int diry[4] = { 0,-1,0,1 };
 int dirx[4] = { -1,0,1,0 };
 
-int MAP[50][50][4];
+int MAP[100][100][4];
 
 struct axis {
 	int y; int x;
 };
 
-int grouped[50][50];
+int grouped[100][100];
 
-int parent[2500];
+int parent[5000];
 
 int Find(int node) {
 	if (node == parent[node]) {
@@ -24,7 +24,7 @@ int Find(int node) {
 	return parent[node] = Find(parent[node]);
 }
 
-int groupsize[2500];
+int groupsize[5000];
 int max_groupsize = 0;
 int group_cnt = 0;
 void Union(int a, int b) {
@@ -40,7 +40,7 @@ void Union(int a, int b) {
 
 void bfs(int y, int x) {
 	queue<axis> q;
-	int visited[50][50];
+	int visited[100][100] = { 0 };
 	q.push({ y,x });
 	visited[y][x] = 1;
 	while (!q.empty()) {
@@ -68,9 +68,8 @@ int main()
 			int w;
 			cin >> w;
 			for (int k = 0; k < 4; k++) {
-				int num = 1;
-				num << k;
-				MAP[i][j][k] = (num & w == num);
+				MAP[i][j][k] = w & 1;
+				w = w >> 1;
 			}
 		}
 	}
@@ -83,8 +82,6 @@ int main()
 		}
 	}
 
-	int asdf = 1;
-
 	for (int i = 0; i < M; i++) {
 		for (int j = 0; j < N; j++) {
 			if (grouped[i][j]) continue;
@@ -95,13 +92,15 @@ int main()
 	}
 
 	// 벽 없애보기
-	int max_roomsize = 0;
+	int max_roomsize = max_groupsize;
 	for (int i = 0; i < M; i++) {
 		for (int j = 0; j < N; j++) {
 			for (int k = 0; k < 4; k++) {
+				if (MAP[i][j][k] == 0) continue;
 				int ny = i + diry[k];
 				int nx = j + dirx[k];
 				if (ny < 0 || nx < 0 || ny >= M || nx >= N) continue;
+				if (parent[i * N + j] == parent[ny * N + nx]) continue;
 				max_roomsize = max(max_roomsize, groupsize[parent[i * N + j]] + groupsize[parent[ny * N + nx]]);
 			}
 		}
