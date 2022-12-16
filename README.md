@@ -292,6 +292,27 @@
       <a href="https://www.acmicpc.net/problem/2234">2234 성곽</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="4">15주차(12/16~)</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/19237">19237 어른 상어</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/20327">20327 배열돌리기 6</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/21610">21610 마법사상어와 비바라기</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/21610">21610 마법사상어와 비바라기</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
