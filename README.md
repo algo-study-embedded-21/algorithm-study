@@ -292,6 +292,27 @@
       <a href="https://www.acmicpc.net/problem/2234">2234 성곽</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="4">15주차(12/16~)</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/9251">9251 LCS</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/2156">2156 포도주 시식</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/12869">12869 뮤탈리스크</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/2571">2571 색종이 -3</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
