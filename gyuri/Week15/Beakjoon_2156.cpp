@@ -13,10 +13,10 @@ void Output() {
 void FillDp() {
 
     dp[1] = podo[1];
-
     dp[2] = podo[1] + podo[2];
 
     for ( int i = 3; i <= N; i++ ) {
+        // 현재 잔을 안마실 때, i-1잔을 안마실 때, i-2잔을 안마실 때
         dp[i] = max(dp[i-1], max(dp[i-2] + podo[i], dp[i-3] + podo[i-1] + podo[i]));
     }
 }
