@@ -8,9 +8,8 @@ using namespace std;
 struct gps { int y, x; };
 
 int n;
-int map[100][100]; // »öÁ¾ÀÌ°¡ ºÙ¾îÀÖ´ÂÁö ¿©ºÎ
-int row[100][100]; // ÇàÀÇ ¿¬¼ÓµÈ ±æÀÌ Ç¥½Ã
-int col[100][100]; // ¿­ÀÇ ¿¬¼ÓµÈ ±æÀÌ Ç¥½Ã
+int map[100][100]; // ìƒ‰ì¢…ì´ê°€ ë¶™ì–´ìˆëŠ”ì§€ ì—¬ë¶€
+int col[100][100]; // ì—´ì˜ ì—°ì†ëœ ê¸¸ì´ í‘œì‹œ
 
 int ans = -1;
 
@@ -29,37 +28,22 @@ void square()
 {
 	for (int i = 0; i < 100; i++)
 	{
-		int rowcnt = 1;
-		int colcnt = 1;
-		int rownum = row[0][i];
-		int colnum = col[i][0];
-		ans = max(ans,max(rowcnt * rownum, colcnt * colnum));
-		int j = 1;
-		while (j < 100)
+		for (int j = 0; j < 100; j++)
 		{
-			if (rownum == row[j][i])
+			if (map[i][j] == 1)
 			{
-				rowcnt++;
-				ans = max(ans, rowcnt * rownum);
+				int minlen = col[i][j];
+				int cnt = 1;
+				ans = max(minlen * cnt,ans);
+				int d = j+1;
+				while (map[i][d] == 1) // ìƒ‰ì¢…ì´ê°€ ì—°ê²°ëœë™ì•ˆ
+				{
+					cnt++; // ì—°ì†ëœ ê¸¸ì´
+					minlen = min(minlen, col[i][d]); // ê°€ì¥ ë‚®ì€ ë†’ì´ = ê³µí†µ ë†’ì´
+					ans = max(ans, minlen * cnt); // ê³µí†µë†’ì´ x ê¸¸ì´ = ë„“ì´ ì¤‘ ìµœëŒ“ê°’
+					d++;
+				}
 			}
-			else
-			{
-				rownum = row[j][i];
-				rowcnt = 1;
-				ans = max(ans, rowcnt * rownum);
-			}
-			if (colnum == col[i][j])
-			{
-				colcnt++;
-				ans = max(ans, colcnt * colnum);
-			}
-			else
-			{
-				colnum = col[i][j];
-				colcnt = 1;
-				ans = max(ans, colcnt * colnum);
-			}
-			j++;
 		}
 	}
 }
@@ -75,7 +59,7 @@ int main()
 	{
 		int x, y;
 		cin >> x >> y;
-		post({ y,x }); // »öÁ¾ÀÌ ºÙÀÌ±â
+		post({ y,x }); // ìƒ‰ì¢…ì´ ë¶™ì´ê¸°
 	}
 	for (int i = 0; i < 100; i++)
 	{
@@ -85,8 +69,6 @@ int main()
 			{
 				if (i == 0) col[i][j] = 1;
 				else col[i][j] = col[i - 1][j] + 1;
-				if (j == 0)row[i][j] = 1;
-				else row[i][j] = row[i][j - 1] + 1;
 			}
 		}
 	}
