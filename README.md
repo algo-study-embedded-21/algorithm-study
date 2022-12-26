@@ -313,6 +313,27 @@
       <a href="https://www.acmicpc.net/problem/2571">2571 색종이 -3</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="4">16주차(12/23~)</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/1890">1890 점프</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/1965">1965 상자넣기</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/2302">2302 극장 좌석</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/11967">11967 불켜기</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
