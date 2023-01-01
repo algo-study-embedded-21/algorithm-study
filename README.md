@@ -334,6 +334,27 @@
       <a href="https://www.acmicpc.net/problem/11967">11967 불켜기</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="4">17주차(~1/5)</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/2293">2293 동전1</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/11052">11052 카드구매하기</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/1912">1912 연속합</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/17471">17471 게리멘더링</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
