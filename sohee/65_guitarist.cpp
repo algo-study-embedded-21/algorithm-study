@@ -1,3 +1,7 @@
+/*
+dp[i][j] = i번째 볼륨을 조절해서 j값을 만들 수 있는지 확인
+*/
+
 #include <iostream>
 using namespace std;
 
