@@ -24,6 +24,8 @@ int main()
                     if(dp[i-1][j]){
                         if(j + V[i] <= M) dp[i][j+V[i]] = 1;
                         if(j - V[i] >= 0) dp[i][j-V[i]] = 1;
+                    }
+                }
 		if (dp[i - 1] + V[i] <= M) dp[i] = dp[i - 1] + V[i];
 		else if (dp[i - 1] - V[i] >= 0) dp[i] = max(dp[i], dp[i - 1] + V[i]);
 		else if(dp[i-2])
