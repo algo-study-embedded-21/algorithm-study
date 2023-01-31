@@ -1,5 +1,9 @@
+/*
+dp[i][j] = i번째 동전으로 j값을 만드는데 드는 최소 횟수
+dp[i][j] = 1 or min(dp[i-1][j], dp[i][j - money[i]] + 1)
+*/
+
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
 int n, k;
@@ -14,16 +18,14 @@ int main() {
 	cin >> n >> k;
 	for (int i = 0; i < n; i++) cin >> money[i];
 
-	sort(money, money + n);
-
-	for (int i = 0; i <= k; i++) {
-		if (i % money[0] == 0) dp[0][i] = i / money[0];
-	}
-
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j <= k; j++) {
 			dp[i][j] = 2134567890;
 		}
+	}
+
+	for (int i = 0; i <= k; i++) {
+		if (i % money[0] == 0) dp[0][i] = i / money[0];
 	}
 
 	for (int i = 0; i <= k; i++) {
