@@ -6,7 +6,7 @@ using namespace std;
 int N, M;
 int MAP[20][20];
 
-int maxScore = -1;
+int maxScore = 0;
 
 struct Node {
 	int y; int x;
@@ -50,6 +50,7 @@ int check() {
 		for (int j = 0; j < M; j++) {
 			if (checkMAP[i][j]) continue;
 			if (MAP[i][j] == 2) score += bfs(i,j);
+			int ddd = 0;
 		}
 	}
 	return score;
@@ -57,20 +58,27 @@ int check() {
 
 void dfs(int level, int y, int x) {
 	if (level == 2) {
-		maxScore = max(maxScore,check());
+		int ch = check();
+		if (MAP[0][1] && MAP[1][0]) {
+			int sdd = 1;
+		}
+		if (ch == 1) {
+			int asdf = 1;
+		}
+		maxScore = max(maxScore,ch);
 		return;
 	}
+
 	for(int i = y; i < N; i++){
-		if (x == M - 1) {
-			x = -1; continue;
-		}
-		for (int j = x+1; j < M; j++) {
-			if (!MAP[i][j]) {
+		for (int j = x; j < M; j++) {
+			int sdfs = 1;
+			if (MAP[i][j] == 0) {
 				MAP[i][j] = 1;
-				dfs(level + 1, i, j);
+				dfs(level + 1, i, j+1);
 				MAP[i][j] = 0;
 			}
 		}
+		x = 0;
 	}
 }
 
@@ -83,8 +91,8 @@ int main()
 		}
 	}
 
-	// 1. dfs·Î µ¹ 2°³¸¦ µÐ´Ù.
-	// 2. bfs·Î »ó´ë µ¹ ±×·ìÀÌ Á×´ÂÁö È®ÀÎ
+	// 1. dfsë¡œ ëŒ 2ê°œë¥¼ ë‘”ë‹¤.
+	// 2. bfsë¡œ ìƒëŒ€ ëŒ ê·¸ë£¹ì´ ì£½ëŠ”ì§€ í™•ì¸
 
 	dfs(0,0,0);
 	cout << maxScore;
