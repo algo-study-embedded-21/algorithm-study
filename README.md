@@ -355,6 +355,48 @@
       <a href="https://www.acmicpc.net/problem/17471">17471 게리멘더링</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="4">18주차(1/19(목))</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/5557">5557 1학년</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/1495">1495 기타리스트</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/2151">2151 거울설치</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/11048">11048 이동하기</a>
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="4">19주차(2/2(목))</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/16988">16988 Baaaaaaaaaduk2 (Easy)</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/3107">3107 IPv6</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/2294">2294 동전2</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/11060">11060 점프점프</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
