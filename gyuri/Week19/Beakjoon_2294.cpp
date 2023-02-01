@@ -18,32 +18,23 @@ void Input() {
 
     for (int i = 0; i < n; i++) {
         cin >> coins[i];
-        dp[coins[i]] = 1;
     }
 }
 
 void FillDp() {
 
-    for (int i = 0; i <= k; i++) {
-        if (dp[i] != 0) continue;
+    for (int i = 1; i <= k; i++) {
         dp[i] = MAX;
     }
 
     for (int i = 0; i < n; i++) {
-        if (k >= coins[i]) {
-            for (int j = coins[i]; j <= k; j++) {
-                dp[j] = min(dp[j - coins[i]] + 1, dp[j]);
-            }
+        for (int j = coins[i]; j <= k; j++) {
+            dp[j] = min(dp[j - coins[i]] + 1, dp[j]);
         }
     }
 }
 
 void Output() {
-
-    //for (int i = 0; i <= k; i++) {
-    //    cout << dp[i] << " ";
-    //}
-    //cout << endl;
 
     result = (dp[k] == MAX) ? -1 : dp[k];
     cout << result;
