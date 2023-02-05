@@ -397,6 +397,27 @@
       <a href="https://www.acmicpc.net/problem/11060">11060 점프점프</a>
     </td>
   </tr>
+  <tr>
+    <td rowspan="4">20주차(2/9(목))</td>
+    <td>
+      <a href="https://www.acmicpc.net/problem/2636">2636 치즈</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/3184">3184 양</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/15486">15486 퇴사2</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.acmicpc.net/problem/2457">2457 공주님의 정원</a>
+    </td>
+  </tr>
 </table>
 
 # 참고
