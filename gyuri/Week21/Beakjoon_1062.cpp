@@ -14,14 +14,12 @@ void input() {
 	for (int i = 0; i < n; i++) {
 		string s;
 		cin >> s;
-		s = s.substr(4, s.size());
-		s = s.substr(0, s.size() - 4);
-		cout << s << endl;
+		s = s.substr(4, s.size()-8);
 		word[i] = s;
 	}
 }
 
-void dfs(char c, int len) {
+void dfs(int c, int len) {
 	
 	if (len == k - 5) {
 		int sum = 0;
@@ -47,16 +45,16 @@ void dfs(char c, int len) {
 }
 
 void output() {
-	// a, n, t, i, c¸¦ ¾ËÁö ¸øÇÒ ¶§
+	// a, n, t, i, cë¥¼ ì•Œì§€ ëª»í•  ë•Œ
 	if (k < 5) cout << 0;
-	// ¸ðµç ¾ËÆÄºªÀ» ¾Ë ¸é ¸ðµç ´Ü¾î ¾Ë ¼ö ÀÖÀ½
+	// ëª¨ë“  ì•ŒíŒŒë²³ì„ ì•Œ ë©´ ëª¨ë“  ë‹¨ì–´ ì•Œ ìˆ˜ ìžˆìŒ
 	else if (k == 26) cout << n;
 	else {
-		visited['a' - 'a'] = 0;
-		visited['n' - 'a'] = 0;
-		visited['t' - 'a'] = 0;
-		visited['i' - 'a'] = 0;
-		visited['c' - 'a'] = 0;
+		visited['a' - 'a'] = 1;
+		visited['n' - 'a'] = 1;
+		visited['t' - 'a'] = 1;
+		visited['i' - 'a'] = 1;
+		visited['c' - 'a'] = 1;
 		dfs(0, 0);
 		cout << answer;
 	}
