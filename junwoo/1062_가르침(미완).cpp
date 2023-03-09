@@ -39,11 +39,11 @@ void check(int lvl, int cnt) {
 		return;
 	}
 
-	for (int i = 0; i < 26; i++) {
+	for (int i = lvl; i < 26; i++) {
 		if (alpha[i]) continue;
 
 		alpha[i] = true;
-		check(lvl, cnt + 1);
+		check(i, cnt + 1);
 		alpha[i] = false;
 	}
 
