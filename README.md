@@ -442,7 +442,7 @@
   </tr>
   <tr>
     <td>
-      <a href="https://www.acmicpc.net/problem/1709">1709 수 이어 쓰기2</a>
+      <a href="https://www.acmicpc.net/problem/1790">1790 수 이어 쓰기2</a>
     </td>
   </tr>
   <tr>
